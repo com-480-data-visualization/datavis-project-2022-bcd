@@ -55,6 +55,7 @@ o Peer assessment: include a breakdown of the parts of the project completed by 
 * T echnical Implementation (15%)
 * Screencast (25%)
 * Process book (25%)
+
 **Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.
 Late policy**
   
