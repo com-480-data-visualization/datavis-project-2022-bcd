@@ -50,12 +50,12 @@ expanding them and explaining the changes
 o Care about the visual/design of this report
 o Peer assessment: include a breakdown of the parts of the project completed by each team member.
 
-**The grading is the following:
+**The grading is the following:**
 * Visualization (35%)
 * T echnical Implementation (15%)
 * Screencast (25%)
 * Process book (25%)
-Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.
+**Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.
 Late policy**
   
 * < 24h: 80% of the grade for the milestone
