@@ -38,20 +38,20 @@ Functional project prototype review.
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
 You need to deliver the following things:
 ### Github repository with a README
-o Host the code and data on Github (if data is too big, link to a cloud
+* Host the code and data on Github (if data is too big, link to a cloud
 storage) with your process book as a PDF file
-o Add a README file that explains the technical setup and intended usage
-o Code should be clean, manageable, and using the latest practices
+* Add a README file that explains the technical setup and intended usage
+* Code should be clean, manageable, and using the latest practices
 ### Screencast
-o Demonstrate what you can do with your viz in a fun, engaging and
+* Demonstrate what you can do with your viz in a fun, engaging and
 impactful manner
-o Talk about your main contributions rather than on technical details o 2 min video (not more)
+* Talk about your main contributions rather than on technical details o 2 min video (not more)
 ### Processbook(max8pages)
-o Describe the path you took to obtain the final result
-o Explain challenges that you faced and design decisions that you took o Reuse the sketches/plans that you made for the first milestone,
+* Describe the path you took to obtain the final result
+* Explain challenges that you faced and design decisions that you took o Reuse the sketches/plans that you made for the first milestone,
 expanding them and explaining the changes
-o Care about the visual/design of this report
-o Peer assessment: include a breakdown of the parts of the project completed by each team member.
+* Care about the visual/design of this report
+* Peer assessment: include a breakdown of the parts of the project completed by each team member.
 
 **The grading is the following:**
 * Visualization (35%)
