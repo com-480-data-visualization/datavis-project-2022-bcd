@@ -1,7 +1,7 @@
 # COM-480-datavis-BCD-project
 This repository is for the group project of EPFL course COM-480 2021-22 provided in 2nd term.
 
-## Milestone 1 (Friday 3rd April, 5pm) 
+## Milestone 1 (Friday 8th April, 5pm) 
 10% of the final grade
 This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas. Please, fill the following sections about your project.
 (max. 2000 characters per section)
@@ -21,7 +21,7 @@ Pre-processing of the data set you chose
 • What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
 • In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
        
-## Milestone 2 (Friday 1st May, 5pm)
+## Milestone 2 (Friday 6th May, 5pm)
 10% of the final grade
 Two A4 pages describing the project goal.
 • Include sketches of the vizualiation you want to make in your final product.
@@ -31,7 +31,7 @@ lectures you will need.
 Functional project prototype review.
 • You should have an initial website running with the basic skeleton of the visualization/widgets.
  
-## Milestone 3 (Thursday 28th May, 5pm) 80% of the final grade
+## Milestone 3 (Friday 3rd June, 5pm) 80% of the final grade
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
 You need to deliver the following things:
 ### Github repository with a README
@@ -52,7 +52,7 @@ o Peer assessment: include a breakdown of the parts of the project completed by 
 
 **The grading is the following:**
 * Visualization (35%)
-* T echnical Implementation (15%)
+* Technical Implementation (15%)
 * Screencast (25%)
 * Process book (25%)
 
