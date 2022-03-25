@@ -8,28 +8,31 @@ This is a preliminary milestone to let you set up goals for your final project a
 ### Dataset
 Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
 Hint: some good pointers for finding quality publicly available datasets (Google dataset search, Kaggle, OpenSwissData, SNAP and FiveThirtyEight)
+
 ### Problematic
 Frame the general topic of your visualization and the main axis that you want to develop.
-• What am I trying to show with my visualization?
-• Think of an overview for the project, your motivation, and the target audience.
-Exploratory Data Analysis
+* What am I trying to show with my visualization?
+* Think of an overview for the project, your motivation, and the target audience.
+
+### Exploratory Data Analysis
 Pre-processing of the data set you chose
-• Show some basic statistics and get insights about the data
+* Show some basic statistics and get insights about the data
+
 ### Related work
-• What others have already done with the data?
-• Why is your approach original?
-• What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-• In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+* What others have already done with the data?
+* Why is your approach original?
+* What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
+* In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
        
 ## Milestone 2 (Friday 6th May, 5pm)
 10% of the final grade
 Two A4 pages describing the project goal.
-• Include sketches of the vizualiation you want to make in your final product.
-• List the tools that you will use for each visualization and which (past or future)
+* Include sketches of the vizualiation you want to make in your final product.
+* List the tools that you will use for each visualization and which (past or future)
 lectures you will need.
-• Break down your goal into independent pieces to implement. Try to design a core visualization (minimal viable product) that will be required at the end. Then list extra ideas (more creative or challenging) that will enhance the visualization but could be dropped without endangering the meaning of the project.
+* Break down your goal into independent pieces to implement. Try to design a core visualization (minimal viable product) that will be required at the end. Then list extra ideas (more creative or challenging) that will enhance the visualization but could be dropped without endangering the meaning of the project.
 Functional project prototype review.
-• You should have an initial website running with the basic skeleton of the visualization/widgets.
+* You should have an initial website running with the basic skeleton of the visualization/widgets.
  
 ## Milestone 3 (Friday 3rd June, 5pm) 80% of the final grade
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
