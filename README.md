@@ -25,7 +25,7 @@ Influential factors for votes:
 
 Relationship between votes and income & budget
 
-
+Casted actors and movies
 ### Exploratory Data Analysis
 Pre-processing of the data set you chose
 * Show some basic statistics and get insights about the data
