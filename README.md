@@ -58,5 +58,5 @@ o Peer assessment: include a breakdown of the parts of the project completed by 
 Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.
 Late policy**
   
-• < 24h: 80% of the grade for the milestone
-• < 48h: 70% of the grade for the milestone
+* < 24h: 80% of the grade for the milestone
+* < 48h: 70% of the grade for the milestone
