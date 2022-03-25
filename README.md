@@ -39,7 +39,9 @@ Contents here:
 * In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
 
 Contents here:
-* Doing 
+* Check codes in the Kaggle website, also check TMDB 5000 datasets
+* Websites appeared in the lectures
+* 
 
 ## Milestone 2 (Friday 6th May, 5pm)
 10% of the final grade
