@@ -41,6 +41,7 @@ Contents here:
 Contents here:
 * Check codes in the Kaggle website, also check TMDB 5000 datasets
 * Websites appeared in the lectures
+* There are some data visualization works about IMDB data on GitHub, but they are all general and basic. For example: https://github.com/thechaudharysab/imdb-data-pandas-visualization/blob/master/pandas_homework_imdb.ipynb
 * 
 
 ## Milestone 2 (Friday 6th May, 5pm)
