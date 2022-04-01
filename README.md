@@ -30,7 +30,8 @@ Casted actors and movies
 Pre-processing of the data set you chose
 * Show some basic statistics and get insights about the data
 
-Contents here: Data_Visualization_M1.ipynb
+Contents here: https://github.com/wychen9/COM-480-datavis-BCD-project/blob/2955cd5061e95a4a7f52900c9029ebe13003a8be/Data_Visualization_M1.ipynb
+
 * 
 ### Related work
 * What others have already done with the data?
