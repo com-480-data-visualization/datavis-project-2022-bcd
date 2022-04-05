@@ -36,7 +36,7 @@ This project is based on dataset [IMDb Movies dataset from 2000 - 2020](https://
 
 #### 2.3 Exploratory Data Analysis
 
-Please check out content here: [Data analysis](https://github.com/wychen9/COM-480-datavis-BCD-project/blob/2955cd5061e95a4a7f52900c9029ebe13003a8be/Data_Visualization_M1.ipynb)
+Please check out content here: [Data analysis](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/main/Data_Visualization_M1.ipynb)
 
 
 ### 3 Related work
