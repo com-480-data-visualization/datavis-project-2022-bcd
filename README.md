@@ -43,7 +43,7 @@ Please check out content here: [Data analysis](https://github.com/com-480-data-v
 
 * What others have already done with the data?
 
-  We have read the codes of this dataset and similar data related to movies on Kaggle and found out that most people are programming [Contents based recommender](https://www.kaggle.com/code/chenyanglim/content-based-recommender) using those datasets as an input. 
+  We have read the codes of this dataset and similar data related to movies on Kaggle and found out that most people are programming [Contents based recommender](https://www.kaggle.com/code/chenyanglim/content-based-recommender) using those datasets as inputs. 
 
 * Why is your approach original?
 
