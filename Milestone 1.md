@@ -1,4 +1,4 @@
-## Milestone 1 (Friday 8th April, 5pm)
+## Milestone 1
 
 ### 1 Problematic
 
