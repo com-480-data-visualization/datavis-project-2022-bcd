@@ -5,21 +5,20 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 
 ### 1 Problematic
 
-Frame the general topic of your visualization and the main axis that you want to develop.
+In the 21st century, movies have become an important part of everyone’s life all over the world. We watch movies for the sake of excitement and fun, and they are one of our most popular forms of entertainment. Different people have different preferences for movies. So, the IMDb provides a rating scale that allows users to rate films according to their preferences on a scale of one to ten, and these submitted votes will be filtered and weighted by IMDb to produce a weighted average for each movies.
 
-* What am I trying to show with my visualization?
-* Think of an overview for the project, your motivation, and the target audience.
+From a historical standpoint, movies reflect our society and culture. As society changed, so did the movies. Digital technology was the driving force behind change. Digital 3D projection has largely replaced earlier problematic 3D film systems and has grown in popularity since the early 2010s. And movies have advanced rapidly since the 21st century. 
+Therefore, we believe that by examining the characteristics of the most popular movies from 2000 to 2020, we can uncover some unexpected results and simplify your search for good movies.
 
-Contents here:
-Influential factors for votes:
+We are trying to simply and show the complex relationships with our visualization, which exist between the votes and some influential factors ---- duration, language, casted actors and so on. Besides, we also try to explore whether there is a relationship between the votes and income & budget. Our visualization can give you a general overview of votes and its influential factors.
 
-* duration
-* language
-* country
+You may enjoy watching movies for the sake of entertainment and relaxation. Movies may provide you with a temporary escape from real life and the problems that surround you. 
+Whatever group you belong to, our visualization will pique your interest.
 
-Relationship between votes and income & budget
+If you don't know what videos you are watching, it is convenient for you just browse by category. If you just want to find a movie to pass the time, you can just open our website and choose from high to low.
+You can select movies by country language and see the overall impact of country on ratings.
 
-Casted actors and movies
+
 
 ### 2 Dataset
 
