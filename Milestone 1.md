@@ -2,10 +2,14 @@
 
 ### 1 Problematic
 
+#### 1.1 Overview & Motivation
+
 In the 21st century, movies have become an important part of everyone’s life all over the world. We watch movies for the sake of excitement and fun, and they are one of our most popular forms of entertainment. Different people have different preferences for movies. So, the IMDb provides a rating scale that allows users to rate films according to their preferences on a scale of one to ten, and these submitted votes will be filtered and weighted by IMDb to produce a weighted average for each movies.
 
 From a historical standpoint, movies reflect our society and culture. As society changed, so did the movies. Digital technology was the driving force behind change. Digital 3D projection has largely replaced earlier problematic 3D film systems and has grown in popularity since the early 2010s. And movies have advanced rapidly since the 21st century. 
 Therefore, we believe that by examining the characteristics of the most popular movies from 2000 to 2020, we can uncover some unexpected results and simplify your search for good movies.
+
+#### 1.2 Our goal & target audience
 
 We are trying to simply and show the complex relationships with our visualization, which exist between the votes and some influential factors ---- duration, language, casted actors and so on. Besides, we also try to explore whether there is a relationship between the votes and income & budget. Our visualization can give you a general overview of votes and its influential factors.
 
