@@ -13,13 +13,11 @@ However, only including movies from 2000 to 2020, there are 5487 films with attr
 
 #### 1.2 Our goal & target audience
 
-We are trying to simply and show the complex relationships with our visualization, which exist between the votes and some influential factors ---- duration, language, casted actors and so on. Besides, we also try to explore whether there is a relationship between the votes and income & budget. Our visualization can give you a general overview of votes and its influential factors.
+What determines a movie's rating? ----We are trying to simply show the complex relationships with our visualization, which exist between the votes and some influential factors ---- duration, language, casted actors, and so on. Besides, we also try to explore whether there is a relationship between the votes and income & budget. Our visualization can give you a general overview of votes and their influential factors.
 
-You may enjoy watching movies for the sake of entertainment and relaxation. Movies may provide you with a temporary escape from real life and the problems that surround you. 
-Whatever group you belong to, our visualization will pique your interest.
+If you're not sure what videos to watch, it's easier to browse by category and select a movie based on votes. If you just want to find a film to pass the time, you can just visit our website and scroll through the votes from high to low.
+You can select movies by country language and see how the country affects overall ratings. Apart from that, you will be blown away by the opportunity to choose a good movie by the relationships between the votes and the influential factors, such as its incomes & budget or the casted actors.
 
-If you don't know what videos you are watching, it is convenient for you just browse by category. If you just want to find a movie to pass the time, you can just open our website and choose from high to low.
-You can select movies by country language and see the overall impact of country on ratings.
 
 
 
@@ -39,6 +37,8 @@ This project is based on dataset [IMDb Movies dataset from 2000 - 2020](https://
 #### 2.3 Exploratory Data Analysis
 
 Please check out content here: [Data analysis](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/main/Data_Visualization_M1.ipynb)
+
+
 
 
 ### 3 Related work
