@@ -4,10 +4,12 @@
 
 #### 1.1 Overview & Motivation
 
-In the 21st century, movies have become an important part of everyone’s life all over the world. We watch movies for the sake of excitement and fun, and they are one of our most popular forms of entertainment. Different people have different preferences for movies. So, the IMDb provides a rating scale that allows users to rate films according to their preferences on a scale of one to ten, and these submitted votes will be filtered and weighted by IMDb to produce a weighted average for each movies.
+In the 21st century, movies have become an essential part of everyone's life all over the world. We watch movies for excitement and fun, and they are one of our most popular forms of entertainment. As society changed, so did the movies. Movies have advanced rapidly since the 21st century, and digital technology is the driving force behind change. For instance, digital 3D projection has largely replaced earlier complicated 3D film systems and has grown in popularity since the early 2010s. So, we choose to study the films from 2000 to 2020 to be more informative.
 
-From a historical standpoint, movies reflect our society and culture. As society changed, so did the movies. Digital technology was the driving force behind change. Digital 3D projection has largely replaced earlier problematic 3D film systems and has grown in popularity since the early 2010s. And movies have advanced rapidly since the 21st century. 
-Therefore, we believe that by examining the characteristics of the most popular movies from 2000 to 2020, we can uncover some unexpected results and simplify your search for good movies.
+Besides, IMDb is an online database that stores information related to more than 6 million titles, of which almost 500,000 are featured films. Different people have different preferences for movies. So, the IMDb provides a rating scale that allows users to rate films according to their preferences on a scale of one to ten, and these submitted votes will be filtered and weighted by IMDb to produce a weighted average for each movie. 
+
+However, only including movies from 2000 to 2020, there are 5487 films with attributes in the database. So it is complicated for the audience to search for movies information without a good visualization. Therefore, we believe that by examining the characteristics of the most popular movies from 2000 to 2020, we can uncover some unexpected results and simplify the search for a good movie.
+
 
 #### 1.2 Our goal & target audience
 
