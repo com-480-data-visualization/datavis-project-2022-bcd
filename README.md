@@ -14,7 +14,7 @@ lectures you will need.
 ### Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
 
-***Please download to see "a rough prototype" XD***
+***Please download folder 'web_proto' to see "a rough prototype" XD***
 
 ## Milestone 3 (Friday 3rd June, 5pm) 
 80% of the final grade
