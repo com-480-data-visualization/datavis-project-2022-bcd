@@ -24,7 +24,7 @@ lectures you will need.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
 
 ***Please download folder 'web_proto' to see "a rough prototype" XD***
-Our test website is here [this] (https://liliwang97.github.io/index.html)
+Our test website is here [this](https://liliwang97.github.io/index.html)
 
 ## Milestone 3 (Friday 3rd June, 5pm) 
 80% of the final grade
