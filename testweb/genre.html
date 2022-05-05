@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="genre.js"></script>
+    <title>Genre Info</title>
+
+    <style>
+        .stop-left {
+            stop-color: #3f51b5;  /* Indigo */
+        }
+
+        .stop-right {
+            stop-color: #009688;  /* Teal */
+        }
+
+        .filled {
+            fill: url(#mainGradient);
+        }
+
+        .outlined {
+            fill:   none;
+            stroke: url(#mainGradient);
+            stroke-width: 4;
+        }
+    </style>
+
+</head>
+
+<body>
+
+  <div class="topnav">
+    <a href="index.html">Home</a>
+    <a class="active" href="genre.html">Genre</a>
+    <a href="actor.html">Actor</a>
+    <a href="country.html">Country</a>
+    <a href="#director">Director</a>
+    <a href="#keyword">Keyword</a>
+    <a href="#season">Season</a>
+  </div>
+
+
+
+  <style>
+    .inBlue { color: CornflowerBlue; }
+  </style>
+
+  <h3 class="inBlue">Genre Infomation</h3>
+
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <!-- Create a div where the graph will take place -->
+  <div id="genre_data"></div>
+
+
+  <script type="text/javascript">
+    linearGradient
+        .attr("x1", "30%")
+        .attr("y1", "30%")
+        .attr("x2", "70%")
+        .attr("y2", "70%");
+
+    //Set the color for the start (0%)
+    linearGradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "#43cea2"); //light blue
+
+    //Set the color for the end (100%)
+    linearGradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#185a9d"); //dark blue
+
+  </script>
+
+
+
+  <script>
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 30, right: 10, bottom: 10, left: 0},
+    width = 1200 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  var svg = d3.select("#genre_data")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+  // Create the svg:defs element and the main gradient definition.
+  var svgDefs = svg.append('defs');
+
+  var mainGradient = svgDefs.append('linearGradient')
+      .attr('id', 'mainGradient')
+      .attr('x1', '0%')
+      .attr('x2', '100%')
+      .attr('y1', '0%')
+      .attr('y2', '100%');
+
+  // Create the stops of the main gradient. Each stop will be assigned
+  // a class to style the stop using CSS.
+  mainGradient.append('stop')
+      .attr('class', 'stop-left')
+      .attr('offset', '0');
+
+  mainGradient.append('stop')
+      .attr('class', 'stop-right')
+      .attr('offset', '1');
+
+
+
+  // Parse the Data
+  d3.csv("https://raw.githubusercontent.com/liliwang97/test/main/genre.csv", function(data) {
+
+    // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
+    dimensions = d3.keys(data[0]).filter(function(d) { return d != "Species" })
+
+    // For each dimension, I build a linear scale. I store all in a y object
+    var y = {}
+    for (i in dimensions) {
+      name = dimensions[i]
+      y[name] = d3.scaleLinear()
+        .domain( d3.extent(data, function(d) { return +d[name]; }) )
+        .range([height, 0])
+    }
+
+    // Build the X scale -> it find the best position for each Y axis
+    x = d3.scalePoint()
+      .range([0, width])
+      .padding(1)
+      .domain(dimensions);
+
+    // The path function take a row of the csv as input, and return x and y coordinates of the line to draw for this raw.
+    function path(d) {
+        return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
+    }
+
+
+
+    // Draw the lines
+    svg
+      .selectAll("myPath")
+      .data(data)
+      .enter().append("path")
+      .attr("d",  path)
+      .style("fill", "none")
+      .attr("stroke-width", 2)
+      .attr("stroke", "url(#mainGradient)")
+      .style("opacity", 0.5)
+
+    // Draw the axis:
+    svg.selectAll("myAxis")
+      // For each dimension of the dataset I add a 'g' element:
+      .data(dimensions).enter()
+      .append("g")
+      // I translate this element to its right position on the x axis
+      .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
+      // And I build the axis with the call function
+      .each(function(d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
+      // Add axis title
+      .append("text")
+        .style("text-anchor", "middle")
+        .attr("y", -9)
+        .text(function(d) { return d; })
+        .style("fill", "black")
+
+  })
+
+
+  </script>
+
+</body>
+</html>
