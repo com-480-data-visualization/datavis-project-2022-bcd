@@ -12,7 +12,7 @@ lectures you will need.
 * Break down your goal into independent pieces to implement. Try to design a core visualization (minimal viable product) that will be required at the end. Then list extra ideas (more creative or challenging) that will enhance the visualization but could be dropped without endangering the meaning of the project.
 Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
- 
+ [A very rough homepage XD](web_proto/homepage.html)
 ## Milestone 3 (Friday 3rd June, 5pm) 
 80% of the final grade
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
