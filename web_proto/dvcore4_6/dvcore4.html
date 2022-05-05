@@ -2,39 +2,81 @@
 <html>
   <head><!--HTML tag-->
     <title> Movie production - keywords </title> <!--HTML element (with complete tags)-->
-    <style>
-      .canvas {
-        display: block;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .canvas.hide {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="./sidebar.css">
+    <link rel="stylesheet" href="./pages.css">
   </head>
   <body>
-    <h1> Choose the keywords of your story! - Referential Info Page</h1>
-    <p id = "warning"></p>
-    <!-- <p id = "test"></p> -->
-    <!-- <script>document.write("Testing!");</script> -->
-    <script src = './keywords_world.js'></script>
-    <script src = './keywords_usa.js'></script>
-    <h2> Word Cloud of (keywords in description - net profit) over the world </h2>
-    <canvas id="world" class="canvas" width="1448" height="940"></canvas>
-    <!-- <script>document.write("Create canvas object 1!");</script> -->
-    <h2> Word Cloud of (keywords in description - net profit) in America </h2>
-    <canvas id="usa" class="canvas" width="1448" height="940"></canvas> 
-    <!-- <script>document.write("Create canvas object 2!");</script> -->
-    <!-- <script>document.getElementById("test").innerHTML = "Hello JavaScript!";</script> -->
+    <div id="mySidenav" class="sidenav">
+      <a href="../homepage.html">Home</a>
+      <a href="#">Genre</a>
+      <a href="#">Actor</a>
+      <a href="#">Country</a>
+      <a href="./dvcore5.html">Director</a>
+      <a href="./dvcore6.html">Pub_date</a>
+    </div>
+    <div id ="main">
+      <h1> Choose the keywords of your story! - Referential Info Page</h1>
+      <p id = "warning"></p>
+      <!-- <p id = "test"></p> -->
+      <!-- <script>document.write("Testing!");</script> -->
+      <script src = './keywords_world.js'></script>
+      <script src = './keywords_usa.js'></script>
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+      <h2> Word Cloud of (keywords in description - net profit) over the world </h2>
+      <canvas id="world" height = '840' width = '1024'></canvas>
+      <!-- <script>document.write("Create canvas object 1!");</script> -->
+      <h2> Word Cloud of (keywords in description - net profit) in America </h2>
+      <canvas id="usa" height = '840' width = '1024'></canvas> 
+      <!-- <script>document.write("Create canvas object 2!");</script> -->
+      <!-- <script>document.getElementById("test").innerHTML = "Hello JavaScript!";</script> -->
 
-    <script src = './wordcloud2.js'></script>
-    <script>
-      // document.write("wordcloud.js loaded!")
-      if(!WordCloud.isSupported) document.getElementById("warning").innerHTML = "Your browser doesn't supply necessary functionalities for wordcloud2.js to run";
-      WordCloud(document.getElementById('world'), { list: list_world } );
-      WordCloud(document.getElementById('usa'), { list: list_usa} );
-    </script>
+      <script src = './wordcloud2.js'></script>
+      <script>
+        // document.write("wordcloud.js loaded!")
+        if(!WordCloud.isSupported) document.getElementById("warning").innerHTML = "Your browser doesn't supply necessary functionalities for wordcloud2.js to run";
+        WordCloud(document.getElementById('world'), 
+                  { list: list_world,
+                  gridSize: Math.round(16 * $('#world').width() / 1024),
+                  weightFactor: function (size) {
+                    return Math.pow(size, 2) * $('#world').width() / 1024;
+                  },
+                  fontFamily: 'Times, serif',
+                  color: function (word, weight) {
+                    return (weight > 5) ? '#e88565' : '#2c3979';
+                  },
+                  rotateRatio: 0.5,
+                  rotationSteps: 2,
+                  backgroundColor: '#efe8d8',
+                  shrinkToFit: true,
+                  drawOutOfBound: false,
+                  shape: 'square',
+                  click: function(item) {
+                    alert(item[0] + ': ' + item[1]);
+                  },
+                });
+
+        WordCloud(document.getElementById('usa'), 
+                { list: list_usa,
+                  gridSize: Math.round(16 * $('#world').width() / 1024),
+                  weightFactor: function (size) {
+                    return Math.pow(size, 2) * $('#world').width() / 1024;
+                  },
+                  fontFamily: 'Times',
+                  color: function (word, weight) {
+                    return (weight > 5) ? '#e88565' : '#2c3979';
+                  },
+                  rotateRatio: 0.5,
+                  rotationSteps: 2,
+                  backgroundColor: '#efe8d8',
+                  shrinkToFit: true,
+                  drawOutOfBound: false,
+                  shape: 'square',
+                  // hover: window.drawBox,
+                  click: function(item) {
+                    alert(item[0] + ': ' + item[1]);
+                  },
+                });
+      </script>
+    </div>
   </body>
 </html>

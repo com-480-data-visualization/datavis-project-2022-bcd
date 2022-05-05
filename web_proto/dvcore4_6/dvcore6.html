@@ -2,47 +2,79 @@
 <html>
   <head><!--HTML tag-->
     <title> Movie production - keywords </title> <!--HTML element (with complete tags)-->
+    <link rel="stylesheet" href="./sidebar.css">
+    <link rel="stylesheet" href="./pages.css">
   </head>
   <body>
-    <h1> Choose the quarter you want to publish your movie! </h1>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src = "./quarters_world.js"></script>
-    <script src = "./quarters_usa.js"></script>
-    <script src = "./dvcore6.js"></script>
-    
-    <div id="my_dataviz"></div>
-    <script> 
-      function calc_lg(value){
-          return (Math.log(Math.abs(value))/Math.log(10))*Math.sign(value);
-      }
-      function data_proc(dataset){
-        const data_raw = dataset;
-        const data = [];
-        // console.log('log in jscode, data_raw', data_raw);
-        data_raw.forEach(elem => {
-            data.push({
-                year: elem[0], 
-                net_prof: calc_lg(elem[2]), 
-                quarter: elem[1]
-            });
-        });
-        return data;
-      }
-    </script>
-    <script type="module">
-      quarter_world = data_proc(quarter_world);
+    <div id="mySidenav" class="sidenav">
+      <a href="../homepage.html">Home</a>
+      <a href="#">Genre</a>
+      <a href="#">Actor</a>
+      <a href="#">Country</a>
+      <a href="./dvcore4.html">Contents</a>
+      <a href="./dvcore5.html">Director</a>
+    </div>
 
-      console.log('quarter_world', quarter_world[0]);
-      chart = StackedBarChart(quarter_world, {
-        x: d => d.net_prof,
-        y: d => d.year,
-        z: d => d.quarter,
-        xLabel: "← lose more · Net Profit · earn more →",
-        yDomain: d3.extent(quarter_world, d => d.value),
-        zDomain: quarter_world.quarter,
-        colors: d3.schemeSpectral[4],
-        marginLeft: 70
-      })
-    </script>
+    <div id = 'main'>
+      <h1> Choose the quarter you want to publish your movie! </h1>
+      <script src="https://d3js.org/d3.v7.min.js"></script>
+      <script src = "./quarters_world.js"></script>
+      <script src = "./quarters_usa.js"></script>
+      <script src = "./dvcore6.js"></script>
+      <h2>Movie published quarter and average quarterly net profit over the world</h2>
+      <svg id="quarter_world"></svg>
+      <h2>Movie published quarter and average quarterly net profit in America</h2>
+      <svg id="quarter_usa"></svg>
+      <script> 
+        function calc_lg(value){
+            return (Math.log(Math.abs(value))/Math.log(10))*Math.sign(value);
+        }
+        function data_proc(dataset){
+          const data_raw = dataset;
+          const data = [];
+          // console.log('log in jscode, data_raw', data_raw);
+          data_raw.forEach(elem => {
+              data.push({
+                  year: elem[0], 
+                  net_prof: calc_lg(elem[2]), 
+                  quarter: elem[1]
+              });
+          });
+          return data;
+        }
+      </script>
+      <script>
+        quarter_world = data_proc(quarter_world);
+        quarters = [1,2,3,4];
+        console.log('quarter_world', quarter_world);
+        console.log(d3.extent(quarter_world, d => d.year));
+        chart = GroupedBarChart(quarter_world, 'quarter_world', {
+          x: d => d.year,
+          y: d => d.net_prof,
+          z: d => d.quarter,
+          yLabel: " Net Profit (USD, lg)",
+          zDomain: quarters,
+          colors: d3.schemeSpectral[quarters.length],
+          height: 600,
+          width: 1000
+        })
+      </script>
+      <script>
+        quarter_usa = data_proc(quarter_usa);
+        quarters = [1,2,3,4];
+        console.log('quarter_usa', quarter_usa);
+        console.log(d3.extent(quarter_usa, d => d.year));
+        chart = GroupedBarChart(quarter_usa, 'quarter_usa', {
+          x: d => d.year,
+          y: d => d.net_prof,
+          z: d => d.quarter,
+          yLabel: " Net Profit (USD, lg)",
+          zDomain: quarters,
+          colors: d3.schemeSpectral[quarters.length],
+          height: 600,
+          width: 1000
+        })
+      </script>
+    </div>    
   </body>
 </html>
