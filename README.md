@@ -4,7 +4,7 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 
 | Student Name  |   SCIPER       |
 | ------------- | :------------: |
-| Weiyu Chen    |   xxxxxx       |
+| Weiyu Chen    |   349182       |
 | Jingxuan Chen |   xxxxxx       |
 | Lili Wang     |   351173       |
 
@@ -22,8 +22,6 @@ lectures you will need.
 
 ### Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
-
-***Please download folder 'web_proto' to see "a rough prototype" XD***
 
 ***Our test website is here [this](https://liliwang97.github.io/index.html)***
 
