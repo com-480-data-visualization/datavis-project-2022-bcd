@@ -23,8 +23,6 @@ lectures you will need.
 ### Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
 
-***Please download folder 'web_proto' to see "a rough prototype" XD***
-
 ***Our test website is here [this](https://liliwang97.github.io/index.html)***
 
 
