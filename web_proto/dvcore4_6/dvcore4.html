@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head><!--HTML tag-->
+    <title> Movie production - keywords </title> <!--HTML element (with complete tags)-->
+    <style>
+      .canvas {
+        display: block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .canvas.hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Choose the keywords of your story! </h1>
+    <p id = "warning"></p>
+    <!-- <p id = "test"></p> -->
+    <script>document.write("Testing!");</script>
+    <script src = '/Users/weiyuchen/Desktop/Current_term/COM-480/Project/website_proto/keywords_world.js'></script>
+    <script src = '/Users/weiyuchen/Desktop/Current_term/COM-480/Project/website_proto/keywords_usa.js'></script>
+    <canvas id="world" class="canvas" width="1024" height="840"></canvas>
+    <!-- <script>document.write("Create canvas object 1!");</script> -->
+    <canvas id="usa" class="canvas" width="1448" height="940"></canvas> 
+    <!-- <script>document.write("Create canvas object 2!");</script> -->
+    <!-- <script>document.getElementById("test").innerHTML = "Hello JavaScript!";</script> -->
+
+    <script src = '/Users/weiyuchen/Desktop/Current_term/COM-480/Project/website_proto/wordcloud2.js'></script>
+    <script>
+      // document.write("wordcloud.js loaded!")
+      if(!WordCloud.isSupported) document.getElementById("warning").innerHTML = "Your browser doesn't supply necessary functionalities for wordcloud2.js to run";
+      WordCloud(document.getElementById('world'), { list: list_world } );
+      WordCloud(document.getElementById('usa'), { list: list_usa} );
+    </script>
+  </body>
+</html>
