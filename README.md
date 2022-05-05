@@ -14,7 +14,7 @@ lectures you will need.
 ### Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
 
-[A very rough homepage XD](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/main/web_proto/homepage.html)
+[A very rough homepage XD](http://htmlpreview.github.io/?https://github.com/com-480-data-visualization/datavis-project-2022-bcd/web_proto/homepage.html)
 ## Milestone 3 (Friday 3rd June, 5pm) 
 80% of the final grade
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
