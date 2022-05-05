@@ -1,17 +1,4 @@
-chart = StackedBarChart(politifact, {
-    x: d => d.proportion,
-    y: d => d.speaker,
-    z: d => d.ruling,
-    xFormat: "+%",
-    xLabel: "← more lies · Truthiness · more truths →",
-    yDomain: d3.groupSort(politifact, D => d3.sum(D, d => -Math.min(0, d.proportion)), d => d.speaker),
-    zDomain: politifact.rulings,
-    colors: d3.schemeSpectral[politifact.rulings.length],
-    width,
-    marginLeft: 70
-  })
-
-  // Copyright 2021 Observable, Inc.
+// Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/diverging-stacked-bar-chart
 function StackedBarChart(data, {
@@ -45,8 +32,11 @@ function StackedBarChart(data, {
   } = {}) {
     // Compute values.
     const X = d3.map(data, x);
+    console.log('X',X);
     const Y = d3.map(data, y);
+    console.log('Y',Y);
     const Z = d3.map(data, z);
+    console.log('Z',Z);
   
     // Compute default y- and z-domains, and unique them.
     if (yDomain === undefined) yDomain = Y;
@@ -55,8 +45,8 @@ function StackedBarChart(data, {
     zDomain = new d3.InternSet(zDomain);
   
     // Omit any data not present in the y- and z-domains.
-    const I = d3.range(X.length).filter(i => yDomain.has(Y[i]) && zDomain.has(Z[i]));
-  
+    const I = d3.range(X.length);
+    console.log('I',I);
     // If the height is not specified, derive it from the y-domain.
     if (height === undefined) height = yDomain.size * 25 + marginTop + marginBottom;
     if (yRange === undefined) yRange = [height - marginBottom, marginTop];
@@ -66,16 +56,19 @@ function StackedBarChart(data, {
     // each tuple has an i (index) property so that we can refer back to the
     // original data point (data[i]). This code assumes that there is only one
     // data point for a given unique y- and z-value.
+    const internmap = d3.rollup(I, ([i]) => i, i => Y[i], i => Z[i]);
+    console.log(internmap);
+
     const series = d3.stack()
         .keys(zDomain)
         .value(([, I], z) => X[I.get(z)])
         .order(order)
-        .offset(offset)
-      (d3.rollup(I, ([i]) => i, i => Y[i], i => Z[i]))
-      .map(s => s.map(d => Object.assign(d, {i: d.data[1].get(s.key)})));
-  
+        .offset(offset);
+      console.log(series);
+      series(internmap).map(s => s.map(d => Object.assign(d, {i: d.data[1].get(s.key)})));
+    
     // Compute the default y-domain. Note: diverging stacks can be negative.
-    if (xDomain === undefined) xDomain = d3.extent(series.flat(2));
+    // if (xDomain === undefined) xDomain = d3.extent(series.flat(2));
   
     // Construct scales, axes, and formats.
     const xScale = xType(xDomain, xRange);
@@ -142,7 +135,3 @@ function StackedBarChart(data, {
   
     return Object.assign(svg.node(), {scales: {color}});
     }
-
-    import {Swatches} from "@d3/color-legend"
-
-    import {howto, altplot} from "@d3/example-components"
