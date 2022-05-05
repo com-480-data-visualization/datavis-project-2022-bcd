@@ -20,10 +20,15 @@
   </head>
   <body>
     <h1> Choose the director of your movie! </h1>
+    <h2>Director, published date and the net profit of the movie over the world</h2>
     <svg id="plot"></svg>
+    <h2>Director, published date and the net profit of the movie in America</h2>
+    <svg id="plot_usa"></svg>
     <script src = "https://d3js.org/d3.v7.min.js"></script>
-    <script src = '/Users/weiyuchen/Desktop/Current_term/COM-480/Project/datavis-project-2022-bcd/web_proto/dvcore4_6/directors_date_sorted.js'></script>
+    <script src = './directors_date_sorted.js'></script>
+    <script src = './directors_usa.js'></script>
     <script src = './dvcore5.js'></script>
-    <script>chart("plot");</script>
+    <script>chart("plot", list_dir);</script>
+    <script>chart("plot_usa", list_dir_usa);</script>
   </body>
 </html>
