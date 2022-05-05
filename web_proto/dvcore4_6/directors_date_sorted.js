@@ -1,6 +1,4 @@
-let list = [[1905,6,30,28421076.285184436,'Anees Bazmee'],
-[1905,7,6,3522511.0,'Aaron Schneider'],
-[2000,1,12,48827328.0,'Steve Carr'],
+let list = [[2000,1,12,48827328.0,'Steve Carr'],
 [2000,2,25,94056873.0,'Danny Boyle'],
 [2000,3,31,-7894017.0,'Wim Wenders'],
 [2000,4,14,204271286.0,'Steven Soderbergh'],
@@ -3942,3 +3940,4 @@ function transform(values, index, array){
 }
 
 list.forEach(transform);
+console.log('log in dataset',list_dir[0]);

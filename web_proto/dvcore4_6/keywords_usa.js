@@ -1,4 +1,4 @@
-document.write("Entering wordlist usa!")
+// document.write("Entering wordlist usa!")
 
 let list_usa = [['after',19],
 ['must',18],
