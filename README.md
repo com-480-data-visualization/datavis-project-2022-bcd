@@ -14,7 +14,8 @@ lectures you will need.
 ### Functional project prototype review.
 * You should have an initial website running with the basic skeleton of the visualization/widgets.
 
-* Please download to see "a rough prototype" XD*
+***Please download to see "a rough prototype" XD***
+
 ## Milestone 3 (Friday 3rd June, 5pm) 
 80% of the final grade
 For the final milestone, you need to create a cool, interactive, and sufficiently complex D3.js (and other) data viz on the dataset you chose. Tell a data story and explain it to the targeted audience. Create a process book that details how you got there, from the original idea to the final product.
