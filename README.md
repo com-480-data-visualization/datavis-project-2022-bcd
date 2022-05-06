@@ -15,6 +15,7 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 
 ## Milestone 2 (Friday 6th May, 5pm)
 [Milestone 2](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/4d836c8d7c04e03dde0b91c90000b5309c1f118f/milestone2.pdf)
+
 ***Our test website is [here](https://liliwang97.github.io/index.html)***
 
 
