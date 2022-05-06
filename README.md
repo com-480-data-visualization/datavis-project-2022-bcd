@@ -45,8 +45,9 @@ impactful manner
 * Screencast (25%)
 * Process book (25%)
 
-**Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.
-Late policy**
+**Grades may vary across the team members, based on the process book and the peer assessment process. Please provide clear explanations.**
+
+**Late policy**
   
 * < 24h: 80% of the grade for the milestone
 * < 48h: 70% of the grade for the milestone
