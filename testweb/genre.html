@@ -116,7 +116,7 @@
 
 
   // Parse the Data
-  d3.csv("https://raw.githubusercontent.com/liliwang97/test/main/genre.csv", function(data) {
+  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/genre.csv", function(data) {
 
     // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
     dimensions = d3.keys(data[0]).filter(function(d) { return d != "Species" })
@@ -150,15 +150,16 @@
       .enter().append("path")
       .attr("d",  path)
       .style("fill", "none")
-      .attr("stroke-width", 2)
+      .attr("stroke-width", 3)
       .attr("stroke", "url(#mainGradient)")
       .style("opacity", 0.5)
 
     // Draw the axis:
     svg.selectAll("myAxis")
-      // For each dimension of the dataset I add a 'g' element:
+      // Add "g" for each dimension
       .data(dimensions).enter()
       .append("g")
+        .style("fill", "MidnightBlue")
       // I translate this element to its right position on the x axis
       .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
       // And I build the axis with the call function
@@ -168,7 +169,9 @@
         .style("text-anchor", "middle")
         .attr("y", -9)
         .text(function(d) { return d; })
-        .style("fill", "black")
+        .style("fill", "MidnightBlue")
+        .style("font-size", "20px")
+        .style("font-weight", "bold")
 
   })
 

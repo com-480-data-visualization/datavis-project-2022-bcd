@@ -35,9 +35,10 @@
 
   <script>
 
+
   // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 30, left: 200},
-      width = 1000 - margin.left - margin.right,
+  var margin = {top: 30, right: 30, bottom: 70, left: 150},
+      width = 1200 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
@@ -49,46 +50,60 @@
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-  // get the data
-  d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", function(data) {
+  // Parse the Data
+  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/actors2.csv", function(data) {
 
-    // X axis: scale and draw:
-    var x = d3.scaleLinear()
-        .domain([0, 1000])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
-        .range([0, width]);
+    // sort data
+    data.sort(function(b, a) {
+      return a.num - b.num;
+    });
+
+    // X axis
+    var x = d3.scaleBand()
+      .range([ 0, width ])
+      .domain(data.map(function(d) { return d.names; }))
+      .padding(0.2);
     svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+        .attr("transform", "translate(-10,0)rotate(-45)")
+        .style("text-anchor", "end");
 
-    // set the parameters for the histogram
-    var histogram = d3.histogram()
-        .value(function(d) { return d.price; })   // I need to give the vector of value
-        .domain(x.domain())  // then the domain of the graphic
-        .thresholds(x.ticks(70)); // then the numbers of bins
-
-    // And apply this function to data to get the bins
-    var bins = histogram(data);
-
-    // Y axis: scale and draw:
+    // Add Y axis
     var y = d3.scaleLinear()
-        .range([height, 0]);
-        y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
+      .domain([0, 80])
+      .range([ height, 0]);
     svg.append("g")
-        .call(d3.axisLeft(y));
+      .call(d3.axisLeft(y));
 
-    // append the bar rectangles to the svg element
-    svg.selectAll("rect")
-        .data(bins)
-        .enter()
-        .append("rect")
-          .attr("x", 1)
-          .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-          .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
-          .attr("height", function(d) { return height - y(d.length); })
-          .style("fill", "#185a9d")
+    // Bars
+    svg.selectAll("mybar")
+      .data(data)
+      .enter()
+      .append("rect")
+        .attr("x", function(d) { return x(d.names); })
+        .attr("y", function(d) { return y(d.num); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(d.num); })
+        .attr("fill", "#4682B4")
 
-  });
+
+
+  })
+
   </script>
+
+<script>
+  // Circle
+  var svg2 = d3.select("#circle").append("svg").attr("width", 2000).attr("height", 2000)
+  svg2.append('circle')
+      .attr('cx', 100)
+      .attr('cy', 100)
+      .attr('r', 500)
+      .attr('stroke', 'black')
+      .attr('fill', '#69a3b2');
+</script>
 
 
 </body>
