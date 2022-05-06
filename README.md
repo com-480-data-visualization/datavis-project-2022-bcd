@@ -12,18 +12,10 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 
 ## Milestone 1 (Friday 8th April, 5pm)
 [Milestone 1](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/main/Milestone%201.md)
+
 ## Milestone 2 (Friday 6th May, 5pm)
-10% of the final grade
-### Two A4 pages describing the project goal.
-* Include sketches of the vizualiation you want to make in your final product.
-* List the tools that you will use for each visualization and which (past or future)
-lectures you will need.
-* Break down your goal into independent pieces to implement. Try to design a core visualization (minimal viable product) that will be required at the end. Then list extra ideas (more creative or challenging) that will enhance the visualization but could be dropped without endangering the meaning of the project.
-
-### Functional project prototype review.
-* You should have an initial website running with the basic skeleton of the visualization/widgets.
-
-***Our test website is here [this](https://liliwang97.github.io/index.html)***
+[Milestone 2](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/4d836c8d7c04e03dde0b91c90000b5309c1f118f/milestone2.pdf)
+***Our test website is [here](https://liliwang97.github.io/index.html)***
 
 
 ## Milestone 3 (Friday 3rd June, 5pm) 
