@@ -6,6 +6,7 @@ chart = function(svg_element_id, dataset){
     function data_trans(dataset){
         const data_raw = dataset;
         const data = [];
+
         // console.log('log in jscode, data_raw', data_raw);
         data_raw.forEach(elem => {
             data.push({
@@ -16,7 +17,13 @@ chart = function(svg_element_id, dataset){
         });
         return data;
     }
-
+    let directors = d3.map(dataset, elem=>elem[2]);
+    directors = [... new Set(directors)];
+    // console.log(directors);
+    const dir_color = d3.map(directors, (elem, index)=>d3.interpolateRdYlBu(index/directors.length));
+    function point_color(director){
+        return dir_color[directors.indexOf(director)];
+    }
     data = data_trans(dataset);
     // console.log('log in jscode', data[0]);
     x = d3.scaleUtc()
@@ -71,10 +78,9 @@ chart = function(svg_element_id, dataset){
       .join("circle")
         .attr("cx", d => x(d.date))
         .attr("cy", d => y(d.value))
-        .attr("fill", d => z(d.value))
+        .attr("fill", d => point_color(d.name))
+        .attr("opacity", 0.2)
         .attr("r", 2.5)
-        .classed('posi', d => d.value >= 0) // color classes
-	    .classed('nega', d => d.value < 0);
 
         return svg.node();
     };
