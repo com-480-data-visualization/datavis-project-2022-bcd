@@ -5,7 +5,7 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 | Student Name  |   SCIPER       |
 | ------------- | :------------: |
 | Weiyu Chen    |   349182       |
-| Jingxun Chen |   xxxxxx       |
+| Jingxun Chen |   350599       |
 | Lili Wang     |   351173       |
 
 
