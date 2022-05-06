@@ -56,26 +56,6 @@
   <div id="genre_data"></div>
 
 
-  <script type="text/javascript">
-    linearGradient
-        .attr("x1", "30%")
-        .attr("y1", "30%")
-        .attr("x2", "70%")
-        .attr("y2", "70%");
-
-    //Set the color for the start (0%)
-    linearGradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "#43cea2"); //light blue
-
-    //Set the color for the end (100%)
-    linearGradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", "#185a9d"); //dark blue
-
-  </script>
-
-
 
   <script>
 
@@ -103,8 +83,8 @@
       .attr('y1', '0%')
       .attr('y2', '100%');
 
-  // Create the stops of the main gradient. Each stop will be assigned
-  // a class to style the stop using CSS.
+  // Create the stops of the main gradient
+  // each stop will be assigned a class to style the stop using CSS
   mainGradient.append('stop')
       .attr('class', 'stop-left')
       .attr('offset', '0');
@@ -117,30 +97,40 @@
 
   // Parse the Data
   d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/genre.csv", function(data) {
+  console.log(data);
+    // Extract the list of dimensions
+    dimensions = d3.keys(data[0])
 
-    // Extract the list of dimensions we want to keep in the plot. Here I keep all except the column called Species
-    dimensions = d3.keys(data[0]).filter(function(d) { return d != "Species" })
-
-    // For each dimension, I build a linear scale. I store all in a y object
+    // build linear scale for each dimension
+    // except the first, it's ordinal scale
+    // store all in a y object
     var y = {}
     for (i in dimensions) {
       name = dimensions[i]
-      y[name] = d3.scaleLinear()
-        .domain( d3.extent(data, function(d) { return +d[name]; }) )
-        .range([height, 0])
+      if (name === "Genre"){
+        y[name] = d3.scaleOrdinal()
+          .domain( d3.extent(data, function(d) { return d[name]; }) )
+          .range([height, 450, 425, 400, 375, 350, 325, 300, 275, 250, 225, 200, 175, 150, 125, 100, 75, 50, 25, 0])
+      }
+      else{
+        y[name] = d3.scaleLinear()
+          .domain( d3.extent(data, function(d) { return +d[name]; }) )
+          .range([height, 0])}
+
     }
 
-    // Build the X scale -> it find the best position for each Y axis
+    // build the X scale
+    // find the best position for each Y axis
     x = d3.scalePoint()
       .range([0, width])
       .padding(1)
       .domain(dimensions);
 
-    // The path function take a row of the csv as input, and return x and y coordinates of the line to draw for this raw.
+    // input: a row of the csv
+    // return: x and y coordinates of the line to draw
     function path(d) {
         return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
     }
-
 
 
     // Draw the lines
@@ -154,17 +144,17 @@
       .attr("stroke", "url(#mainGradient)")
       .style("opacity", 0.5)
 
-    // Draw the axis:
+    // Draw the axis
     svg.selectAll("myAxis")
       // Add "g" for each dimension
       .data(dimensions).enter()
       .append("g")
         .style("fill", "MidnightBlue")
-      // I translate this element to its right position on the x axis
+      // translate this element to its right position on the x axis
       .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-      // And I build the axis with the call function
+      // build the axis with the call function
       .each(function(d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
-      // Add axis title
+      // add axis title
       .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
@@ -177,6 +167,7 @@
 
 
   </script>
+
 </div>
 </body>
 </html>

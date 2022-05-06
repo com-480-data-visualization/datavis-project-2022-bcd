@@ -33,7 +33,7 @@
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
   <!-- Create an element where the map will take place -->
-  <svg id="my_dataviz" width="1200" height="500"></svg>
+  <svg id="my_dataviz" width="1000" height="500"></svg>
 
   <script>
 
@@ -52,13 +52,13 @@
   // Data and color scale
   var data = d3.map();
   var colorScale = d3.scaleThreshold()
-    .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-    .range(d3.schemeBlues[7]);
+    .domain([10, 200, 300, 500, 1000, 4500])
+    .range(d3.schemeGnBu[7]);
 
   // Load external data and boot
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/world_population.csv", function(d) { data.set(d.code, +d.pop); })
+    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/country.csv", function(d) { data.set(d.code, +d.num); })
     .await(ready);
 
   function ready(error, topo) {
