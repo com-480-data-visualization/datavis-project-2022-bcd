@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../dvcore4_6/sidebar.css">
     <link rel="stylesheet" href="../dvcore4_6/pages.css">
-    <script type="text/javascript" src="genre.js"></script>
     <title>Genre Info</title>
 
     <style>
@@ -17,15 +16,6 @@
             stop-color: #009688;  /* Teal */
         }
 
-        .filled {
-            fill: url(#mainGradient);
-        }
-
-        .outlined {
-            fill:   none;
-            stroke: url(#mainGradient);
-            stroke-width: 4;
-        }
     </style>
 
 </head>
@@ -73,33 +63,35 @@
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  // Create the svg:defs element and the main gradient definition.
-  var svgDefs = svg.append('defs');
-
-  var mainGradient = svgDefs.append('linearGradient')
-      .attr('id', 'mainGradient')
-      .attr('x1', '0%')
-      .attr('x2', '100%')
-      .attr('y1', '0%')
-      .attr('y2', '100%');
-
-  // Create the stops of the main gradient
-  // each stop will be assigned a class to style the stop using CSS
-  mainGradient.append('stop')
-      .attr('class', 'stop-left')
-      .attr('offset', '0');
-
-  mainGradient.append('stop')
-      .attr('class', 'stop-right')
-      .attr('offset', '1');
-
-
 
   // Parse the Data
-  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/genre.csv", function(data) {
-  console.log(data);
+  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_genre.csv", function(data) {
+
+    var genres = [];
+    for (var i = 0; i < data.length; i++) {
+        genres.push(data[i].genre);
+    }
+
+    //console.log(genres)
+
+    // Color scale: give me a specie name, I return a color
+    var color = d3.scaleOrdinal()
+      .domain(genres)
+      .range(["#BEDB39","#8BC34A","#43A047","#289976","#287D7D",
+              "#A8C545","#588F27","#66BB6A","#1F8A70","#BDD684",
+              "#689F38","#2E7D32","#1BBC9B","#95AB63","#45BF55",
+              "#00A388","#A9CF54","#BEEB9F","#79BD8F","#00796B"])
+
+    /*var color = d3.scaleLinear()
+      .domain(genres)
+      .range(["#440154ff", "#21908dff"])
+      .interpolate(d3.interpolateLab);
+    */
+
     // Extract the list of dimensions
     dimensions = d3.keys(data[0])
+  //  dimensions = [1,4,6,8,10,12].map(x=>dimensions[x]);
+    dimensions = [3,4,5,6,7,8,9,10,11,12].map(x=>dimensions[x]);
 
     // build linear scale for each dimension
     // except the first, it's ordinal scale
@@ -107,15 +99,17 @@
     var y = {}
     for (i in dimensions) {
       name = dimensions[i]
-      if (name === "Genre"){
+      if (false){}
+    /*  if (name === "genre"){
         y[name] = d3.scaleOrdinal()
           .domain( d3.extent(data, function(d) { return d[name]; }) )
           .range([height, 450, 425, 400, 375, 350, 325, 300, 275, 250, 225, 200, 175, 150, 125, 100, 75, 50, 25, 0])
-      }
+      }*/
       else{
         y[name] = d3.scaleLinear()
           .domain( d3.extent(data, function(d) { return +d[name]; }) )
-          .range([height, 0])}
+          .range([height, 0])
+      }
 
     }
 
@@ -126,23 +120,72 @@
       .padding(1)
       .domain(dimensions);
 
+    // Highlight the specie that is hovered
+    var highlight = function(d){
+
+      selected_genre = d.genre
+      Tooltip
+        .style("opacity", 1)
+        .html("This genre is: " + selected_genre)
+        .style("left", (d3.mouse(this)[0]) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+
+      // first every group turns grey
+      d3.selectAll(".line")
+        .transition().duration(200)
+        .style("stroke", "lightgrey")
+        .style("opacity", "0.2")
+
+      // Second the hovered specie takes its color
+      d3.selectAll("." + selected_genre)
+        .transition().duration(200)
+        .attr("stroke-width", 6)
+        .style("stroke", color(selected_genre))
+        .style("opacity", "1")
+    }
+
+    // Unhighlight
+    var doNotHighlight = function(d){
+      Tooltip
+        .style("opacity", 0)
+      d3.selectAll(".line")
+        .transition().duration(200).delay(1000)
+        .style("stroke", function(d){ return( color(d.genre))} )
+        .style("opacity", "1")
+    }
+
     // input: a row of the csv
     // return: x and y coordinates of the line to draw
     function path(d) {
         return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
     }
 
+    // Add tip box
+    var Tooltip = d3.select("#genre_data")
+      .append("div")
+      .style("opacity", 1)
+      .attr("class", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
+      .style("position", "absolute")
 
     // Draw the lines
     svg
       .selectAll("myPath")
       .data(data)
-      .enter().append("path")
+      .enter()
+      .append("path")
+      .attr("class", function (d) { return "line " + d.genre } )
       .attr("d",  path)
       .style("fill", "none")
       .attr("stroke-width", 3)
-      .attr("stroke", "url(#mainGradient)")
+      .style("stroke", function(d){ return( color(d.genre))} )
       .style("opacity", 0.5)
+      .on("mouseover", highlight)
+      .on("mouseleave", doNotHighlight )
 
     // Draw the axis
     svg.selectAll("myAxis")
@@ -153,14 +196,14 @@
       // translate this element to its right position on the x axis
       .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
       // build the axis with the call function
-      .each(function(d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
+      .each(function(d) { d3.select(this).call(d3.axisLeft().ticks(5).scale(y[d])); })
       // add axis title
       .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
         .text(function(d) { return d; })
         .style("fill", "MidnightBlue")
-        .style("font-size", "20px")
+        .style("font-size", "12px")
         .style("font-weight", "bold")
 
   })
