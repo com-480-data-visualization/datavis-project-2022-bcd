@@ -183,7 +183,19 @@ chart = function(svg_element_id, data){
             .transition()
             .duration(1000)
                 .attr("fill", d => point_color(d.name))
-                .attr("opacity", 1);
+                .attr("opacity", 1)
+        let path = scatter.append('path')
+                .data(data)
+                .filter(d => d.name == i.name)
+                .enter()
+                .join('path')
+                    .attr('fill', 'none')
+                    .attr('stroke', point_color(i.name))
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(d=>x(+d.date))
+                        .y(d=>y(+d.value))
+                    );
 
         tooltip.transition().duration(2000).style("opacity", 1);
         tooltip.select("#mtitle1")
