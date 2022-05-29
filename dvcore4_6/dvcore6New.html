@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Published Quarter Info </title> 
+    <link rel="stylesheet" href="./page5.css">
+</head>
+<body>
+    <header>
+        <!-- logo -->
+        <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
+        <ul>
+            <li><a href="../dvcore1_3/genre.html">Genre</a></li>
+            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/country.html">Country</a></li>
+            <li><a href="./dvcore4New.html">Content</a></li>
+            <li><a href="./dvcore5New.html">Director</a></li>
+            <li><a href="./dvcore6New.html">Publish Quarter</a></li>
+        </ul>
+    </header>
+    <section class = "dataVisCore">
+        <div class = "chartContainer glassmorphic-element">
+            <div id = "quarter" class = "chart"></div>
+            <div class = "pageGuide">
+                <h2>Which quarter is the most suitable time for a profitable movie to publish</h2>
+                    <p>From the dataset, </p>
+                    <p>The publish date is different in each country even for the same film, therefore we choose to use the publish date in the USA as a uniform standard.</p>
+                <h2>How this page works</h2>
+                    <p>buttons on the left side are used to control the presence of chart</p>
+                    <p>navigation bar on the top can guide you to pages of your interest</p>
+                    <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+            </div>
+        </div>
+        <ul class = "controls">
+            <li onclick="next_chart();"></li>
+            <li onclick="next_chart();"></li>
+        </ul>
+        
+    </section>
+    <div id="tooltip" class="tooltip glassmorphic-element">
+        <div class="tooltip-title" id ="title"></div>
+        
+        <ul class = "tooltip-img-container">
+            <li>
+                <div class="tooltip-image"><img id = "img1"></img></div>
+                <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+            </li>
+            <li>
+                <div class="tooltip-image"><img id = "img2"></img></div>
+                <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+            </li>
+        </ul>
+        <button class="tooltip-button" id = "close">x</button>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src = "./quarters_world.js"></script>
+    <script src = "./quarters_usa.js"></script>
+    <script src = "./dvcore6.js"></script>
+    <!-- <script src = "./textFit.js"></script>
+    <script>textFit(document.getElementById('mtitle1'))</script> -->
+    <script> 
+        const quarters = [1,2,3,4];
+        data = []
+        data[0] = data_proc(quarter_world);
+        data[1] = data_proc(quarter_usa);
+        console.log(data[0])
+        console.log(data[1])
+        const colorbar = ['rgba(228, 235, 233, 0.95)', 'rgba(160, 182, 189, 0.95)', 'rgba(67, 92, 101, 0.95)', 'rgba(43, 60, 63, 0.95)'];
+        const svg = d3.select('#quarter');
+        var i = 0;
+        chart = GroupedBarChart(data[i], i, {
+            x: d => d.year,
+            y: d => d.net_prof,
+            z: d => d.quarter,
+            zDomain: quarters,
+            colors: colorbar
+        });
+
+        function next_chart(){
+            i = (i+1)%2;
+            svg.selectAll("*").remove();
+            chart = GroupedBarChart(data[i], i, {
+                x: d => d.year,
+                y: d => d.net_prof,
+                z: d => d.quarter,
+                zDomain: quarters,
+                colors: colorbar
+            });
+        }
+        function calc_lg(value){
+            return (Math.log(Math.abs(value))/Math.log(10))*Math.sign(value);
+        }
+        function data_proc(dataset){
+            const data_raw = dataset;
+            const data = [];
+            // console.log('log in jscode, data_raw', data_raw);
+            data_raw.forEach(elem => {
+                data.push({
+                    year: elem[0], 
+                    net_prof: elem[2], 
+                    quarter: elem[1],
+                    movie1: elem[3],
+                    movie2: elem[4],
+                    poster1: elem[5],
+                    poster2: elem[6]
+                });
+            });
+            return data;
+        }
+    </script>
+</body>
+</html>

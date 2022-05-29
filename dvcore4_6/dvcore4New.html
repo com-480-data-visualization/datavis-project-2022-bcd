@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Directors Info </title> 
+    <link rel="stylesheet" href="./page5.css">
+</head>
+<body>
+    <header>
+        <!-- logo -->
+        <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
+        <ul>
+            <li><a href="../dvcore1_3/genre.html">Genre</a></li>
+            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/country.html">Country</a></li>
+            <li><a href="./dvcore4New.html">Content</a></li>
+            <li><a href="./dvcore5New.html">Director</a></li>
+            <li><a href="./dvcore6New.html">Publish Quarter</a></li>
+        </ul>
+    </header>
+    <section class = "dataVisCore">
+        <p id = "warning"></p>
+        <div class = "chartContainer">
+            <canvas class = "chart glassmorphic-element" id="wordCloud" height = '840' width = '1024'></canvas>
+        </div>
+        <ul class = "controls">
+            <li onclick="next_chart();"></li>
+            <li onclick="next_chart();"></li>
+        </ul>
+        <div id="tooltip" class="tooltip glassmorphic-element">
+            <div class="tooltip-title" id ="title"></div>
+            <ul class = "tooltip-img-container">
+                <li>
+                    <div class="tooltip-image"><img id = "img1"></img></div>
+                    <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+                </li>
+                <li>
+                    <div class="tooltip-image"><img id = "img2"></img></div>
+                    <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script src = './keywords_world.js'></script>
+    <script src = './keywords_usa.js'></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src = './wordcloud2.js'></script>
+    <script>
+      var i = 0;
+      let data = [];
+      data[0] = list_world;
+      data[1] = list_usa;
+      const svg = d3.select('#wordCloud');
+      // document.write("wordcloud.js loaded!")
+      if(!WordCloud.isSupported) document.getElementById("warning").innerHTML = "Your browser doesn't supply necessary functionalities for wordcloud2.js to run";
+      WordCloud(document.getElementById('wordCloud'), 
+        { list: data[i],
+          gridSize: Math.round(16 * $('#wordCloud').width() / 1024),
+          weightFactor: function (size) {
+            return Math.pow(size, 2) * $('#wordCloud').width() / 1024;
+          },
+          fontFamily: 'Times, serif',
+          color: function (word, weight) {
+            return (weight > 5) ? 'rgb(67, 92, 101)' : '#989898';
+          },
+          rotateRatio: 0,
+          rotationSteps: 2,
+          backgroundColor: 'rgba(47, 47, 49, 0.1)',
+          shrinkToFit: true,
+          drawOutOfBound: false,
+          shape: 'square',
+          click: function(item) {
+            alert(item[0] + ': ' + item[1]);
+          },
+      });
+
+        function next_chart(){
+          svg.selectAll("*").remove();
+          i = (i+1)%2;
+          WordCloud(document.getElementById('wordCloud'), 
+            { list: data[i],
+              gridSize: Math.round(16 * $('#wordCloud').width() / 1024),
+              weightFactor: function (size) {
+                return Math.pow(size, 2) * $('#wordCloud').width() / 1024;
+              },
+              fontFamily: 'Times',
+              color: function (word, weight) {
+                w_range = d3.scaleLinear()
+                          .domain(d3.extent(data[i], d=>d[1]))
+                          .range([0,1]);
+                // console.log("extent", d3.extent(data[i], d=>d[1]));
+                // console.log("weight", weight);
+                // console.log("scaled weight", w_range(weight));
+                // console.log("color",d3.interpolateRdYlBu(w_range(weight)));
+                return d3.interpolateRdYlBu(w_range(weight));
+              },
+              rotateRatio: 0,
+              rotationSteps: 2,
+              backgroundColor: 'rgba(47, 47, 49, 0.1)',
+              shrinkToFit: true,
+              drawOutOfBound: false,
+              shape: 'square',
+              // hover: window.drawBox,
+              click: function(item) {
+                alert(item[0] + ': ' + item[1]);
+              },
+            }
+          );
+        }
+    </script>
+</body>
+</html>
