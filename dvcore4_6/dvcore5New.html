@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Directors Info </title> 
+    <link rel="stylesheet" href="./page5.css">
+</head>
+<body>
+    <header>
+        <!-- logo -->
+        <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
+        <ul>
+            <li><a href="../dvcore1_3/genre.html">Genre</a></li>
+            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/country.html">Country</a></li>
+            <li><a href="./dvcore4New.html">Content</a></li>
+            <li><a href="./dvcore5New.html">Director</a></li>
+            <li><a href="./dvcore6New.html">Publish Quarter</a></li>
+        </ul>
+    </header>
+    <section class = "dataVisCore">
+        <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+            <div id = "plot" class = "chart "></div>
+            <div class = "pageGuide">
+                <h2>Who is the director suitable for your movie investment?</h2>
+                    <p>From the dataset, we can notice that, </p>
+                    <p>In this chart, we present you a scatter plot, with horizontal axis showing you the timeline, started from 2000 to 2020, and vertical axis as the profit of the movie. Each director corresponds to a color in the chart and if you click on a point which symbolises a film, all other movies from the same director will be highlighted in the plot, with floating window showing you his or her portrait and current film poster.</p>
+                <h2>How this page works</h2>
+                    <p>buttons on the left side are used to control the presence of chart</p>
+                    <p>navigation bar on the top can guide you to pages of your interest</p>
+                    <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+            </div>
+        </div>
+        <ul class = "controls">
+            <li onclick="next_chart();"></li>
+            <li onclick="next_chart();"></li>
+        </ul>
+    </section>
+    <div id="tooltip-5" class="tooltip glassmorphic-element">
+        <ul class = "tooltip-img-container">
+            <li>
+                <div class="tooltip-image"><img id = "img1"></img></div>
+                <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+            </li>
+            <li>
+                <div class="tooltip-image"><img id = "img2"></img></div>
+                <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+            </li>
+        </ul>
+        <button class="tooltip-button" id = "close">x</button>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src = "https://d3js.org/d3.v7.min.js"></script>
+    <script src = './directors_date_sorted.js'></script>
+    <script src = './directors_usa.js'></script>
+    <script src = './dvcore5.js'></script>
+    <script>
+        function data_trans(dataset){
+            const data_raw = dataset;
+            const data = [];
+            // console.log('log in jscode, data_raw', data_raw);
+            data_raw.forEach(elem => {
+                temp_date = new Date(elem[0], elem[1], elem[2]);
+                data.push({
+                    date: temp_date, 
+                    value: Math.log(Math.abs(elem[3]))/Math.log(10)*Math.sign(elem[3]), 
+                    name: elem[4],
+                    movie: elem[5],
+                    dirImg: elem[6],
+                    movieImg: elem[7]
+                });
+            });
+            return data;
+        }
+        let data = [];
+        data[0] = data_trans(list);
+        console.log(data[0]);
+        data[1] = data_trans(list_usa);
+        console.log(data[1])
+        const svg = d3.select('#plot');
+        var i = 0;
+        chart(i, data[i]);
+        function next_chart(){
+            svg.selectAll("*").remove();
+            i = (i+1)%2;
+            chart(i, data[i]);
+        }
+    </script>
+</body>
+</html>

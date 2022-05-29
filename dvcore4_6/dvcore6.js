@@ -1,98 +1,209 @@
-// Copyright 2021 Observable, Inc.
-// Released under the ISC license.
-// https://observablehq.com/@d3/grouped-bar-chart
 function GroupedBarChart(data, elemId, {
-  x = (d, i) => i, // given d in data, returns the (ordinal) x-value
-  y = d => d, // given d in data, returns the (quantitative) y-value
-  z = () => 1, // given d in data, returns the (categorical) z-value
-  title, // given d in data, returns the title text
-  marginTop = 30, // top margin, in pixels
-  marginRight = 0, // right margin, in pixels
-  marginBottom = 30, // bottom margin, in pixels
-  marginLeft = 40, // left margin, in pixels
-  width = 640, // outer width, in pixels
-  height = 400, // outer height, in pixels
-  xDomain, // array of x-values
-  xRange = [marginLeft, width - marginRight], // [xmin, xmax]
-  xPadding = 0.1, // amount of x-range to reserve to separate groups
+  x, // given d in data, returns the (ordinal) x-value
+  y, // given d in data, returns the (quantitative) y-value
+  z, // given d in data, returns the (categorical) z-value 
+  xPadding = 0.2, // amount of x-range to reserve to separate groups
   yType = d3.scaleLinear, // type of y-scale
   yDomain, // [ymin, ymax]
-  yRange = [height - marginBottom, marginTop], // [ymin, ymax]
   zDomain, // array of z-values
-  zPadding = 0.05, // amount of x-range to reserve to separate bars
+  zPadding = 0, // amount of x-range to reserve to separate bars
   yFormat, // a format specifier string for the y-axis
   yLabel, // a label for the y-axis
   colors = d3.schemeTableau10, // array of colors
 } = {}) {
+  var width = 0.72 * $(window).width();
+  var height = 0.72 * $(window).height(); 
+  margin = ({top: 30, right: 40, bottom: 30, left: 40});
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
   const Z = d3.map(data, z);
 
+  const svg = d3.select('#quarter')
+    .append("svg")
+      .attr("width", width+margin.left+margin.right)
+      .attr("height", height+margin.top+margin.bottom)
+    .append("g")
+      .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+          
   // Compute default domains, and unique the x- and z-domains.
-  if (xDomain === undefined) xDomain = X;
-  if (yDomain === undefined) yDomain = [d3.min(Y)-0.25, d3.max(Y)];
-  if (zDomain === undefined) zDomain = Z;
-  xDomain = new d3.InternSet(xDomain);
-  zDomain = new d3.InternSet(zDomain);
+  yDomain = [d3.min(Y)-0.25, d3.max(Y)];
+  xDomain = new d3.InternSet(X);
+
+  xRange = [margin.left, width - margin.right];
+  yRange = [height - margin.bottom, margin.top]; // [ymin, ymax]
 
   // Omit any data not present in both the x- and z-domain.
   const I = d3.range(X.length)
 
   // Construct scales, axes, and formats.
-  const xScale = d3.scaleBand(xDomain, xRange).paddingInner(xPadding);
-  const xzScale = d3.scaleBand(zDomain, [0, xScale.bandwidth()]).padding(zPadding);
+  xScale = d3.scaleBand(xDomain, xRange).paddingInner(xPadding);
+  xzScale = d3.scaleBand(zDomain, [0, xScale.bandwidth()]).padding(zPadding);
   const yScale = yType(yDomain, yRange);
   const zScale = d3.scaleOrdinal(zDomain, colors);
-  const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
-  const yAxis = d3.axisLeft(yScale).ticks(height / 60, yFormat);
 
-  // Compute titles.
-  if (title === undefined) {
-    const formatValue = yScale.tickFormat(100, yFormat);
-    title = i => `${X[i]}\n${Z[i]}\n${formatValue(Y[i])}`;
-  } else {
-    const O = d3.map(data, d => d);
-    const T = title;
-    title = i => T(O[i], i, data);
+
+  xAxis = g => g
+          .attr("transform", `translate(0,${height - margin.bottom})`)
+          .call(d3.axisBottom(xScale).tickSizeOuter(0))
+          .call(g => g.append("text")
+            .attr("x", width-margin.left/4)
+            .attr("y", margin.bottom/2.5)
+            .attr("dy", "0.32em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "end")
+            .attr("fill", "#000")
+            .text("Year"));
+  yAxis = g => g
+          .attr("transform", `translate(${margin.left},0)`)
+          .call(d3.axisLeft(yScale).ticks(height / 60, yFormat))
+          .call(g => g.append("text")
+            .attr("x", 5)
+            .attr("y", margin.top)
+            .attr("dy", "0.32em")
+            .attr("text-anchor", "start")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .text("Net Profit(USD)"))
+          .call(g => g.selectAll(".tick line")
+            .filter(d => d === 0)
+            .style("stroke-dasharray", ("3, 3"))
+            .clone()
+                .attr("x2", width - margin.right - margin.left)
+                .attr("stroke", "#000000"))
+                .attr("stroke-opacity", 0.5);
+                
+      
+  console.log("Z[0]", Z[0]);            
+  console.log("zScale", zScale(Z[0]));
+  console.log("xScale", xScale(X[0]));
+
+
+  let title = svg.append("text")
+    .attr("x", (width/2))
+    .attr("y", (margin.top/2))
+    .attr("text-anchor", "middle")  
+    .style("font-size", "20px")
+    .style("font-weight", 700) 
+    .style("font-family", "sans-serif");
+
+  if(elemId == 0){
+    title.text("Worldwide");
+  }
+  else{
+      title.text("USA");
   }
 
-  const svg = d3.select('#' + elemId)
-      .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", [0, 0, width, height])
-      .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
-
-  svg.append("g")
-      .attr("transform", `translate(${marginLeft},0)`)
-      .call(yAxis)
-      .call(g => g.select(".domain").remove())
-      .call(g => g.selectAll(".tick line").clone()
-          .attr("x2", width - marginLeft - marginRight)
-          .attr("stroke-opacity", 0.1))
-      .call(g => g.append("text")
-          .attr("x", -marginLeft)
-          .attr("y", 10)
-          .attr("fill", "currentColor")
-          .attr("text-anchor", "start")
-          .text(yLabel));
-
-  const bar = svg.append("g")
+  let bar = svg.append("g")
     .selectAll("rect")
     .data(I)
     .join("rect")
-      .attr("x", i => xScale(X[i]) + xzScale(Z[i]))
-      .attr("y", i => yScale(Y[i]))
+      .attr("x", i => 10 + xScale(X[i]) + xzScale(Z[i]))
+      .attr("y", height - margin.bottom)
       .attr("width", xzScale.bandwidth())
-      .attr("height", i => yScale(d3.min(Y)-0.25) - yScale(Y[i]))
+      .attr("height", 0.01)
       .attr("fill", i => zScale(Z[i]));
+  console.log("bar",bar);
+  bar.transition()
+    .duration(1000)
+    .attr("y", i => yScale(Y[i]))
+    .attr("height", i => yScale(d3.min(Y)-0.25) - yScale(Y[i]))
+    .delay(function(i){return(i*10)});
+    
+  bar.on("click", onMouseEnter);
 
-  if (title) bar.append("title")
-      .text(title);
 
   svg.append("g")
-      .attr("transform", `translate(0,${height - marginBottom})`)
-      .call(xAxis);
+  .call(yAxis);
 
-  return Object.assign(svg.node(), {scales: {color: zScale}});
+  svg.append("g")
+      .attr("class", "x-axis")
+      .call(xAxis);
+  
+  const tooltip = d3.select("#tooltip").style("opacity", 0);
+  tooltip.select("#close")
+    .on("click", onMouseLeave);
+
+  function onMouseEnter(datum) {
+    if(tooltip.style("opacity")==1) onMouseLeave();
+
+    var i = datum.path[0].__data__;
+    tooltip.transition().duration(1000).style("opacity", 1);
+    tooltip.select("#title")
+      .text(["Quarter",Z[i],",",X[i]].join(" "));
+    tooltip.select("#mtitle1")
+      .text(data[i].movie1);
+    tooltip.select("#mtitle2")
+      .text(data[i].movie2);
+
+    if(data[i].poster1!='nan'){
+      tooltip.select("#img1")
+      .attr("src", data[i].poster1)
+      .attr("width", '100%')
+      .attr("height", "200px");
+    }
+    else{
+      tooltip.select("#img1")
+      .attr("src", "./noImage.jpeg")
+      .attr("width", '100%')
+      .attr("height", "200px");
+    }
+
+    if(data[i].poster2!='nan'){
+      // console.log(data[i].poster2)
+      tooltip.select("#img2")
+      .attr("src", data[i].poster2)
+      .attr("width", '100%')
+      .attr("height", "200px");
+    }
+    else{
+      tooltip.select("#img2")
+      .attr("src", "./noImage.jpeg")
+      .attr("width", '100%')
+      .attr("height", "200px");
+    }
+
+    const x = (10 + xScale(X[i]) + xzScale(Z[i])
+       + xzScale.bandwidth() / 2
+       + margin.left);
+    
+    const y = (yScale(d3.min(Y)-0.25) - yScale(Y[i])+margin.top);
+    if(x<width/2){
+      tooltip.style("transform", `translate(`
+     + `calc(10% + ${x}px),`
+     + `calc(100% - 0.25*${y}px)`
+     + `)`);
+    }
+    else{
+      tooltip.style("transform", `translate(`
+     + `calc(-50% + ${x}px),`
+     + `calc(100% - 0.25*${y}px)`
+     + `)`);
+    }
+  }
+  function onMouseLeave() {
+    tooltip.transition().duration(200).style("opacity", 0);
+  }
+      
+  function zoom(svg) {
+    const extent = [[margin.left, margin.top], [width - margin.right, height - margin.top]];
+
+    svg.call(d3.zoom()
+        .scaleExtent([1, 8])
+        .translateExtent(extent)
+        .extent(extent)
+        .on("zoom", zoomed));
+      
+    function zoomed(event) {
+      xScale.range([margin.left, width - margin.right].map(d => event.transform.applyX(d)));
+      xzScale.range([0, xScale.bandwidth()]);
+      bar.attr("x", i => 10+ xScale(X[i]) + xzScale(Z[i])).attr("width", xzScale.bandwidth());
+      svg.selectAll(".x-axis").call(xAxis);
+    }
+  }
+
+  
+  return Object.assign(svg.node());
 }
+

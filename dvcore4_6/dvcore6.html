@@ -14,7 +14,6 @@
       <a href="./dvcore4.html">Contents</a>
       <a href="./dvcore5.html">Director</a>
     </div>
-
     <div id = 'main'>
       <h1> Choose the quarter you want to publish your movie! </h1>
       <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -25,6 +24,7 @@
       <svg id="quarter_world"></svg>
       <h2>Movie published quarter and average quarterly net profit in America</h2>
       <svg id="quarter_usa"></svg>
+
       <script> 
         function calc_lg(value){
             return (Math.log(Math.abs(value))/Math.log(10))*Math.sign(value);
@@ -48,13 +48,14 @@
         quarters = [1,2,3,4];
         console.log('quarter_world', quarter_world);
         console.log(d3.extent(quarter_world, d => d.year));
+
         chart = GroupedBarChart(quarter_world, 'quarter_world', {
           x: d => d.year,
           y: d => d.net_prof,
           z: d => d.quarter,
           yLabel: " Net Profit (USD, lg)",
           zDomain: quarters,
-          colors: d3.schemeGnBu[quarters.length],
+          colors: ['rgba(228, 235, 233, 0.95)', 'rgba(160, 182, 189, 0.95)', 'rgba(67, 92, 101, 0.95)', 'rgba(43, 60, 63, 0.95)'],
           height: 600,
           width: 1000
         })
@@ -70,7 +71,7 @@
           z: d => d.quarter,
           yLabel: " Net Profit (USD, lg)",
           zDomain: quarters,
-          colors: d3.schemeGnBu[quarters.length],
+          colors: ['rgba(228, 235, 233, 0.95)', 'rgba(160, 182, 189, 0.95)', 'rgba(67, 92, 101, 0.95)', 'rgba(43, 60, 63, 0.95)'],
           height: 600,
           width: 1000
         })
