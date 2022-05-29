@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../dvcore4_6/sidebar.css">
     <link rel="stylesheet" href="../dvcore4_6/pages.css">
-    <script type="text/javascript" src="genre.js"></script>
     <title>Country Info</title>
 </head>
 
@@ -33,7 +32,7 @@
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
   <!-- Create an element where the map will take place -->
-  <svg id="my_dataviz" width="1000" height="500"></svg>
+  <svg id="my_country" width="1000" height="500"></svg>
 
   <script>
 
@@ -52,16 +51,51 @@
   // Data and color scale
   var data = d3.map();
   var colorScale = d3.scaleThreshold()
-    .domain([10, 200, 300, 500, 1000, 4500])
-    .range(d3.schemeGnBu[7]);
+    .domain([-1000000, -10000, 0, 10000, 100000, 1000000, 10000000, 50000000, 100000000, 300000000])
+    .range(d3.schemeGnBu[9]);
 
   // Load external data and boot
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/country.csv", function(d) { data.set(d.code, +d.num); })
+    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) { data.set(d.code, +d.avg_global_profit); })
     .await(ready);
 
   function ready(error, topo) {
+    var mouseover = function(d) {
+
+      var selected_country = d.country;
+      console.log(selected_country)
+
+      Tooltip
+        .style("opacity", 1)
+        .html("The country ")
+        .style("left", (d3.mouse(this)[0]+10) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+        .style("z-index","100")
+
+      d3.selectAll(".Country")
+        .transition()
+        .duration(200)
+        .style("opacity", 0.5)
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .style("opacity", 1)
+        .style("stroke", "black")
+    };
+
+    var mouseleave = function(d) {
+      Tooltip
+        .style("opacity", 0)
+      d3.selectAll(".Country")
+        .transition()
+        .duration(200)
+        .style("opacity", .8)
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .style("stroke", "transparent")
+    };
 
     // Draw the map
     svg.append("g")
@@ -77,8 +111,25 @@
         .attr("fill", function (d) {
           d.total = data.get(d.id) || 0;
           return colorScale(d.total);
-        });
+        })
+        .style("stroke", "transparent")
+        .attr("class", function(d){ return "Country" } )
+        .style("opacity", .8)
+        .on("mouseover", mouseover )
+        .on("mouseleave", mouseleave );
+
+        // Add tip box
+        var Tooltip = svg.append("div")
+          .style("opacity", 0)
+          .attr("class", "tooltip")
+          .style("background-color", "white")
+          .style("border", "solid")
+          .style("border-width", "2px")
+          .style("border-radius", "5px")
+          .style("padding", "5px");
+
       }
+
 
   </script>
 </div>
