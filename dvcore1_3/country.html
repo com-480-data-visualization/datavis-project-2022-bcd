@@ -119,7 +119,8 @@
         .on("mouseleave", mouseleave );
 
         // Add tip box
-        var Tooltip = svg.append("div")
+        var Tooltip = svg.select("#main")
+          .append("div")
           .style("opacity", 0)
           .attr("class", "tooltip")
           .style("background-color", "white")
