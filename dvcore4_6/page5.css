@@ -83,7 +83,7 @@ header ul li a:hover{
 .dataVisCore {
     margin:auto;
     position: relative;
-    width: 100%;
+    width: 100vw;
     min-height : 100vh; 
 }
 

@@ -64,13 +64,15 @@
                 temp_date = new Date(elem[0], elem[1], elem[2]);
                 data.push({
                     date: temp_date, 
-                    value: Math.log(Math.abs(elem[3]))/Math.log(10)*Math.sign(elem[3]), 
+                    value: elem[3]/1000000000, 
                     name: elem[4],
                     movie: elem[5],
                     dirImg: elem[6],
                     movieImg: elem[7]
                 });
             });
+
+            // Math.log(Math.abs(elem[3]))/Math.log(10)*Math.sign(elem[3])
             return data;
         }
         let data = [];

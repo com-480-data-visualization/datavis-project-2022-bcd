@@ -11,9 +11,12 @@ function GroupedBarChart(data, elemId, {
   yLabel, // a label for the y-axis
   colors = d3.schemeTableau10, // array of colors
 } = {}) {
-  var width = 0.72 * $(window).width();
-  var height = 0.72 * $(window).height(); 
   margin = ({top: 30, right: 40, bottom: 30, left: 40});
+  var width = $('#quarter').width()-margin.left-margin.right;
+  var height = $('#quarter').height()-margin.top-margin.bottom; 
+  console.log(width);
+  console.log(height);
+
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);

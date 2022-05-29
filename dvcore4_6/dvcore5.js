@@ -1,8 +1,8 @@
 chart = function(svg_element_id, data){
     //define outer shape
-    margin = ({top: 30, right: 30, bottom: 35, left: 30});
-    var width = 0.73* $(window).width();
-    var height = 0.72 * $(window).height(); 
+    margin = ({top: 30, right: 20, bottom: 35, left: 30});
+    var width =  $('#plot').width()-margin.left-margin.right;
+    var height = $('#plot').height()-margin.top-margin.bottom; 
 
     const svg = d3.select('#plot')
         .append("svg")
@@ -54,7 +54,7 @@ chart = function(svg_element_id, data){
             .attr("text-anchor", "start")
             .attr("fill", "#000")
             .attr("font-weight", "bold")
-            .text("Net Profit(USD)"));
+            .text("Net Profit(x10^9 USD)"));
 
 
     const clip = svg.append("defs").append("svg:clipPath")
