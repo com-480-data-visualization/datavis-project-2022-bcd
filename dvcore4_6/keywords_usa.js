@@ -1,5 +1,4 @@
 // document.write("Entering wordlist usa!")
-
 let list_usa = [
 ['family',18],
 ['new',14],

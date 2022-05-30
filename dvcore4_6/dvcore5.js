@@ -230,11 +230,12 @@ chart = function(svg_element_id, data){
         }
 
         // const x_dis = x(i.date)+ margin.left;
-    
+        
         tooltip.style("transform", `translate(`
-            + `calc(${width}px),`
+            + `calc(${width-2*margin.left}px),`
             + `calc(${height/2.25}px)`
             + `)`);
+        tooltip.style('z-index', 1000);
         // const y_dis = y(i.value)+margin.top;
         // if(x_dis<width/2){
             
@@ -254,6 +255,7 @@ chart = function(svg_element_id, data){
             .attr("opacity", 0.5);
 
         tooltip.transition().duration(1000).style("opacity", 0);
+        tooltip.style('z-index', -1);
     }
 
     return svg.node();
