@@ -33,32 +33,44 @@
           <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
       </ul>
   </header>
-
+  <section class = "dataVisCore">
+      <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+          <div id = "plot" class = "chart "></div>
+          <div class = "pageGuide">
+              <h2>Which genre is suitable for your movie investment?</h2>
+                  <p>From the dataset, we can notice that, </p>
+                  <p>In this chart, we present you a bar chart, with horizontal axis showing the actors' name, and vertical axis as the average profit of the actors' movie.</p>
+              <h2>How this page works</h2>
+                  <p>buttons on the left side are used to control the presence of chart</p>
+                  <p>navigation bar on the top can guide you to pages of your interest</p>
+                  <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+          </div>
+      </div>
+  </section>
 
 <div id = 'main'>
   <style>
     .inBlue { color: CornflowerBlue; }
   </style>
 
-  <h3 class="inBlue">Genre Infomation</h3>
+  <!--<h3 class="inBlue">Genre Infomation</h3>-->
 
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
 
   <!-- Create a div where the graph will take place -->
-  <div id="genre_data"></div>
-
+  <!--<div id="genre_data"></div>-->
 
 
   <script>
 
   // set the dimensions and margins of the graph
-  var margin = {top: 30, right: 10, bottom: 10, left: 0},
-    width = 1200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+  var margin = {top: 80, right: 10, bottom: 50, left: 70},
+    width = 900 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
-  var svg = d3.select("#genre_data")
+  var svg = d3.select("#plot")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -94,7 +106,7 @@
     // Extract the list of dimensions
     dimensions = d3.keys(data[0])
   //  dimensions = [1,4,6,8,10,12].map(x=>dimensions[x]);
-    dimensions = [3,4,5,6,7,8,9,10,11,12].map(x=>dimensions[x]);
+    dimensions = [5,6,7,8,9,10,11,12].map(x=>dimensions[x]);
 
     // build linear scale for each dimension
     // except the first, it's ordinal scale
@@ -203,9 +215,11 @@
       // add axis title
       .append("text")
         .style("text-anchor", "middle")
-        .attr("y", -9)
+        .attr("y", 420)
+        .attr("x", -220)
         .text(function(d) { return d; })
         .style("fill", "MidnightBlue")
+        .attr("transform", "translate(-10,0)rotate(-30)")
         .style("font-size", "12px")
         .style("font-weight", "bold")
 

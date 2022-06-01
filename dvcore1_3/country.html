@@ -21,14 +21,31 @@
           <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
       </ul>
   </header>
-
+  <section class = "dataVisCore">
+      <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+          <div id = "plot" class = "chart "></div>
+          <div class = "pageGuide">
+              <h2>Which country is suitable for your movie investment?</h2>
+                  <p>From the dataset, we can notice that, </p>
+                  <p>In this chart, we present you a bar chart, with horizontal axis showing the actors' name, and vertical axis as the average profit of the actors' movie.</p>
+              <h2>How this page works</h2>
+                  <p>buttons on the left side are used to control the presence of chart</p>
+                  <p>navigation bar on the top can guide you to pages of your interest</p>
+                  <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+          </div>
+      </div>
+      <ul class = "controls">
+          <li onclick="next_chart();"></li>
+          <li onclick="next_chart();"></li>
+      </ul>
+  </section>
 
   <div id = 'main'>
   <style>
     .inBlue { color: CornflowerBlue; }
   </style>
 
-  <h3 class="inBlue">Country Infomation</h3>
+  <!--<h3 class="inBlue">Country Infomation</h3>-->
 
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
@@ -40,10 +57,18 @@
 
   <script>
 
-  // The svg
-  var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+  var margin = {top: 80, right: 10, bottom: 50, left: 70},
+    width = 900 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  var svg = d3.select("#plot")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
   // Map and projection
   var path = d3.geoPath();
