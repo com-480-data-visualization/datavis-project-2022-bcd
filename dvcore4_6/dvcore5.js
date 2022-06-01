@@ -183,7 +183,19 @@ chart = function(svg_element_id, data){
             .transition()
             .duration(1000)
                 .attr("fill", d => point_color(d.name))
-                .attr("opacity", 1);
+                .attr("opacity", 1)
+        let path = scatter.append('path')
+                .data(data)
+                .filter(d => d.name == i.name)
+                .enter()
+                .join('path')
+                    .attr('fill', 'none')
+                    .attr('stroke', point_color(i.name))
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(d=>x(+d.date))
+                        .y(d=>y(+d.value))
+                    );
 
         tooltip.transition().duration(2000).style("opacity", 1);
         tooltip.select("#mtitle1")
@@ -218,11 +230,12 @@ chart = function(svg_element_id, data){
         }
 
         // const x_dis = x(i.date)+ margin.left;
-    
+        
         tooltip.style("transform", `translate(`
-            + `calc(${width}px),`
+            + `calc(${width-2*margin.left}px),`
             + `calc(${height/2.25}px)`
             + `)`);
+        tooltip.style('z-index', 1000);
         // const y_dis = y(i.value)+margin.top;
         // if(x_dis<width/2){
             
@@ -242,6 +255,7 @@ chart = function(svg_element_id, data){
             .attr("opacity", 0.5);
 
         tooltip.transition().duration(1000).style("opacity", 0);
+        tooltip.style('z-index', -1);
     }
 
     return svg.node();

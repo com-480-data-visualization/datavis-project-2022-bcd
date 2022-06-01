@@ -28,8 +28,7 @@ function GroupedBarChart(data, elemId, {
       .attr("height", height+margin.top+margin.bottom)
     .append("g")
       .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-          
+          "translate(" + margin.left + "," + margin.top + ")");        
   // Compute default domains, and unique the x- and z-domains.
   yDomain = [d3.min(Y)-0.25, d3.max(Y)];
   xDomain = new d3.InternSet(X);
@@ -49,15 +48,7 @@ function GroupedBarChart(data, elemId, {
 
   xAxis = g => g
           .attr("transform", `translate(0,${height - margin.bottom})`)
-          .call(d3.axisBottom(xScale).tickSizeOuter(0))
-          .call(g => g.append("text")
-            .attr("x", width-margin.left/4)
-            .attr("y", margin.bottom/2.5)
-            .attr("dy", "0.32em")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "end")
-            .attr("fill", "#000")
-            .text("Year"));
+          .call(d3.axisBottom(xScale).tickSizeOuter(0));
   yAxis = g => g
           .attr("transform", `translate(${margin.left},0)`)
           .call(d3.axisLeft(yScale).ticks(height / 60, yFormat))
@@ -98,7 +89,22 @@ function GroupedBarChart(data, elemId, {
       title.text("USA");
   }
 
-  let bar = svg.append("g")
+  const clip = svg.append("defs").append("svg:clipPath")
+            .attr("id", "clip")
+            .append("svg:rect")
+            .attr("width", width )
+            .attr("height", height )
+            .attr("x", margin.left)
+            .attr("y", margin.right);
+  
+  const plot = svg.append('g')
+    .attr("clip-path", "url(#clip)");
+  
+  plot.append('g')
+    .call(zoom);
+
+
+  let bar = plot.append("g")
     .selectAll("rect")
     .data(I)
     .join("rect")
@@ -107,7 +113,9 @@ function GroupedBarChart(data, elemId, {
       .attr("width", xzScale.bandwidth())
       .attr("height", 0.01)
       .attr("fill", i => zScale(Z[i]));
+
   console.log("bar",bar);
+
   bar.transition()
     .duration(1000)
     .attr("y", i => yScale(Y[i]))
@@ -116,20 +124,19 @@ function GroupedBarChart(data, elemId, {
     
   bar.on("click", onMouseEnter);
 
-
   svg.append("g")
   .call(yAxis);
 
   svg.append("g")
       .attr("class", "x-axis")
       .call(xAxis);
-  
+
+
   const tooltip = d3.select("#tooltip").style("opacity", 0);
   tooltip.select("#close")
     .on("click", onMouseLeave);
 
   function onMouseEnter(datum) {
-    if(tooltip.style("opacity")==1) onMouseLeave();
 
     var i = datum.path[0].__data__;
     tooltip.transition().duration(1000).style("opacity", 1);
@@ -184,12 +191,14 @@ function GroupedBarChart(data, elemId, {
      + `calc(100% - 0.25*${y}px)`
      + `)`);
     }
+    tooltip.style("z-index", 1000);
   }
   function onMouseLeave() {
     tooltip.transition().duration(200).style("opacity", 0);
+    tooltip.style("z-index", -1);
   }
       
-  function zoom(svg) {
+  function zoom(plot) {
     const extent = [[margin.left, margin.top], [width - margin.right, height - margin.top]];
 
     svg.call(d3.zoom()
@@ -205,8 +214,6 @@ function GroupedBarChart(data, elemId, {
       svg.selectAll(".x-axis").call(xAxis);
     }
   }
-
-  
   return Object.assign(svg.node());
 }
 
