@@ -12,6 +12,7 @@ body{
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("./background.jpg");
     background-size: 100% 100%;
 
+    background-attachment: fixed;
     height: 150vh;
 }
 
@@ -116,8 +117,17 @@ header ul li a:hover{
     height: 80vh;
     object-fit: cover;
     background-position: center;
-}
 
+    animation-name: contentAppear;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-delay: 1s;
+}
+@keyframes contentAppear {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
 .chartContainer .svg {
     position: relative;
 }
@@ -129,6 +139,12 @@ header ul li a:hover{
     position: relative;
     width: 80%;
     height: auto;
+
+    animation-name: contentAppear;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-delay: 3s;
 }
 
 .pageGuide h2{
@@ -143,39 +159,42 @@ header ul li a:hover{
 }
 
 .controls {
-    position: absolute;
-    top: 50vh;
-    transform: translateY(-50%);
-    left: 0;
-    width: 80px;
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation-name: contentAppear;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-delay: 1s;
+    z-index: 1000;
 }
 
 .controls li{
     position: relative;
-    width: 80px;
-    height:80px;
-    background: rgba(255,255,255,0.5);
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 50%;
+    height:40px;
+    background: transparent;
+    /* border-left: 3px solid #494b4a; */
+    /* border-top: 1px solid #494b4a; */
+    /* border-bottom: 3px solid #494b4a; */
+    list-style: none;
     cursor: pointer;
+
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
 }
 
 .controls li:hover{
     background: #494b4a;
-}
-.controls li:before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-left: 3px solid #fff;
-    border-bottom: 3px solid #fff;
-    transform: rotate(45deg);
-}
-.controls li:nth-child(2):before {
-    transform: rotate(225deg);
+    color: #fff;
 }
 
 .glassmorphic-element{
@@ -270,3 +289,98 @@ header ul li a:hover{
     top: 50%;
     transform: translateY(-50%); 
 } */
+
+.lArrowContainer{
+    position: fixed;
+    top: 50%;
+    width: 160px;
+    height:80px;
+    left: 10px;
+}
+.arrow--left {
+    cursor: pointer;
+    display: block;
+    align-items: flex-start;
+
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    left: 30px;
+    display: block;
+    border: solid #fff;
+    border-width: 3px 3px 0 0;
+
+    transform: rotate(-135deg);
+    transition: left 2s;
+}
+
+.lArrowContainer span {
+    position: absolute;
+    left: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: block;
+    font-size: 1em;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 2s;
+    cursor:pointer;
+}
+
+.lArrowContainer:hover span {
+    opacity: 1;   
+}
+.lArrowContainer:hover .arrow--left {
+    left: 10px;
+}
+
+
+.rArrowContainer{
+    position: fixed;
+    top: 50%;
+    width: 160px;
+    height:80px;
+    right: 10px;
+}
+.rArrowContainer .arrow--right {
+    cursor: pointer;
+    display: block;
+    align-items: flex-start;
+    
+
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: solid #fff;
+    border-width: 3px 3px 0 0;
+
+    right: 30px;
+    transform: rotate(45deg);
+    transition: right 2s;
+
+    text-align: right;
+}
+
+.rArrowContainer span {
+    position: absolute;
+    text-transform: uppercase;
+    right: 30px;
+    display: block;
+    font-weight: bold;
+    font-size: 1em;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 2s;
+    cursor:pointer;
+}
+
+.rArrowContainer:hover span {
+    opacity: 1;   
+}
+.rArrowContainer:hover .arrow--right {
+    right: 10px;
+}
+  

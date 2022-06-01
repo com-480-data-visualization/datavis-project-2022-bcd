@@ -59,6 +59,7 @@ function GroupedBarChart(data, elemId, {
             .attr("text-anchor", "start")
             .attr("fill", "#000")
             .attr("font-weight", "bold")
+            .style("font-family", "'Times New Roman', Times, serif")
             .text("Net Profit(USD)"))
           .call(g => g.selectAll(".tick line")
             .filter(d => d === 0)
@@ -80,7 +81,7 @@ function GroupedBarChart(data, elemId, {
     .attr("text-anchor", "middle")  
     .style("font-size", "20px")
     .style("font-weight", 700) 
-    .style("font-family", "sans-serif");
+    .style("font-family", "'Times New Roman', Times, serif");
 
   if(elemId == 0){
     title.text("Worldwide");
@@ -117,10 +118,10 @@ function GroupedBarChart(data, elemId, {
   console.log("bar",bar);
 
   bar.transition()
-    .duration(1000)
+    .duration(3000)
     .attr("y", i => yScale(Y[i]))
     .attr("height", i => yScale(d3.min(Y)-0.25) - yScale(Y[i]))
-    .delay(function(i){return(i*10)});
+    .delay(function(i){return(i*20)});
     
   bar.on("click", onMouseEnter);
 

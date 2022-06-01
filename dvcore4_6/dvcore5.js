@@ -54,6 +54,7 @@ chart = function(svg_element_id, data){
             .attr("text-anchor", "start")
             .attr("fill", "#000")
             .attr("font-weight", "bold")
+            .style("font-family", "'Times New Roman', Times, serif")
             .text("Net Profit(x10^9 USD)"));
 
 
@@ -89,8 +90,9 @@ chart = function(svg_element_id, data){
             .attr("opacity", 0)
             .attr("r", 2.5);
 
+    const minYear = 2000
     dots.transition()
-        .duration(1000)
+        .duration(2000)
         .attr("opacity", 0.5);
 
     dots.on("click", mouseEnter);
@@ -113,7 +115,7 @@ chart = function(svg_element_id, data){
         .attr("text-anchor", "middle")  
         .style("font-size", "20px")
         .style("font-weight", "bold") 
-        .style("font-family", "sans-serif")
+        .style("font-family", "'Times New Roman', Times, serif")
         .style("color", '#000');
 
     if(svg_element_id == 0){

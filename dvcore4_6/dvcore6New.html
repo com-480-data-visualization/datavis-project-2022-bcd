@@ -19,8 +19,12 @@
         </ul>
     </header>
     <section class = "dataVisCore">
-        <div class = "chartContainer glassmorphic-element">
+        <div class = "chartContainer glassmorphic-element" id="chartContainer">
             <div id = "quarter" class = "chart"></div>
+            <ul class = "controls">
+                <li onclick="next_chart();">Previous chart</li>
+                <li onclick="next_chart();">Next chart</li>
+            </ul>
             <div class = "pageGuide">
                 <h2>Which quarter is the most suitable time for a profitable movie to publish</h2>
                     <p>From the dataset, </p>
@@ -31,10 +35,6 @@
                     <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
             </div>
         </div>
-        <ul class = "controls">
-            <li onclick="next_chart();"></li>
-            <li onclick="next_chart();"></li>
-        </ul>
     </section>
     <div id="tooltip" class="tooltip glassmorphic-element">
         <div class="tooltip-title" id ="title"></div>
@@ -51,6 +51,18 @@
         </ul>
         <button class="tooltip-button" id = "close">x</button>
     </div>
+
+    <div class="lArrowContainer" onclick="location.href='./dvcore5New.html'">
+        <div class="arrow--left"></div>
+        <span>Director</span>
+    </div>
+    
+    <div class="rArrowContainer" onclick="location.href='../dvcore1_3/genre.html'">
+        <div class="arrow--right"></div>
+        <span>Genre</span>
+    </div>
+    
+    <!-- <div id="rightPage">&raquo;</div> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src = "./quarters_world.js"></script>
