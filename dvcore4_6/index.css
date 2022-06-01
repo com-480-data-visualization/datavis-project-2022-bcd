@@ -89,7 +89,17 @@ header ul li a:hover{
 
     /* margin-bottom: 5vh; */
     position: relative;
-    
+
+    animation-name: ContainerColor;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+}
+
+@keyframes ContainerColor{
+    from {background: transparent;
+        border-color: transparent;}
+    to {background: rgba(0, 0, 0, 0.8);
+        border-color: #fff;}
 }
 #titlewrapper{
     width: 100%;
@@ -97,7 +107,15 @@ header ul li a:hover{
 }
 #titleContainer h1{
     text-align: center; 
-    color: #fff;
+    animation-name: textColor;
+    animation-duration: 2s;
+    animation-delay: 2s;
+    animation-fill-mode: both;
+}
+
+@keyframes textColor{
+    from {color:transparent}
+    to {color: #fff;}
 }
 
 #titleContainer #t1{
@@ -126,6 +144,11 @@ header ul li a:hover{
     padding: 0 5vw 2vh;
     line-height: 1.5em;
     text-align: justify;
+
+    animation-name: textColor;
+    animation-duration: 4s;
+    animation-delay: 4s;
+    animation-fill-mode: both;
 }
 
 #start{
