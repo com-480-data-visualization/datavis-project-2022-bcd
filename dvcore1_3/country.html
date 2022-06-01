@@ -119,7 +119,7 @@
         .on("mouseleave", mouseleave );
 
         // Add tip box
-        var Tooltip = svg.select("#main")
+        var Tooltip = d3.select("#main")
           .append("div")
           .style("opacity", 0)
           .attr("class", "tooltip")
@@ -127,6 +127,9 @@
           .style("border", "solid")
           .style("border-width", "2px")
           .style("border-radius", "5px")
+          .style("width", "300px")
+          .style("height", "420px")
+          .style("box-shadow", "0 0 5px #efefef")
           .style("padding", "5px");
 
       }
