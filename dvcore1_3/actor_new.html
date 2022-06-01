@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dvcore4_6/page5.css">
+    <!--<script src="actor.js"></script>-->
+    <title>Actor Info</title>
+</head>
+
+<body>
+    <header>
+        <!-- logo -->
+        <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
+        <ul>
+            <li><a href="../dvcore1_3/genre.html">Genre</a></li>
+            <li><a href="../dvcore1_3/actor_new.html">Actor</a></li>
+            <li><a href="../dvcore1_3/country.html">Country</a></li>
+            <li><a href="../dvcore4_6/dvcore4New.html">Content</a></li>
+            <li><a href="../dvcore4_6/dvcore5New.html">Director</a></li>
+            <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
+        </ul>
+    </header>
+    <section class = "dataVisCore">
+        <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+            <div id = "plot" class = "chart "></div>
+            <div class = "pageGuide">
+                <h2>Who is the actor suitable for your movie investment?</h2>
+                    <p>From the dataset, we can notice that, </p>
+                    <p>In this chart, we present you a bar chart, with horizontal axis showing the actors' name, and vertical axis as the average profit of the actors' movie.</p>
+                <h2>How this page works</h2>
+                    <p>buttons on the left side are used to control the presence of chart</p>
+                    <p>navigation bar on the top can guide you to pages of your interest</p>
+                    <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+            </div>
+        </div>
+        <ul class = "controls">
+            <li onclick="next_chart();"></li>
+            <li onclick="next_chart();"></li>
+        </ul>
+    </section>
+
+  <div id = 'main'>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+<style>
+
+  svg {
+    font: 10px sans-serif;
+  }
+
+
+  .bar {
+    fill: steelblue;
+    clip-path: url(#clip);
+  }
+
+  .subBar {
+    fill: gray;
+    opacity: 0.5;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .brush .extent {
+    stroke: #fff;
+    fill: steelblue;
+    fill-opacity: .25;
+    shape-rendering: crispEdges;
+  }
+
+  rect.mover {
+            stroke: red;
+            stroke-opacity: .1;
+            fill: lightSteelBlue;
+            fill-opacity: .5;
+        }
+</style>
+<body>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+
+<script>
+  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_actor_simple.csv", function(data) {
+
+  // sort data
+  data.sort(function(b, a) {
+    return a.avg_global_profit - b.avg_global_profit;
+  });
+
+var margin =  {top: 50, right: 10, bottom: 20, left: 120};
+var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
+var selectorHeight = 40;
+var width = 900 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom - selectorHeight;
+var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
+
+var maxLength = d3.max(data.map(function(d){ return d.actor.length}))
+var barWidth = maxLength * 4;
+var numBars = Math.round(width/barWidth);
+var isScrollDisplayed = barWidth * data.length > width;
+
+
+//console.log(isScrollDisplayed)
+
+var xscale = d3.scale.ordinal()
+                .domain(data.slice(0,numBars).map(function (d) { return d.actor; }))
+                .rangeBands([0, width], .2);
+
+var yscale = d3.scale.linear()
+						//	.domain([0, d3.max(data, function (d) { return d.avg_global_profit; })])
+              .domain([0, 1200000000])
+              .range([height, 0]);
+
+var xAxis  = d3.svg.axis()
+            .scale(xscale)
+            .orient("bottom");
+
+var yAxis  = d3.svg.axis().scale(yscale).orient("left");
+
+var svg = d3.select("#plot").append("svg")
+						.attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom + selectorHeight);
+
+var diagram = svg.append("g")
+								 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+diagram.append("g")
+  		 .attr("class", "x axis")
+       .attr("transform", "translate(0, " + height + ")")
+       .selectAll("text")
+       .attr("transform", "translate(-10,0)rotate(-45)")
+       .style("text-anchor", "end")
+       .call(xAxis);
+
+diagram.append("g")
+       .attr("class", "y axis")
+       .call(yAxis);
+
+var bars = diagram.append("g");
+
+bars.selectAll("rect")
+            .data(data.slice(0, numBars), function (d) {return d.actor; })
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d) { return xscale(d.actor); })
+            .attr("y", function (d) { return yscale(d.avg_global_profit); })
+            .attr("width", xscale.rangeBand())
+            .attr("height", function (d) { return height - yscale(d.avg_global_profit); });
+
+// Add tip box
+//var Tooltip = d3.select("#actor_data")
+var Tooltip = d3.select("#main")
+  .append("div")
+  .style("opacity", 1)
+  .attr("class", "tooltip")
+  .style("background-color", "#7B7E7F")
+//  .style("border", "solid")
+  .style("border-width", "2px")
+  .style("border-radius", "5px")
+  .style("display", "inline-block")
+  .style("width", "300px")
+  .style("height", "420px")
+  .style("box-shadow", "0 0 5px #efefef")
+
+  .style("padding", "5px")
+  .style("position", "absolute");
+
+
+var mouseenter = function (actual, i) {
+
+  Tooltip
+    .style("opacity", 0.8)
+
+  d3.select(this)
+    .transition()
+    .duration(300)
+    .attr('opacity', 0.6)
+    .attr('x', (a) => xscale(a.actor) - 5)
+    .attr('width', barWidth + 10)
+
+  svg.append('line')
+    .attr('x1', 0)
+    .attr('y1', 300000000)
+    .attr('x2', width)
+    .attr('y2', 300000000)
+    .attr('stroke', 'red')
+
+};
+
+var mousemove = function(d) {
+  var myImageURL = d.actor_image;
+  var imageEls = "<img src=" + myImageURL +
+      " style='width:300px; height:400px; opacity:1; margin: auto;' />";
+
+  Tooltip
+    .html(d.actor + imageEls)
+    .style("left", (d3.mouse(this)[0]) + "px")
+    .style("top", (d3.mouse(this)[1]) + "px")
+};
+
+var mouseleave = function (actual, i) {
+  Tooltip
+    .style("opacity", 0)
+  d3.select(this).attr('opacity', 1)
+};
+
+
+if (isScrollDisplayed)
+{
+  var xOverview = d3.scale.ordinal()
+                  .domain(data.map(function (d) { return d.actor; }))
+                  .rangeBands([0, width], .2);
+  yOverview = d3.scale.linear().range([heightOverview, 0]);
+  yOverview.domain(yscale.domain());
+
+  var subBars = diagram.selectAll('.subBar')
+      .data(data)
+
+  subBars.enter().append("rect")
+      .classed('subBar', true)
+      .attr({
+          height: function(d) {
+              return heightOverview - yOverview(d.avg_global_profit);
+          },
+          width: function(d) {
+              return xOverview.rangeBand()
+          },
+          x: function(d) {
+
+              return xOverview(d.actor);
+          },
+          y: function(d) {
+              return height + heightOverview + yOverview(d.avg_global_profit)
+          }
+      })
+
+  var displayed = d3.scale.quantize()
+              .domain([0, width])
+              .range(d3.range(data.length));
+
+  diagram.append("rect")
+              .attr("transform", "translate(0, " + (height + margin.bottom) + ")")
+              .attr("class", "mover")
+              .attr("x", 0)
+              .attr("y", 0)
+              .attr("height", selectorHeight)
+              .attr("width", Math.round(parseFloat(numBars * width)/data.length))
+              .attr("pointer-events", "all")
+              .attr("cursor", "ew-resize")
+              .call(d3.behavior.drag().on("drag", display));
+}
+function display () {
+    var x = parseInt(d3.select(this).attr("x")),
+        nx = x + d3.event.dx,
+        w = parseInt(d3.select(this).attr("width")),
+        f, nf, new_data, rects;
+
+    if ( nx < 0 || nx + w > width ) return;
+
+    d3.select(this).attr("x", nx);
+
+    f = displayed(x);
+    nf = displayed(nx);
+
+    if ( f === nf ) return;
+
+    new_data = data.slice(nf, nf + numBars);
+
+    xscale.domain(new_data.map(function (d) { return d.actor; }));
+    diagram.select(".x.axis").call(xAxis);
+
+    rects = bars.selectAll("rect")
+      .data(new_data, function (d) {return d.actor; });
+
+	 	rects.attr("x", function (d) { return xscale(d.actor); });
+
+// 	  rects.attr("transform", function(d) { return "translate(" + xscale(d.label) + ",0)"; })
+
+    rects.enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function (d) { return xscale(d.actor); })
+      .attr("y", function (d) { return yscale(d.avg_global_profit); })
+      .attr("width", xscale.rangeBand())
+      .attr("height", function (d) { return height - yscale(d.avg_global_profit); })
+      .on('mouseenter', mouseenter)
+      .on("mousemove", mousemove)
+      .on('mouseleave', mouseleave);
+
+    rects.exit().remove();
+};
+});
+</script>
+</div>
+</body>
+</html>

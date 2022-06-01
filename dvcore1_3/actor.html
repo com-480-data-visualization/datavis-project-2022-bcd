@@ -3,25 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dvcore4_6/sidebar.css">
-    <link rel="stylesheet" href="../dvcore4_6/pages.css">
+    <link rel="stylesheet" href="../dvcore4_6/page5.css">
     <!--<script src="actor.js"></script>-->
     <title>Actor Info</title>
 </head>
 
 <body>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="../index.html">Home</a>
-    <a href="./genre.html">Genre</a>
-    <a href="./country.html">Country</a>
-    <a href="../dvcore4_6/dvcore4New.html">Contents</a>
-    <a href="../dvcore4_6/dvcore5New.html">Director</a>
-    <a href="../dvcore4_6/dvcore6New.html">Pub_date</a>
-  </div>
+    <header>
+        <!-- logo -->
+        <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
+        <ul>
+            <li><a href="../dvcore1_3/genre.html">Genre</a></li>
+            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/country.html">Country</a></li>
+            <li><a href="../dvcore4_6/dvcore4New.html">Content</a></li>
+            <li><a href="../dvcore4_6/dvcore5New.html">Director</a></li>
+            <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
+        </ul>
+    </header>
+    <section class = "dataVisCore">
+        <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+            <div id = "plot" class = "chart "></div>
+            <div class = "pageGuide">
+                <h2>Who is the actor suitable for your movie investment?</h2>
+                    <p>From the dataset, we can notice that, </p>
+                    <p>In this chart, we present you a bar chart, with horizontal axis showing the actors' name, and vertical axis as the average profit of the actors' movie.</p>
+                <h2>How this page works</h2>
+                    <p>buttons on the left side are used to control the presence of chart</p>
+                    <p>navigation bar on the top can guide you to pages of your interest</p>
+                    <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
+            </div>
+        </div>
+        <ul class = "controls">
+            <li onclick="next_chart();"></li>
+            <li onclick="next_chart();"></li>
+        </ul>
+    </section>
 
   <div id = 'main'>
-
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
@@ -44,42 +63,89 @@
         stroke-opacity: 0.2;
     }
 
+    #plot {
+        width: 1000px;
+        height: 500px;
+        margin: auto;
+        padding: 10px;
+        position: relative;
+    }
+
+    svg {
+      font: 10px sans-serif;
+    }
+
+    .bar {
+      fill: steelblue;
+      clip-path: url(#clip);
+    }
+
+    .subBar {
+      fill: gray;
+      opacity: 0.5;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .brush .extent {
+      stroke: #fff;
+      fill: steelblue;
+      fill-opacity: .25;
+      shape-rendering: crispEdges;
+    }
+
+    rect.mover {
+        stroke: red;
+        stroke-opacity: .1;
+        fill: lightSteelBlue;
+        fill-opacity: .5;
+    }
   </style>
 
-  <h3 class="inBlue">Actor Average Global Profit</h3>
+  <!--<h3 class="inBlue">Actor Average Global Profit</h3>-->
 
   <!-- Create a div where the graph will take place -->
-  <div id="actor_data"></div>
+  <!-- <div id="actor_data"></div>-->
+
   <script>
 
 
   // set the dimensions and margins of the graph
-  var margin = {top: 30, right: 30, bottom: 70, left: 150},
-      width = 1200 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+  var margin =  {top: 20, right: 10, bottom: 20, left: 100};
+  var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
+  var selectorHeight = 40;
+  var width = 950 - margin.left - margin.right;
+  var height = 500 - margin.top - margin.bottom - selectorHeight;
+  var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
+
 
   // append the svg object to the body of the page
-  var svg = d3.select("#actor_data")
+  var svg = d3.select("#plot")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+  //  .append("g")
+  //    .attr("transform",
+  //        "translate(" + margin.left + "," + margin.top + ")");
+
 
   // Parse the Data
   d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_actor_simple.csv", function(data) {
 
     // sort data
-    //data.sort(function(b, a) {
-    //  return a.avg_global_profit - b.avg_global_profit;
-    //});
-
+    data.sort(function(b, a) {
+      return a.avg_global_profit - b.avg_global_profit;
+    });
 
 
     // X axis
     var xScale = d3.scaleBand()
-      .range([ 0, width ])
+      .range([ 0, width ], 0.2)
       .domain(data.map(function(d) { return d.actor; }))
       .padding(0.2);
     var xAxis = svg.append("g")
@@ -91,11 +157,10 @@
 
     // Add Y axis
     var yScale = d3.scaleLinear()
-      .domain([0, 350000000])
+      .domain([0, d3.max(data, function (d) { return d.avg_global_profit; })])
       .range([ height, 0]);
     var yAxis = svg.append("g")
       .call(d3.axisLeft(yScale));
-
 
 /*
     x = d3.scaleBand()
@@ -260,6 +325,7 @@
       .on('mouseenter', mouseenter)
       .on("mousemove", mousemove)
       .on('mouseleave', mouseleave);
+
 
   })
 
