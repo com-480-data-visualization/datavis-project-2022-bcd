@@ -114,26 +114,6 @@
 
   <script>
 
-
-  // set the dimensions and margins of the graph
-  var margin =  {top: 20, right: 10, bottom: 20, left: 100};
-  var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
-  var selectorHeight = 40;
-  var width = 950 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom - selectorHeight;
-  var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
-
-
-  // append the svg object to the body of the page
-  var svg = d3.select("#plot")
-    .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-  //  .append("g")
-  //    .attr("transform",
-  //        "translate(" + margin.left + "," + margin.top + ")");
-
-
   // Parse the Data
   d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_actor_simple.csv", function(data) {
 
@@ -141,6 +121,24 @@
     data.sort(function(b, a) {
       return a.avg_global_profit - b.avg_global_profit;
     });
+
+    // set the dimensions and margins of the graph
+    var margin =  {top: 20, right: 10, bottom: 20, left: 100};
+    var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
+    var selectorHeight = 40;
+    var width = 950 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom - selectorHeight;
+    var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
+
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#plot")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    //  .append("g")
+    //    .attr("transform",
+    //        "translate(" + margin.left + "," + margin.top + ")");
 
 
     // X axis

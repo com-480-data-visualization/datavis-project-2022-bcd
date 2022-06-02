@@ -39,6 +39,19 @@
           <li onclick="next_chart();"></li>
       </ul>
   </section>
+  <div id="tooltip_country" class="tooltip glassmorphic-element">
+    <ul class = "tooltip-img-container">
+      <li>
+          <div class="tooltip-image"><img id = "img1"></img></div>
+          <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+      </li>
+      <li>
+          <div class="tooltip-image"><img id = "img2"></img></div>
+          <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+      </li>
+    </ul>
+    <button class="tooltip-button" id = "close">x</button>
+  </div>
 
   <div id = 'main'>
   <style>
@@ -86,8 +99,16 @@
   // Load external data and boot
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) { data.set(d.code, +d.avg_global_profit); })
+    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) { data.set(d.code, +d.avg_global_profit, +d.country, +d.poster); })
     .await(ready);
+
+  // Add tip box
+  var Tooltip = d3.select("#chartContainer")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+
+
 
   function ready(error, topo) {
     var mouseover = function(d) {
@@ -97,10 +118,15 @@
 
       Tooltip
         .style("opacity", 1)
-        .html("The country ")
-        .style("left", (d3.mouse(this)[0]+10) + "px")
-        .style("top", (d3.mouse(this)[1]) + "px")
+        .html(selected_country)
         .style("z-index","100")
+
+      Tooltip
+        .style("transform", `translate(`
+              + `calc(${width-2*margin.left}px),`
+              + `calc(${height/2.25}px)`
+              + `)`);
+
 
       d3.selectAll(".Country")
         .transition()
@@ -129,7 +155,8 @@
     // Draw the map
     svg.append("g")
       .selectAll("path")
-      .data(topo.features)
+      .data(topo.features.filter(d => d.id !== "GRL" && d.id !== "ATA"))
+      //.data(topo.features)
       .enter()
       .append("path")
         // draw each country
@@ -146,20 +173,6 @@
         .style("opacity", .8)
         .on("mouseover", mouseover )
         .on("mouseleave", mouseleave );
-
-        // Add tip box
-        var Tooltip = d3.select("#main")
-          .append("div")
-          .style("opacity", 0)
-          .attr("class", "tooltip")
-          .style("background-color", "white")
-          .style("border", "solid")
-          .style("border-width", "2px")
-          .style("border-radius", "5px")
-          .style("width", "300px")
-          .style("height", "420px")
-          .style("box-shadow", "0 0 5px #efefef")
-          .style("padding", "5px");
 
       }
 

@@ -39,6 +39,19 @@
             <li onclick="next_chart();"></li>
         </ul>
     </section>
+    <div id="tooltip_actor" class="tooltip glassmorphic-element">
+      <ul class = "tooltip-img-container">
+        <li>
+            <div class="tooltip-image"><img id = "img1"></img></div>
+            <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+        </li>
+        <li>
+            <div class="tooltip-image"><img id = "img2"></img></div>
+            <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+        </li>
+      </ul>
+      <button class="tooltip-button" id = "close">x</button>
+    </div>
 
   <div id = 'main'>
   <!-- Load d3.js -->
@@ -94,6 +107,28 @@
     return a.avg_global_profit - b.avg_global_profit;
   });
 
+  var barwidth_value = 4;
+
+  var bars_on = [3, 4, 5]
+
+  var select = d3.select('#plot')
+    .append('select')
+    	.attr('class','select')
+      .on('change',onchange)
+
+  var options = select
+    .selectAll('option')
+  	.data(bars_on).enter()
+  	.append('option')
+  		.text(function (d) { return d; });
+
+  function onchange() {
+  	selectValue = d3.select('select').property('value')
+    //console.log(selectValue)
+    barwidth_value = selectValue;
+  };
+
+
 var margin =  {top: 50, right: 10, bottom: 20, left: 120};
 var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
 var selectorHeight = 40;
@@ -102,7 +137,7 @@ var height = 500 - margin.top - margin.bottom - selectorHeight;
 var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
 
 var maxLength = d3.max(data.map(function(d){ return d.actor.length}))
-var barWidth = maxLength * 4;
+var barWidth = maxLength * barwidth_value;
 var numBars = Math.round(width/barWidth);
 var isScrollDisplayed = barWidth * data.length > width;
 
@@ -110,8 +145,8 @@ var isScrollDisplayed = barWidth * data.length > width;
 //console.log(isScrollDisplayed)
 
 var xscale = d3.scale.ordinal()
-                .domain(data.slice(0,numBars).map(function (d) { return d.actor; }))
-                .rangeBands([0, width], .2);
+              .domain(data.slice(0,numBars).map(function (d) { return d.actor; }))
+              .rangeBands([0, width], .2);
 
 var yscale = d3.scale.linear()
 						//	.domain([0, d3.max(data, function (d) { return d.avg_global_profit; })])
@@ -152,15 +187,17 @@ bars.selectAll("rect")
             .attr("x", function (d) { return xscale(d.actor); })
             .attr("y", function (d) { return yscale(d.avg_global_profit); })
             .attr("width", xscale.rangeBand())
-            .attr("height", function (d) { return height - yscale(d.avg_global_profit); });
+            .attr("height", function (d) { return height - yscale(d.avg_global_profit); })
+
 
 // Add tip box
 //var Tooltip = d3.select("#actor_data")
-var Tooltip = d3.select("#main")
+var tooltip = d3.select("#chartContainer")
   .append("div")
-  .style("opacity", 1)
+  .style("opacity", 0)
   .attr("class", "tooltip")
-  .style("background-color", "#7B7E7F")
+
+/*  .style("background-color", "#7B7E7F")
 //  .style("border", "solid")
   .style("border-width", "2px")
   .style("border-radius", "5px")
@@ -172,7 +209,7 @@ var Tooltip = d3.select("#main")
   .style("padding", "5px")
   .style("position", "absolute");
 
-
+/*
 var mouseenter = function (actual, i) {
 
   Tooltip
@@ -185,30 +222,47 @@ var mouseenter = function (actual, i) {
     .attr('x', (a) => xscale(a.actor) - 5)
     .attr('width', barWidth + 10)
 
-  svg.append('line')
-    .attr('x1', 0)
-    .attr('y1', 300000000)
-    .attr('x2', width)
-    .attr('y2', 300000000)
-    .attr('stroke', 'red')
+};*/
 
-};
-
-var mousemove = function(d) {
+var mouseover = function(d) {
   var myImageURL = d.actor_image;
   var imageEls = "<img src=" + myImageURL +
       " style='width:300px; height:400px; opacity:1; margin: auto;' />";
 
-  Tooltip
-    .html(d.actor + imageEls)
-    .style("left", (d3.mouse(this)[0]) + "px")
-    .style("top", (d3.mouse(this)[1]) + "px")
+  tooltip.transition().duration(300).style("opacity", 1);
+  tooltip.html(d.actor+'<br />'+imageEls);
+  tooltip.select("#mtitle2").text(d.actor);
+  tooltip
+            .select("#img1")
+            .html(imageEls)
+          //  .attr("src", myImageURL)
+            .attr("width", '100%')
+            .attr("height", "200px");
+  tooltip
+            .select("#img2")
+            .html(imageEls)
+          //  .attr("src", myImageURL)
+            .attr("width", '100%')
+            .attr("height", "200px");
+
+  tooltip.style("transform", `translate(`
+            + `calc(${width-2*margin.left}px),`
+            + `calc(${height/2.25}px)`
+            + `)`);
+  tooltip.style('z-index', 1000);
+
+
+  //tooltip
+    //.html(d.actor + imageEls)
+    //.style("left", (d3.mouse(this)[0]) + "px")
+    //.style("top", (d3.mouse(this)[1]) + "px")
+    //.style("left", d3.select(this).attr("cx") + "px")
+    //.style("top", d3.select(this).attr("cy") + "px");
 };
 
 var mouseleave = function (actual, i) {
-  Tooltip
-    .style("opacity", 0)
-  d3.select(this).attr('opacity', 1)
+  tooltip.style("opacity", 0)
+  //sd3.select(this).attr('opacity', 1)
 };
 
 
@@ -289,8 +343,8 @@ function display () {
       .attr("y", function (d) { return yscale(d.avg_global_profit); })
       .attr("width", xscale.rangeBand())
       .attr("height", function (d) { return height - yscale(d.avg_global_profit); })
-      .on('mouseenter', mouseenter)
-      .on("mousemove", mousemove)
+    //  .on('mouseenter', mouseenter)
+      .on("mouseover", mouseover)
       .on('mouseleave', mouseleave);
 
     rects.exit().remove();

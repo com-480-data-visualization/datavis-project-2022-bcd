@@ -47,6 +47,19 @@
           </div>
       </div>
   </section>
+  <div id="tooltip_genre" class="tooltip glassmorphic-element">
+    <ul class = "tooltip-img-container">
+      <li>
+          <div class="tooltip-image"><img id = "img1"></img></div>
+          <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
+      </li>
+      <li>
+          <div class="tooltip-image"><img id = "img2"></img></div>
+          <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
+      </li>
+    </ul>
+    <button class="tooltip-button" id = "close">x</button>
+  </div>
 
 <div id = 'main'>
   <style>
@@ -80,7 +93,7 @@
 
 
   // Parse the Data
-  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_genre.csv", function(data) {
+  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_genre_new.csv", function(data) {
 
     var genres = [];
     for (var i = 0; i < data.length; i++) {
@@ -135,15 +148,37 @@
       .padding(1)
       .domain(dimensions);
 
+    // Add tip box
+    var tooltip = d3.select("#chartContainer")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+
     // Highlight the specie that is hovered
     var highlight = function(d){
+      //var myImageURL = d.actor_image;
+      //var imageEls = "<img src=" + myImageURL +
+      //    " style='width:300px; height:400px; opacity:1; margin: auto;' />";
 
-      selected_genre = d.genre
-      Tooltip
-        .style("opacity", 1)
-        .html("This genre is: " + selected_genre)
-        .style("left", (d3.mouse(this)[0]) + "px")
-        .style("top", (d3.mouse(this)[1]) + "px")
+      var selected_genre = d.genre;
+      var film_name = d.best_film;
+      var myImageURL = d.poster;
+      var imageEls = "<img src=" + myImageURL +
+          " style='width:300px; height:400px; opacity:1; margin: auto;' />";
+
+      tooltip
+        .transition().duration(300).style("opacity", 1);
+      tooltip
+        .html(selected_genre+'<br />'+film_name+'<br />'+imageEls);
+
+
+      tooltip
+        .style("transform", `translate(`
+                + `calc(${width-2*margin.left}px),`
+                + `calc(${height/2.25}px)`
+                + `)`);
+      tooltip
+        .style('z-index', 1000);
 
       // first every group turns grey
       d3.selectAll(".line")
@@ -161,7 +196,7 @@
 
     // Unhighlight
     var doNotHighlight = function(d){
-      Tooltip
+      tooltip
         .style("opacity", 0)
       d3.selectAll(".line")
         .transition().duration(200).delay(1000)
@@ -175,17 +210,6 @@
         return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
     }
 
-    // Add tip box
-    var Tooltip = d3.select("#genre_data")
-      .append("div")
-      .style("opacity", 1)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
-      .style("position", "absolute")
 
     // Draw the lines
     svg
