@@ -16,7 +16,7 @@
 
 
   // Parse the Data
-  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_genre_new.csv", function(data) {
+  d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-bcd/main/data/df_genre_new.csv", function(data) {
     var genres = [];
     for (var i = 0; i < data.length; i++) {
         genres.push(data[i].genre);
@@ -86,7 +86,7 @@
 
         tooltip
             .transition().duration(300).style("opacity", 1);
-    
+
         tooltip.select("#title")
             .text(["Movie in Genre",selected_genre].join(" "));
         tooltip.select("#mtitle1")
@@ -172,5 +172,5 @@
         .style("font-size", "12px")
         .style("font-weight", "bold")
 
-  }) 
+  })
 }
