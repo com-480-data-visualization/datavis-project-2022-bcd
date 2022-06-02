@@ -53,16 +53,25 @@ function myWordCloud(myWords, elemId){
       .fontSize(d => Math.sqrt(d.size) * fontScale)
       .on("word", ({size, x, y, rotate, text}) => {
         // console.log("size", size, "range size: ", w_range(size));
-        g.append("text")
+        const words = g.append("text")
             .datum({size, x, y, rotate, text})
             .attr("font-size", size)
-            .attr("fill", d3.interpolateCividis(1-w_range(size)))
+            .attr("fill", d3.interpolateCividis(1-w_range(size)/2-0.5))
             .attr("transform", `translate(${x},${y}) rotate(${rotate})`)
-            .text(text);
+            .text(text)
+            .style("opacity", 0);
+        
+        words.transition()
+            .duration(3000)
+            .style("opacity", 1);
       });
 
     cloud.start();
     const texts = g.selectAll("text")
-                .on("click", d=> console.log(d));
+                .on("click", mouseClick);
+
+    function mouseClick(event){
+        
+    }
     return svg.node();
 }
