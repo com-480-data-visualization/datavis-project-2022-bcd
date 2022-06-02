@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title> Directors Info </title> 
+    <title> Directors Info </title>
     <link rel="stylesheet" href="./page5.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
         <ul>
             <li><a href="../dvcore1_3/genre.html">Genre</a></li>
-            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/actor_new.html">Actor</a></li>
             <li><a href="../dvcore1_3/country.html">Country</a></li>
             <li><a href="./dvcore4New.html">Content</a></li>
             <li><a href="./dvcore5New.html">Director</a></li>
@@ -54,7 +54,7 @@
         <div class="arrow--left"></div>
         <span>Content</span>
     </div>
-    
+
     <div class="rArrowContainer" onclick="location.href='./dvcore6New.html'">
         <div class="arrow--right"></div>
         <span>Pub Quar</span>
@@ -72,8 +72,8 @@
             data_raw.forEach(elem => {
                 temp_date = new Date(elem[0], elem[1], elem[2]);
                 data.push({
-                    date: temp_date, 
-                    value: elem[3]/1000000000, 
+                    date: temp_date,
+                    value: elem[3]/1000000000,
                     name: elem[4],
                     movie: elem[5],
                     dirImg: elem[6],

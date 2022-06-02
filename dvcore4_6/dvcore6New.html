@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title> Published Quarter Info </title> 
+    <title> Published Quarter Info </title>
     <link rel="stylesheet" href="./page5.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
         <ul>
             <li><a href="../dvcore1_3/genre.html">Genre</a></li>
-            <li><a href="../dvcore1_3/actor.html">Actor</a></li>
+            <li><a href="../dvcore1_3/actor_new.html">Actor</a></li>
             <li><a href="../dvcore1_3/country.html">Country</a></li>
             <li><a href="./dvcore4New.html">Content</a></li>
             <li><a href="./dvcore5New.html">Director</a></li>
@@ -38,7 +38,7 @@
     </section>
     <div id="tooltip" class="tooltip glassmorphic-element">
         <div class="tooltip-title" id ="title"></div>
-        
+
         <ul class = "tooltip-img-container">
             <li>
                 <div class="tooltip-image"><img id = "img1"></img></div>
@@ -56,12 +56,12 @@
         <div class="arrow--left"></div>
         <span>Director</span>
     </div>
-    
+
     <div class="rArrowContainer" onclick="location.href='../dvcore1_3/genre.html'">
         <div class="arrow--right"></div>
         <span>Genre</span>
     </div>
-    
+
     <!-- <div id="rightPage">&raquo;</div> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -70,7 +70,7 @@
     <script src = "./dvcore6.js"></script>
     <!-- <script src = "./textFit.js"></script>
     <script>textFit(document.getElementById('mtitle1'))</script> -->
-    <script> 
+    <script>
         const quarters = [1,2,3,4];
         data = []
         data[0] = data_proc(quarter_world);
@@ -108,8 +108,8 @@
             // console.log('log in jscode, data_raw', data_raw);
             data_raw.forEach(elem => {
                 data.push({
-                    year: elem[0], 
-                    net_prof: elem[2], 
+                    year: elem[0],
+                    net_prof: elem[2],
                     quarter: elem[1],
                     movie1: elem[3],
                     movie2: elem[4],
