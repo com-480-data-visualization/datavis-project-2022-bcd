@@ -30,7 +30,7 @@ function chart(elemId){
         console.log("loading avg global profit data");
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/df_country_code.csv", function(d) {
+            .defer(d3.csv, "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-bcd/main/data/df_country_code.csv", function(d) {
                 data.set(d.code,[d.avg_global_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
@@ -40,7 +40,7 @@ function chart(elemId){
         console.log("loading avg usa profit data");
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/df_country_code.csv", function(d) {
+            .defer(d3.csv, "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-bcd/main/data/df_country_code.csv", function(d) {
                 data.set(d.code,[d.avg_usa_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
