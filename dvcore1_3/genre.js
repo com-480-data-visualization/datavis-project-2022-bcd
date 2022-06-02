@@ -86,7 +86,7 @@
 
         tooltip
             .transition().duration(300).style("opacity", 1);
-    
+
         tooltip.select("#title")
             .text(["Movie in Genre",selected_genre].join(" "));
         tooltip.select("#mtitle1")
@@ -172,5 +172,5 @@
         .style("font-size", "12px")
         .style("font-weight", "bold")
 
-  }) 
+  })
 }

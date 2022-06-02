@@ -17,10 +17,10 @@ body{
 }
 
 /* #background {
-    position: fixed; 
-    top: -50%; 
-    left: -50%; 
-    width: 200%; 
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
     height: 200%;
 }
 
@@ -85,7 +85,7 @@ header ul li a:hover{
     margin:auto;
     position: relative;
     width: 100vw;
-    min-height : 100vh; 
+    min-height : 100vh;
 }
 
 .dataVisCore .chartContainer {
@@ -201,7 +201,7 @@ header ul li a:hover{
 }
 
 .glassmorphic-element{
-    
+
     border-radius: 25px;
 
     background:rgba(255,255,255,0.65);
@@ -212,7 +212,7 @@ header ul li a:hover{
 
 .tooltip{
     overflow: auto;
-    border-radius: 15%;
+    border-radius: 20px;
     position: absolute;
     top:0;
     left: 0;
@@ -231,7 +231,7 @@ header ul li a:hover{
     font-size: 1em;
 }
 .tooltip .tooltip-button{
-    border-radius: 25%;
+    border-radius: 20px;
     border: none;
     color: rgba(0, 0, 0, 0.5);
     font-size: 1em;
@@ -284,12 +284,12 @@ header ul li a:hover{
     margin: auto;
     object-fit: contain;
 }
-/* 
+/*
 .tooltip #tooltip-5{
     position: absolute;
     right: 0px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
 } */
 
 .lArrowContainer{
@@ -331,7 +331,7 @@ header ul li a:hover{
 }
 
 .lArrowContainer:hover span {
-    opacity: 1;   
+    opacity: 1;
 }
 .lArrowContainer:hover .arrow--left {
     left: 10px;
@@ -349,7 +349,7 @@ header ul li a:hover{
     cursor: pointer;
     display: block;
     align-items: flex-start;
-    
+
 
     position: absolute;
     content: '';
@@ -380,7 +380,7 @@ header ul li a:hover{
 }
 
 .rArrowContainer:hover span {
-    opacity: 1;   
+    opacity: 1;
 }
 .rArrowContainer:hover .arrow--right {
     right: 10px;
