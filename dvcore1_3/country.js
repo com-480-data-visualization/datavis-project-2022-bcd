@@ -23,16 +23,15 @@ function chart(elemId){
         .translate([width / 2, height / 2]);
     // Data and color scale
     const data = d3.map();
-    const profit_data =[];
-
+    let profit_data =[];
+    console.log(typeof profit_data)
     // Load external data and boot
     if(elemId==0){
         console.log("loading avg global profit data");
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
             .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) {
-                data.set(d.code,[d.avg_global_profit, d.country,d.poster]);
-                profit_data.push(parseInt(d.avg_global_profit));
+                data.set(d.code,[d.avg_global_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
             .await(ready);
@@ -42,8 +41,7 @@ function chart(elemId){
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
             .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) {
-                data.set(d.code,[d.avg_global_profit, d.country,d.poster]);
-                profit_data.push(parseInt(d.avg_global_profit));
+                data.set(d.code,[d.avg_usa_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
             .await(ready);
@@ -56,11 +54,9 @@ function chart(elemId){
     //else {
 
     // Add tip box
-    console.log("data", data);
-    console.log("profit: ", profit_data);
-    colorScale = d3.scaleLinear()
-        .domain(d3.extent(profit_data));
-    const Tooltip = d3.select("#tooltip_country").style("opacity", 0);
+    
+    
+    const Tooltip = d3.select("#tooltip").style("opacity", 0);
     const title = svg.append("text")
         .attr("x", (width/2))
         .attr("y", (margin.top/2))
@@ -78,35 +74,46 @@ function chart(elemId){
 
     function ready(error, topo) {
         mouseover = function(d) {
-            console.log(d)
-            var selected_country = d.country;
-            console.log(selected_country)
+            if(data.has(d.id)){
+                datum = data.get(d.id);
+                console.log(datum);
+                Tooltip
+                    .style("opacity", 1)
+                    .style("z-index","100");
 
-            Tooltip
-            .style("opacity", 1)
-            .html(selected_country)
-            .style("z-index","100")
+                Tooltip
+                .style("transform", `translate(`
+                        + `calc(${width-2*margin.left}px),`
+                        + `calc(${height/2.25}px)`
+                        + `)`);
 
-            Tooltip
-            .style("transform", `translate(`
-                    + `calc(${width-2*margin.left}px),`
-                    + `calc(${height/2.25}px)`
-                    + `)`);
-
-            d3.selectAll(".Country")
-            .transition()
-            .duration(200)
-            .style("opacity", 0.5)
-            d3.select(this)
-            .transition()
-            .duration(200)
-            .style("opacity", 1)
-            .style("stroke", "black")
+                Tooltip.select("#title")
+                    .text(["Movie in",datum[1]].join(" "));
+                Tooltip.select("#mtitle1")
+                    .text(datum[2]);
+                Tooltip.select("#img1")
+                    .attr("src", datum[3])
+                    .attr("width", 'auto')
+                    .attr("margin", "auto")
+                    .attr("height", "200px");
+                
+                d3.selectAll(".Country")
+                .transition()
+                .duration(200)
+                .style("opacity", 0.5)
+                d3.select(this)
+                .transition()
+                .duration(200)
+                .style("opacity", 1)
+                .style("stroke", "black")
+            }
         };
 
         mouseleave = function(d) {
             Tooltip
             .style("opacity", 0)
+            .style("z-index", -1);
+
             d3.selectAll(".Country")
             .transition()
             .duration(200)
@@ -116,6 +123,13 @@ function chart(elemId){
             .duration(200)
             .style("stroke", "transparent")
         };
+
+        // console.log("data", data);
+        // console.log("map values: ", data.values())
+        // console.log(d3.min(data.values(), elem => elem[0]));
+        colorScale = d3.scaleLinear()
+        .domain([d3.min(data.values(), elem => elem[0]), d3.max(data.values(), elem => elem[0])])
+        .range([0,1]);
 
         // Draw the map
         svg.append("g")
@@ -132,10 +146,14 @@ function chart(elemId){
                 )
                 // set the color of each country
                 .attr("fill", function (d) {
-                    datum = data.get(d.id) || 0;
-                    console.log("datum d[0]: ", datum);
-                    console.log("scaled: ", colorScale(datum[0]));
-                    return d3.interpolateGnBu(colorScale(datum[0]));
+                    if (data.has(d.id)) {
+                        datum = data.get(d.id);
+                        return d3.interpolateGnBu(colorScale(datum[0]));
+                    }
+                    else{
+                        return d3.interpolateGnBu(0.01);
+                    }
+                    
                 })
                 .style("stroke", "transparent")
                 .attr("class", function(d){ return "Country" } )

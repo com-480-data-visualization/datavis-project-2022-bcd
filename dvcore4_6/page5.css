@@ -273,7 +273,6 @@ header ul li a:hover{
     height: fit-content;
     word-wrap: normal;
 }
-
 .tooltip ul li .tooltip-image img{
     display: block;
     position: relative;
@@ -386,4 +385,3 @@ header ul li a:hover{
 .rArrowContainer:hover .arrow--right {
     right: 10px;
 }
-  
