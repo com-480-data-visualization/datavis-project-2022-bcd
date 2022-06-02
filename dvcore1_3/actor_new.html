@@ -6,6 +6,44 @@
     <link rel="stylesheet" href="../dvcore4_6/page5.css">
     <!--<script src="actor.js"></script>-->
     <title>Actor Info</title>
+
+    <style>
+      svg {
+        font: 10px sans-serif;
+      }
+    
+    
+      .bar {
+        fill: steelblue;
+        clip-path: url(#clip);
+      }
+    
+      .subBar {
+        fill: gray;
+        opacity: 0.5;
+      }
+    
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+    
+      .brush .extent {
+        stroke: #fff;
+        fill: steelblue;
+        fill-opacity: .25;
+        shape-rendering: crispEdges;
+      }
+    
+      rect.mover {
+                stroke: red;
+                stroke-opacity: .1;
+                fill: lightSteelBlue;
+                fill-opacity: .5;
+            }
+    </style>
 </head>
 
 <body>
@@ -52,51 +90,18 @@
       </ul>
       <button class="tooltip-button" id = "close">x</button>
     </div>
+  <div class="lArrowContainer" onclick="location.href='./genre.html'">
+      <div class="arrow--left"></div>
+      <span>Genre</span>
+  </div>
 
-  <div id = 'main'>
+  <div class="rArrowContainer" onclick="location.href='./country.html'">
+      <div class="arrow--right"></div>
+      <span>Country</span>
+  </div>
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-
-<style>
-
-  svg {
-    font: 10px sans-serif;
-  }
-
-
-  .bar {
-    fill: steelblue;
-    clip-path: url(#clip);
-  }
-
-  .subBar {
-    fill: gray;
-    opacity: 0.5;
-  }
-
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
-
-  .brush .extent {
-    stroke: #fff;
-    fill: steelblue;
-    fill-opacity: .25;
-    shape-rendering: crispEdges;
-  }
-
-  rect.mover {
-            stroke: red;
-            stroke-opacity: .1;
-            fill: lightSteelBlue;
-            fill-opacity: .5;
-        }
-</style>
-<body>
   <script src="https://d3js.org/d3.v3.min.js"></script>
 
 <script>
@@ -350,6 +355,5 @@ function display () {
 };
 });
 </script>
-</div>
 </body>
 </html>

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../dvcore4_6/page5.css">
     <title>Country Info</title>
+    <style>
+      .inBlue { color: CornflowerBlue; }
+    </style>  
 </head>
 
 <body>
@@ -53,11 +56,15 @@
     <button class="tooltip-button" id = "close">x</button>
   </div>
 
-  <div id = 'main'>
-  <style>
-    .inBlue { color: CornflowerBlue; }
-  </style>
+<div class="lArrowContainer" onclick="location.href='./genre.html'">
+    <div class="arrow--left"></div>
+    <span>Actor</span>
+</div>
 
+<div class="rArrowContainer" onclick="location.href='../dvcore4_6/dvcore4New.html'">
+    <div class="arrow--right"></div>
+    <span>Content</span>
+</div>
   <!--<h3 class="inBlue">Country Infomation</h3>-->
 
   <!-- Load d3.js -->
@@ -186,6 +193,5 @@
 
 
   </script>
-</div>
 </body>
 </html>
