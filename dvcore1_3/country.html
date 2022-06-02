@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <header>
       <!-- logo -->
       <h1 class="logo"><a href="../index.html">MovieInvest</a></h1>
@@ -26,7 +25,11 @@
   </header>
   <section class = "dataVisCore">
       <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
-          <div id = "plot" class = "chart "></div>
+          <div id = "plot" class = "chart chart-country"></div>
+          <ul class = "controls">
+            <li onclick="next_chart();">Previous chart</li>
+            <li onclick="next_chart();">next chart</li>
+          </ul>
           <div class = "pageGuide">
               <h2>Which country is suitable for your movie investment?</h2>
                   <p>From the dataset, we can notice that, </p>
@@ -37,10 +40,6 @@
                   <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
           </div>
       </div>
-      <ul class = "controls">
-          <li onclick="next_chart();"></li>
-          <li onclick="next_chart();"></li>
-      </ul>
   </section>
   <div id="tooltip_country" class="tooltip glassmorphic-element">
     <ul class = "tooltip-img-container">
@@ -70,6 +69,7 @@
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="./country.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
@@ -77,121 +77,14 @@
   <svg id="my_country" width="1000" height="500"></svg>
 
   <script>
-
-  var margin = {top: 10, right: 10, bottom: 50, left: 10},
-    width = $('#plot').width() - margin.left - margin.right,
-    height = $('#plot').width() - margin.top - margin.bottom;
-
-  // append the svg object to the body of the page
-  var svg = d3.select("#plot")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-  // Map and projection
-  var path = d3.geoPath();
-  var projection = d3.geoMercator()
-    .scale(70)
-    .center([0,20])
-    .translate([width / 2, height / 2]);
-
-  // Data and color scale
-  var data = d3.map();
-  var colorScale = d3.scaleThreshold()
-    .domain([-1000000, -10000, 0, 10000, 100000, 1000000, 10000000, 50000000, 100000000, 300000000])
-    .range(d3.schemeGnBu[9]);
-
-  // Load external data and boot
-  d3.queue()
-    .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) { data.set(d.code, +d.avg_global_profit, +d.country, +d.poster); })
-    //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
-    .await(ready);
-    //.await(function(error, file1, file2) {
-    //if (error) {
-    //    console.error('Oh dear, something went wrong: ' + error);
-    //}
-    //else {
-
-  // Add tip box
-  var Tooltip = d3.select("#chartContainer")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-
-
-  function ready(error, topo) {
-    var mouseover = function(d) {
-
-      var selected_country = d.country;
-      console.log(selected_country)
-
-      Tooltip
-        .style("opacity", 1)
-        .html(selected_country)
-        .style("z-index","100")
-
-      Tooltip
-        .style("transform", `translate(`
-              + `calc(${width-2*margin.left}px),`
-              + `calc(${height/2.25}px)`
-              + `)`);
-
-
-      d3.selectAll(".Country")
-        .transition()
-        .duration(200)
-        .style("opacity", 0.5)
-      d3.select(this)
-        .transition()
-        .duration(200)
-        .style("opacity", 1)
-        .style("stroke", "black")
-    };
-
-    var mouseleave = function(d) {
-      Tooltip
-        .style("opacity", 0)
-      d3.selectAll(".Country")
-        .transition()
-        .duration(200)
-        .style("opacity", .8)
-      d3.select(this)
-        .transition()
-        .duration(200)
-        .style("stroke", "transparent")
-    };
-
-    // Draw the map
-    svg.append("g")
-      .selectAll("path")
-      .data(topo.features.filter(d => d.id !== "GRL" && d.id !== "ATA"))
-      //.data(topo.features)
-      .enter()
-      .append("path")
-        // draw each country
-        .attr("d", d3.geoPath()
-          .projection(projection)
-        )
-        // set the color of each country
-        .attr("fill", function (d) {
-          d.total = data.get(d.id) || 0;
-          return colorScale(d.total);
-        })
-        .style("stroke", "transparent")
-        .attr("class", function(d){ return "Country" } )
-        .style("opacity", .8)
-        .on("mouseover", mouseover )
-        .on("mouseleave", mouseleave );
-
-      }
-
-
-
-
+    var i = 0;
+    const svg = d3.select('#plot');
+    chart(i);
+    function next_chart(){
+        i = (i+1)%2;
+        svg.selectAll("*").remove();
+        chart(i);
+    }
   </script>
 </body>
 </html>
