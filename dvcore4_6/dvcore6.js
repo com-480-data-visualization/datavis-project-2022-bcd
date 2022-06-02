@@ -113,7 +113,8 @@ function GroupedBarChart(data, elemId, {
       .attr("y", height - margin.bottom)
       .attr("width", xzScale.bandwidth())
       .attr("height", 0.01)
-      .attr("fill", i => zScale(Z[i]));
+      .attr("fill", i => zScale(Z[i]))
+      .style("cursor", "pointer");
 
   console.log("bar",bar);
 
@@ -150,29 +151,21 @@ function GroupedBarChart(data, elemId, {
 
     if(data[i].poster1!='nan'){
       tooltip.select("#img1")
-      .attr("src", data[i].poster1)
-      .attr("width", '100%')
-      .attr("height", "200px");
+      .attr("src", data[i].poster1);
     }
     else{
       tooltip.select("#img1")
-      .attr("src", "./noImage.jpeg")
-      .attr("width", '100%')
-      .attr("height", "200px");
+      .attr("src", "./noImage.jpeg");
     }
 
     if(data[i].poster2!='nan'){
       // console.log(data[i].poster2)
       tooltip.select("#img2")
-      .attr("src", data[i].poster2)
-      .attr("width", '100%')
-      .attr("height", "200px");
+      .attr("src", data[i].poster2);
     }
     else{
       tooltip.select("#img2")
-      .attr("src", "./noImage.jpeg")
-      .attr("width", '100%')
-      .attr("height", "200px");
+      .attr("src", "./noImage.jpeg");
     }
 
     const x = (10 + xScale(X[i]) + xzScale(Z[i])

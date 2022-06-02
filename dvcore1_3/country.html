@@ -27,9 +27,9 @@
       <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
           <div id = "plot" class = "chart chart-country"></div>
           <ul class = "controls">
-            <li onclick="next_chart();">Previous chart</li>
-            <li onclick="next_chart();">next chart</li>
-          </ul>
+            <li onclick="draw_worldwide();">worldwide</li>
+            <li onclick="draw_usa();">USA</li>
+        </ul>
           <div class = "pageGuide">
               <h2>Which country is suitable for your movie investment?</h2>
                   <p>From the dataset, we notice that the films in North America, South America, Australia and China have higher profits. Movies published in the Middle East and the South East will have lower profits.</p>
@@ -77,11 +77,17 @@
     var i = 0;
     const svg = d3.select('#plot');
     chart(i);
-    function next_chart(){
-        i = (i+1)%2;
-        svg.selectAll("*").remove();
-        chart(i);
-    }
+    
+    function draw_worldwide(){
+            i = 0
+            svg.selectAll("*").remove();
+            chart(i);
+        }
+        function draw_usa(){
+            i = 1
+            svg.selectAll("*").remove();
+            chart(i);
+        }
   </script>
 </body>
 </html>

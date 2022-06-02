@@ -22,8 +22,8 @@
         <div class = "chartContainer glassmorphic-element" id="chartContainer">
             <div id = "quarter" class = "chart"></div>
             <ul class = "controls">
-                <li onclick="next_chart();">Previous chart</li>
-                <li onclick="next_chart();">Next chart</li>
+                <li onclick="draw_worldwide();">worldwide</li>
+                <li onclick="draw_usa();">USA</li>
             </ul>
             <div class = "pageGuide">
                 <h2>Which quarter is the most suitable time for a profitable movie to publish</h2>
@@ -91,8 +91,8 @@
             colors: colorbar
         });
 
-        function next_chart(){
-            i = (i+1)%2;
+        function draw_worldwide(){
+            i = 0
             svg.selectAll("*").remove();
             chart = GroupedBarChart(data[i], i, {
                 x: d => d.year,
@@ -102,6 +102,18 @@
                 colors: colorbar
             });
         }
+        function draw_usa(){
+            i = 1
+            svg.selectAll("*").remove();
+            chart = GroupedBarChart(data[i], i, {
+                x: d => d.year,
+                y: d => d.net_prof,
+                z: d => d.quarter,
+                zDomain: quarters,
+                colors: colorbar
+            });
+        }
+
         function calc_lg(value){
             return (Math.log(Math.abs(value))/Math.log(10))*Math.sign(value);
         }

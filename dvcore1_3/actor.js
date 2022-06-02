@@ -297,9 +297,7 @@ function chart(elemId){
         
         tooltip.select("#mtitle1").text(d.actor);
         tooltip.select("#img1")
-            .attr("src", myImageURL)
-            .attr("width", '100%')
-            .attr("height", "200px");
+            .attr("src", myImageURL);
 
         tooltip.style('z-index', 1000);
         tooltip.style("transform", `translate(`

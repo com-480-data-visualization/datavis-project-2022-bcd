@@ -92,9 +92,7 @@
         tooltip.select("#mtitle1")
             .text(film_name);
         tooltip.select("#img1")
-            .attr("src", myImageURL)
-            .attr("width", 'auto')
-            .attr("height", "200px");
+            .attr("src", myImageURL);
 
       tooltip
         .style("transform", `translate(`
@@ -108,14 +106,14 @@
       d3.selectAll(".line")
         .transition().duration(200)
         .style("stroke", "lightgrey")
-        .style("opacity", "0.2")
+        .style("opacity", "0.2");
 
       // Second the hovered specie takes its color
       d3.selectAll("." + selected_genre)
         .transition().duration(200)
         .attr("stroke-width", 6)
         .style("stroke", color(selected_genre))
-        .style("opacity", "1")
+        .style("opacity", "1");
     }
 
     // Unhighlight
@@ -126,7 +124,7 @@
       d3.selectAll(".line")
         .transition().duration(200).delay(1000)
         .style("stroke", function(d){ return( color(d.genre))} )
-        .style("opacity", "1")
+        .style("opacity", "1");
     }
 
     // input: a row of the csv

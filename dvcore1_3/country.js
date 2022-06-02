@@ -92,10 +92,7 @@ function chart(elemId){
                 Tooltip.select("#mtitle1")
                     .text(datum[2]);
                 Tooltip.select("#img1")
-                    .attr("src", datum[3])
-                    .attr("width", 'auto')
-                    .attr("margin", "auto")
-                    .attr("height", "200px");
+                    .attr("src", datum[3]);
 
                 d3.selectAll(".Country")
                 .transition()
@@ -132,7 +129,7 @@ function chart(elemId){
         .range([0,1]);
 
         // Draw the map
-        svg.append("g")
+        const draw_map = svg.append("g")
             .attr("transform",
             "translate(0," + margin.top + ")")
             .selectAll("path")
@@ -155,10 +152,13 @@ function chart(elemId){
                     }
 
                 })
+                .attr("opacity", 0)
                 .style("stroke", "transparent")
-                .attr("class", function(d){ return "Country" } )
-                .style("opacity", .8)
-                .on("mouseenter", mouseover )
+                .attr("class", function(d){ return "Country" } );
+        draw_map.transition()
+                .duration(1000)
+                    .style("opacity", .8);
+        draw_map.on("mouseenter", mouseover )
                 .on("mouseleave", mouseleave );
     }
 }

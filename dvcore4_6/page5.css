@@ -211,25 +211,74 @@ header ul li a:hover{
 }
 
 .tooltip{
+    opacity: 0;
     overflow: auto;
     border-radius: 20px;
     position: absolute;
     top:0;
     left: 0;
-    opacity: 0;
-    z-index: 100;
     background:rgba(255,255,255,0.8);
     min-height: 30vh;
-    min-width: 25vw;
+    min-width: 15vw;
+    height: fit-content;
+    width: fit-content;
     padding: 10px;
 }
 
 .tooltip .tooltip-title {
-    padding-top: 1em;
     text-align: center;
     font-weight: bold;
     font-size: 1em;
 }
+
+.tooltip ul {
+    padding-top:10px;
+    justify-content: space-around;
+    position: relative;
+    display: flex;
+    height: max-content;
+    padding: 5%;
+}
+
+.tooltip ul li {
+    margin-right: 1vmin;
+    margin-left: 1vmin;
+    position: relative;
+    list-style: none;
+}
+
+.tooltip ul li .tooltip-mtitle{
+    position: relative;
+    padding-top: 1vmin;
+    padding-bottom: 1vmin;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.75em;
+
+    width: 100%;
+    height: fit-content;
+
+    margin: auto;
+
+    word-wrap: normal;
+}
+.tooltip ul li .tooltip-image img{
+    display: block;
+    position: relative;
+    max-width: 15vw;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    /* border-radius: 8px; */
+    /* max-width:15vw;
+    max-height:20vh;
+    width: auto;
+    height:auto; */
+    /* margin: auto; */
+    object-fit: contain;
+}
+
 .tooltip .tooltip-button{
     border-radius: 20px;
     border: none;
@@ -240,49 +289,15 @@ header ul li a:hover{
     height: 25px;
     cursor: pointer;
 
-    position: relative;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
     display: block;
     margin:auto;
 }
 .tooltip .tooltip-button:hover{
     background-color: rgba(0, 0, 0, 0.2);
     color: white;
-}
-.tooltip ul {
-    padding-top:1vmin;
-    justify-content: space-around;
-    position: relative;
-    display: flex;
-}
-
-.tooltip ul li {
-    position: relative;
-    list-style: none;
-    max-width:15vw;
-    max-height:20vh;
-    margin:auto;
-}
-
-.tooltip ul li .tooltip-mtitle{
-    position: absolute;
-    padding-top: 1vmin;
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.75em;
-    width: 100%;
-    height: fit-content;
-    word-wrap: normal;
-}
-.tooltip ul li .tooltip-image img{
-    display: block;
-    position: relative;
-    border-radius: 8px;
-    max-width:15vw;
-    max-height:20vh;
-    width: auto;
-    height:auto;
-    margin: auto;
-    object-fit: contain;
 }
 /*
 .tooltip #tooltip-5{

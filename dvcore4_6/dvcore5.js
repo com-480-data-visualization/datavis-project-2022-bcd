@@ -81,7 +81,6 @@ chart = function(svg_element_id, data){
 
     // add circles
     const dots = scatter.selectAll("circle")
-
         .data(data)
         .enter()  
         .append("circle")
@@ -89,7 +88,8 @@ chart = function(svg_element_id, data){
             .attr("cy", d => y(d.value))
             .attr("fill", d => point_color(d.name))
             .attr("opacity", 0)
-            .attr("r", 5);
+            .attr("r", 5)
+            .style("cursor", "pointer");
 
     const minYear = 2000
     dots.transition()
@@ -188,19 +188,19 @@ chart = function(svg_element_id, data){
             .transition()
             .duration(1000)
                 .attr("fill", d => point_color(d.name))
-                .attr("opacity", 1)
-        let path = scatter.append('path')
-                .data(data)
-                .filter(d => d.name == i.name)
-                .enter()
-                .join('path')
-                    .attr('fill', 'none')
-                    .attr('stroke', point_color(i.name))
-                    .attr("stroke-width", 1.5)
-                    .attr("d", d3.line()
-                        .x(d=>x(+d.date))
-                        .y(d=>y(+d.value))
-                    );
+                .attr("opacity", 1);
+        // let path = scatter.append('path')
+        //         .data(data)
+        //         .filter(d => d.name == i.name)
+        //         .enter()
+        //         .join('path')
+        //             .attr('fill', 'none')
+        //             .attr('stroke', point_color(i.name))
+        //             .attr("stroke-width", 1.5)
+        //             .attr("d", d3.line()
+        //                 .x(d=>x(+d.date))
+        //                 .y(d=>y(+d.value))
+        //             );
 
         tooltip.transition().duration(2000).style("opacity", 1).style("z-index", 1000);
         tooltip.select("#mtitle1")
@@ -209,37 +209,31 @@ chart = function(svg_element_id, data){
             .text(i.movie);
         if(i.dirImg!='nan'){
             tooltip.select("#img1")
-            .attr("src", i.dirImg)
-            .attr("width", '100%')
-            .attr("height", "200px");
+            .attr("src", i.dirImg);
         }
         else{
             tooltip.select("#img1")
-            .attr("src", "./noImage.jpeg")
-            .attr("width", '100%')
-            .attr("height", "200px");
+            .attr("src", "./noImage.jpeg");
         }
           
         if(i.movieImg!='nan'){
             // console.log(data[i].poster2)
             tooltip.select("#img2")
-            .attr("src", i.movieImg)
-            .attr("width", '100%')
-            .attr("height", "200px");
+            .attr("src", i.movieImg);
         }
         else{
             tooltip.select("#img2")
-            .attr("src", "./noImage.jpeg")
-            .attr("width", '100%')
-            .attr("height", "200px");
+            .attr("src", "./noImage.jpeg");
         }
 
         // const x_dis = x(i.date)+ margin.left;
-        
-        tooltip.style("transform", `translate(`
-            + `calc(${width-2*margin.left}px),`
-            + `calc(${height/2.25}px)`
-            + `)`);
+        console.log("width tooltip: ", tooltip.attr("width"));
+        // tooltip.style("transform", `translate(`
+        //     + `calc(${width-margin.right}px - 15vw),`
+        //     + `calc(${height/2.25}px)`
+        //     + `)`);
+
+        tooltip.style("transform", `translate(` + `min(${margin.left+x(i.date)}px,` + `calc(${width-margin.right}px - 15vw)`+ `),50px)`);
         tooltip.style('z-index', 1000);
         // const y_dis = y(i.value)+margin.top;
         // if(x_dis<width/2){

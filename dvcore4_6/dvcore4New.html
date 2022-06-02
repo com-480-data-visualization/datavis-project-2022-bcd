@@ -23,8 +23,8 @@
         <div class = "chartContainer glassmorphic-element">
             <div class = "chart" id="wordCloud"></div>
             <ul class = "controls">
-                <li onclick="next_chart();">Previous chart</li>
-                <li onclick="next_chart();">next chart</li>
+                <li onclick="draw_worldwide();">worldwide</li>
+                <li onclick="draw_usa();">USA</li>
             </ul>
             <div class = "pageGuide">
                 <h2>What is the content that suitable for your movie?</h2>
@@ -33,7 +33,7 @@
                     <p>Within the USA, the films with the words "family", "new", "school"," home" and "friends" will have more significant profits.</p>
             </div>
         </div>
-        <div id="tooltip" class="tooltip glassmorphic-element">
+        <!-- <div id="tooltip" class="tooltip glassmorphic-element">
             <div class="tooltip-title" id ="title"></div>
             <ul class = "tooltip-img-container">
                 <li>
@@ -45,7 +45,7 @@
                     <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </section>
     <div class="lArrowContainer" onclick="location.href='../dvcore1_3/country.html'">
         <div class="arrow--left"></div>
@@ -71,11 +71,16 @@
       const svg = d3.select('#wordCloud');
       console.log("data[i]: ", data[i]);
       myWordCloud(data[i], i);
-
-        function next_chart(){
-          svg.selectAll("*").remove();
-          i = (i+1)%2;
-          myWordCloud(data[i], i);
+      
+        function draw_worldwide(){
+            i = 0
+            svg.selectAll("*").remove();
+            myWordCloud(data[i], i);
+        }
+        function draw_usa(){
+            i = 1
+            svg.selectAll("*").remove();
+            myWordCloud(data[i], i);
         }
     </script>
 </body>
