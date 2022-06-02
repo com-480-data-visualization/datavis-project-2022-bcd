@@ -168,13 +168,14 @@ chart = function(svg_element_id, data){
                 .attr("cx", d => x(d.date))
                 // .attr("r", 2.5);
     }
-    const tooltip = d3.select("#tooltip-5").style("opacity", 0);
+    const tooltip = d3.select("#tooltip").style("opacity", 0);
     tooltip.select("#close")
         .on("click", mouseLeave);
     let sum = 0;
     data.forEach(d=>sum = sum+d.value);
     const profit_mean = sum/data.length;
     console.log(profit_mean);
+
     function mouseEnter(datum){
         console.log(datum);
         var i = datum.path[0].__data__;
@@ -188,7 +189,6 @@ chart = function(svg_element_id, data){
             .duration(1000)
                 .attr("fill", d => point_color(d.name))
                 .attr("opacity", 1)
-                .raise()
         let path = scatter.append('path')
                 .data(data)
                 .filter(d => d.name == i.name)
@@ -202,7 +202,7 @@ chart = function(svg_element_id, data){
                         .y(d=>y(+d.value))
                     );
 
-        tooltip.transition().duration(2000).style("opacity", 1);
+        tooltip.transition().duration(2000).style("opacity", 1).style("z-index", 1000);
         tooltip.select("#mtitle1")
             .text(i.name);
         tooltip.select("#mtitle2")
