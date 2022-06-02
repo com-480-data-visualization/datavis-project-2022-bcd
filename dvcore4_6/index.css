@@ -135,6 +135,7 @@ header ul li a:hover{
 #textContainer{
     position:relative;
     width: 45vw;
+    margin: auto;
     margin-bottom: 5vh;
 }
 
