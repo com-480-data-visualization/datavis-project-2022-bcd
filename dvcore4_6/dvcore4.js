@@ -29,7 +29,7 @@ function myWordCloud(myWords, elemId){
         .attr("text-anchor", "middle")  
         .style("font-size", "20px")
         .style("font-weight", 700) 
-        .style("font-family", "sans-serif");
+        .style("font-family", "'Times New Roman', Times, serif");
 
     if(elemId == 0){
         title.text("Worldwide");
