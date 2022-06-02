@@ -251,13 +251,12 @@ var mouseover = function(d) {
             + `)`);
   tooltip.style('z-index', 1000);
 
-
-  //tooltip
-    //.html(d.actor + imageEls)
-    //.style("left", (d3.mouse(this)[0]) + "px")
-    //.style("top", (d3.mouse(this)[1]) + "px")
-    //.style("left", d3.select(this).attr("cx") + "px")
-    //.style("top", d3.select(this).attr("cy") + "px");
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .attr('opacity', 0.6)
+    .attr('x', (a) => xscale(a.actor) - 5)
+    .attr('width', barWidth + 1)
 };
 
 var mouseleave = function (actual, i) {
