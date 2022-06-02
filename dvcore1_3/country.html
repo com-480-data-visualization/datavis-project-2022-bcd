@@ -64,15 +64,16 @@
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
   <!-- Create an element where the map will take place -->
   <svg id="my_country" width="1000" height="500"></svg>
 
   <script>
 
-  var margin = {top: 80, right: 10, bottom: 50, left: 70},
-    width = 900 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+  var margin = {top: 10, right: 10, bottom: 50, left: 10},
+    width = $('#plot').width() - margin.left - margin.right,
+    height = $('#plot').width() - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3.select("#plot")
@@ -100,14 +101,19 @@
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
     .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) { data.set(d.code, +d.avg_global_profit, +d.country, +d.poster); })
+    //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
     .await(ready);
+    //.await(function(error, file1, file2) {
+    //if (error) {
+    //    console.error('Oh dear, something went wrong: ' + error);
+    //}
+    //else {
 
   // Add tip box
   var Tooltip = d3.select("#chartContainer")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
-
 
 
   function ready(error, topo) {
@@ -175,6 +181,8 @@
         .on("mouseleave", mouseleave );
 
       }
+
+
 
 
   </script>
