@@ -14,7 +14,7 @@ function chart(elemId){
         .append("g")
             .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
-        
+
     // Map and projection
     var path = d3.geoPath();
     var projection = d3.geoMercator()
@@ -30,7 +30,7 @@ function chart(elemId){
         console.log("loading avg global profit data");
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) {
+            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/df_country_code.csv", function(d) {
                 data.set(d.code,[d.avg_global_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
@@ -40,13 +40,13 @@ function chart(elemId){
         console.log("loading avg usa profit data");
         d3.queue()
             .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv", function(d) {
+            .defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/data/df_country_code.csv", function(d) {
                 data.set(d.code,[d.avg_usa_profit, d.country, d.best_film, d.poster]);
             } )
             //.defer(d3.csv, "https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_country_code.csv")
             .await(ready);
     }
-    
+
     //.await(function(error, file1, file2) {
     //if (error) {
     //    console.error('Oh dear, something went wrong: ' + error);
@@ -54,15 +54,15 @@ function chart(elemId){
     //else {
 
     // Add tip box
-    
-    
+
+
     const Tooltip = d3.select("#tooltip").style("opacity", 0);
     const title = svg.append("text")
         .attr("x", (width/2))
         .attr("y", (margin.top/2))
-        .attr("text-anchor", "middle")  
+        .attr("text-anchor", "middle")
         .style("font-size", "20px")
-        .style("font-weight", 700) 
+        .style("font-weight", 700)
         .style("font-family", "'Times New Roman', Times, serif");
 
     if(elemId == 0){
@@ -96,7 +96,7 @@ function chart(elemId){
                     .attr("width", 'auto')
                     .attr("margin", "auto")
                     .attr("height", "200px");
-                
+
                 d3.selectAll(".Country")
                 .transition()
                 .duration(200)
@@ -153,7 +153,7 @@ function chart(elemId){
                     else{
                         return d3.interpolateGnBu(0.01);
                     }
-                    
+
                 })
                 .style("stroke", "transparent")
                 .attr("class", function(d){ return "Country" } )
