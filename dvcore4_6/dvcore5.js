@@ -26,7 +26,7 @@ chart = function(svg_element_id, data){
     let directors = d3.map(data, elem=>elem.name);
     directors = [... new Set(directors)];
     // console.log(directors);
-    const dir_color = d3.map(directors, (elem, index)=>d3.interpolateRdYlBu(index/directors.length));
+    const dir_color = d3.map(directors, (elem, index)=>d3.interpolateSpectral(index/directors.length));
     function point_color(director){
         return dir_color[directors.indexOf(director)];
     }
@@ -81,6 +81,7 @@ chart = function(svg_element_id, data){
 
     // add circles
     const dots = scatter.selectAll("circle")
+
         .data(data)
         .enter()  
         .append("circle")
@@ -88,7 +89,7 @@ chart = function(svg_element_id, data){
             .attr("cy", d => y(d.value))
             .attr("fill", d => point_color(d.name))
             .attr("opacity", 0)
-            .attr("r", 2.5);
+            .attr("r", 5);
 
     const minYear = 2000
     dots.transition()
@@ -136,6 +137,7 @@ chart = function(svg_element_id, data){
             const k = width/Math.abs(x0-x1);
             svg.select(".brush").call(brush.clear);
             x.domain([ x.invert(x0), x.invert(x1) ]);
+            const dot = svg.select("circle")
             svg.selectAll(".x-axis").transition().duration(2000).call(xAxis);
             svg.selectAll(".x-axis")
                 .selectAll('text')
@@ -146,7 +148,7 @@ chart = function(svg_element_id, data){
                 .selectAll("circle")
                 .transition().duration(2000)
                 .attr("cx", d => x(d.date))
-                .attr("r", 2.5*Math.sqrt(k));
+                // .attr("r", 2.5*Math.log(k)/Math.log(1.1));
             // svg.call(xAxis);
             // svg.call(yAxis);
         }
@@ -164,7 +166,7 @@ chart = function(svg_element_id, data){
                 .selectAll("circle")
                 .transition().duration(2000)
                 .attr("cx", d => x(d.date))
-                .attr("r", 2.5);
+                // .attr("r", 2.5);
     }
     const tooltip = d3.select("#tooltip-5").style("opacity", 0);
     tooltip.select("#close")
@@ -186,6 +188,7 @@ chart = function(svg_element_id, data){
             .duration(1000)
                 .attr("fill", d => point_color(d.name))
                 .attr("opacity", 1)
+                .raise()
         let path = scatter.append('path')
                 .data(data)
                 .filter(d => d.name == i.name)
