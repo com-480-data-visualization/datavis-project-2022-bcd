@@ -65,7 +65,7 @@ chart = function(svg_element_id, data){
         .call(d3.axisLeft(y).ticks(null, "+"))
         // .call(g => g.select(".domain").remove())
         .call(g => g.selectAll(".tick line")
-        .filter(d => d === 0)
+        .filter(d => d === 0.1)
         .style("stroke-dasharray", ("3, 3"))
         .clone()
             .attr("x2", width - margin.right - margin.left)
