@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Microsoft Yahei", sans-serif;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -13,7 +13,7 @@ body{
     background-size: 100% 100%;
 
     background-attachment: fixed;
-    height: 150vh;
+    height: 100vh;
 }
 
 /* #background {
@@ -93,26 +93,28 @@ header ul li a:hover{
 }
 
 .dataVisCore .chartContainer {
+    overflow: auto;
     display: block;
     position: relative;
-    /* left: 10%;
-    top: 10vh; */
-    margin: 10vh auto;
+    left: 0;
+    top: 10vh; 
+    margin: auto;
     width: 80%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: 85vh;
 }
 
-.dataVisCore #chartContainer {
+/* .dataVisCore #chartContainer {
     margin-top: 10vh;
     position: relative;
-    /* left: 10%;
-    top: 10vh; */
+    left: 10%;
+    top: 10vh; 
     margin-left: auto;
     margin-right: auto;
     width: 80%;
     min-height: 100vh;
     margin-bottom: 10vh;
-}
+} */
 .dataVisCore .chartContainer .chart {
     display: block;
     position: relative;
@@ -455,24 +457,22 @@ header ul li a:hover{
     top: 10vh;
     left: 10vw;
     width: 80vw;
-    height: 80vh;
+    height: 85vh;
 
     z-index : 10000;
 
-    padding: 20vh, 20vw;
-    border-radius: 25px 25px 0 0;
+    border-radius: 25px;
     background-color: #000;
 
     color: rgba(255,255,255,0.8);
 }
 
 .Guide .textBox{
-    
+    display: block;
     position: relative;
-    width: 50vw;
-    height: 60vh;
-
-    margin: 5vh 15vw;
+    width: max-content;
+    height: 70vh;
+    margin: auto;
 }
 
 .Guide .textBox h2{
@@ -485,10 +485,9 @@ header ul li a:hover{
     list-style-position: outside;
 }
 .Guide .textBox ul li{
-
-    font-size: 1.25em;
+    font-size: 1em;
     font-weight: 400;
-    line-height: 1.25em;
+    line-height: 1.5em;
     padding-bottom: 2em;
 
     position: relative;
@@ -498,9 +497,6 @@ header ul li a:hover{
     border: none;
     border-radius: 0%;
     border-bottom: 4px solid transparent;
-    
-    margin-top: 5vh;
-    margin-bottom: 5vh;
 
     background-color: #000;
     position: relative;
@@ -508,7 +504,7 @@ header ul li a:hover{
     display: block;
     width: 10vw;
     height: 6vh;
-    margin: auto;
+    margin: 3vh auto;
 
     transition: color 0.5s, background-color 0.5s;
 
