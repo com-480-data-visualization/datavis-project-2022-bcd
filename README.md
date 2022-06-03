@@ -24,4 +24,4 @@ This repository is for the group project of EPFL course COM-480 2021-22 provided
 
 [Process Book](https://github.com/com-480-data-visualization/datavis-project-2022-bcd/blob/24ed025b8963075ccc53036854aaa364e593e9f3/Milestone%203/COM-480%20Process%20Book%20-%20BCD.pdf)
 
-Check video here
+Check video [here] (https://youtu.be/_Wa3SMVg8Dc)
