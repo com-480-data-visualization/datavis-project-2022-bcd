@@ -95,10 +95,7 @@
             .attr("src", myImageURL);
 
       tooltip
-        .style("transform", `translate(`
-                + `calc(${width-2*margin.left}px),`
-                + `calc(${height/2.25}px)`
-                + `)`);
+        .style("transform", `translate(${d3.event.clientX}px,${d3.event.clientY}px)`);
       tooltip
         .style('z-index', 1000);
 

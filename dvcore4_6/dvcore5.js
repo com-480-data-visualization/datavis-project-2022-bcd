@@ -36,7 +36,31 @@ chart = function(svg_element_id, data){
         .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
         // .call(g => g.select(".domain").remove());
 
-    yAxis = g => g
+
+    if(svg_element_id==0){
+        yAxis = g => g
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(null, "+"))
+        // .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll(".tick line")
+        .filter(d => d === 0.2)
+        .style("stroke-dasharray", ("3, 3"))
+        .clone()
+            .attr("x2", width - margin.right - margin.left)
+            .attr("stroke", "#000000"))
+            .attr("stroke-opacity", 0.5)
+        .call(g => g.append("text")
+            .attr("x", 5)
+            .attr("y", margin.top)
+            .attr("dy", "0.32em")
+            .attr("text-anchor", "start")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .style("font-family", "'Times New Roman', Times, serif")
+            .text("Net Profit(*10^9 USD)"));
+    }
+    else{
+        yAxis = g => g
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(y).ticks(null, "+"))
         // .call(g => g.select(".domain").remove())
@@ -55,7 +79,9 @@ chart = function(svg_element_id, data){
             .attr("fill", "#000")
             .attr("font-weight", "bold")
             .style("font-family", "'Times New Roman', Times, serif")
-            .text("Net Profit(x10^9 USD)"));
+            .text("Net Profit(*10^9 USD)"));
+    }
+    
 
 
     const clip = svg.append("defs").append("svg:clipPath")
