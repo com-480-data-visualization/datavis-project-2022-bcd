@@ -58,6 +58,22 @@
             <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
         </ul>
     </header>
+    <div class="Guide" id="guide">
+      <div class="textBox">
+      <h2>How this page works</h2>
+          <ul>
+            <li><span style="color:#ECB365"><b>HOVER</b></span> over the bar: check the actor's appearance.</li>
+            <li><span style="color:#ECB365"><b>DRAG</b></span> the slider in the overview: focus on different actors.</li>
+            <li><span style="color:#ECB365"><b>WORLDWIDE/USA button</b></span>: control the presence of corresponding chart.</li>
+            <li><span style="color:#ECB365"><b>Buttons on both sides</b></span>: navigate to previous/next page.</li>
+            <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>         
+          </ul>
+      </div>
+      <button onclick="closeGuide();">close</button>
+  </div>
+  <div class="footer">
+      <h2 class="icon" onclick="openGuide();">Guide</h1>
+  </div>
     <section class = "dataVisCore">
         <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
             <div id = "plot" class = "chart "></div>
@@ -69,10 +85,6 @@
                 <h2>Who is the actor suitable for your movie investment?</h2>
                     <p>From the dataset, we can notice that, </p>
                     <p>In this chart, we present you a bar chart, with horizontal axis showing the actors' name, and vertical axis as the average profit of the actors' movie.</p>
-                <h2>How this page works</h2>
-                    <p>buttons on the left side are used to control the presence of chart</p>
-                    <p>navigation bar on the top can guide you to pages of your interest</p>
-                    <p>if you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of movies published during that period.</p>
             </div>
         </div>
     </section>
@@ -111,6 +123,16 @@
         svg.selectAll("*").remove();
         chart(1);
     }
+  </script>
+  <script>
+        function openGuide() {
+            var element = document.getElementById("guide");
+            element.style.display = "block";
+        }
+        function closeGuide(){
+            var element = document.getElementById("guide");
+            element.style.display = "none";
+        }
   </script>
 </body>
 </html>

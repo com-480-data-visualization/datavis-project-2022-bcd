@@ -151,7 +151,7 @@
       // Add "g" for each dimension
       .data(dimensions).enter()
       .append("g")
-        .style("fill", "MidnightBlue")
+        .style("fill", "#2B2B2B")
       // translate this element to its right position on the x axis
       .attr("transform", function(d) { return `translate(${x(d)})`; })
       // build the axis with the call function
@@ -162,7 +162,7 @@
         .attr("y", 700/900*$('#plot').height())
         .attr("x", -150/600*$('#plot').width())
         .text(function(d) { return d; })
-        .style("fill", "MidnightBlue")
+        .style("fill", "#2B2B2B")
         .attr("transform", "translate(-10,0)rotate(-30)")
         .style("font-size", "12px")
         .style("font-weight", "bold")

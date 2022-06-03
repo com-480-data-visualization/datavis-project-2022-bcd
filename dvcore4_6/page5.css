@@ -122,11 +122,11 @@ header ul li a:hover{
     object-fit: cover;
     background-position: center;
 
-    animation-name: contentAppear;
+    /* animation-name: contentAppear;
     animation-duration: 2s;
     animation-timing-function: linear;
     animation-fill-mode: both;
-    animation-delay: 1s;
+    animation-delay: 1s; */
 }
 
 /* .dataVisCore .chartContainer .chart-country{
@@ -148,11 +148,11 @@ header ul li a:hover{
     width: 80%;
     height: auto;
 
-    animation-name: contentAppear;
+    /* animation-name: contentAppear;
     animation-duration: 2s;
     animation-timing-function: linear;
     animation-fill-mode: both;
-    animation-delay: 3s;
+    animation-delay: 3s; */
 }
 
 .pageGuide h2{
@@ -189,12 +189,12 @@ header ul li a:hover{
     justify-content: center;
     align-items: center;
 
-    animation-name: contentAppear;
+    /* animation-name: contentAppear;
     animation-duration: 2s;
     animation-timing-function: linear;
     animation-fill-mode: both;
     animation-delay: 1s;
-    z-index: 1000;
+    z-index: 1000; */
 }
 
 .controls li{

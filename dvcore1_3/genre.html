@@ -33,19 +33,29 @@
           <li><a href="../dvcore4_6/dvcore6New.html">Publish Quarter</a></li>
       </ul>
   </header>
-  <section class = "dataVisCore">
-      <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
-          <div id = "plot" class = "chart "></div>
-          <div class = "pageGuide">
-              <h2>Which genre is suitable for your movie investment?</h2>
-                  <p>From the dataset, we notice that the adventure films have the highest profits, animation and action films also have high profits. Sports, war, history and biography films have relative low profits, so you may want to avoid choosing these topics while selecting scripts.</p>
-                  <p>In this chart, we present you with a parallel coordinator. The vertical axes represent films' average and all income and profits from worldwide and the USA. If you click on a line, a floating window will show you this line belongs to which genre and this genre's highest profit film poster.</p>
-              <h2>How this page works</h2>
-                  <p>The navigation bar on the top can guide you to pages of your interest.</p>
-                  <p>Buttons on the left and right are used to control the page's presence.</p>
-                  <p>Hover over a line to see this line's genre and this genre's highest profit film poster.</p>
-          </div>
-      </div>
+  <div class="Guide" id="guide">
+    <div class="textBox">
+    <h2>How this page works</h2>
+        <ul>
+            <li><span style="color:#ECB365"><b>HOVER</b></span> over a line: see this line's genre and this genre's highest profit film poster.<br>Corresponding income are highlighted in the chart.</li>
+            <li><span style="color:#ECB365"><b>Buttons on both sides</b></span>: navigate to previous/next page.</li>
+            <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>
+        </ul>
+    </div>
+    <button onclick="closeGuide();">close</button>
+</div>
+<div class="footer">
+    <h2 class="icon" onclick="openGuide();">Guide</h1>
+</div>
+    <section class = "dataVisCore">
+        <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
+            <div id = "plot" class = "chart "></div>
+            <div class = "pageGuide">
+                <h2>Which genre is suitable for your movie investment?</h2>
+                    <p>From the dataset, we notice that the adventure films have the highest profits, animation and action films also have high profits. Sports, war, history and biography films have relative low profits, so you may want to avoid choosing these topics while selecting scripts.</p>
+                    <p>In this chart, we present you with a parallel coordinator. The vertical axes represent films' average and all income and profits from worldwide and the USA. If you click on a line, a floating window will show you this line belongs to which genre and this genre's highest profit film poster.</p>
+        </div>
+        </div>
   </section>
   <div id="tooltip" class="tooltip glassmorphic-element">
     <div class="tooltip-title" id ="title"></div>
@@ -78,5 +88,15 @@
   <script>
     chart();
   </script>
+      <script>
+        function openGuide() {
+            var element = document.getElementById("guide");
+            element.style.display = "block";
+        }
+        function closeGuide(){
+            var element = document.getElementById("guide");
+            element.style.display = "none";
+        }
+    </script>
 </body>
 </html>
