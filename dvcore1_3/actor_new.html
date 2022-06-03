@@ -11,31 +11,31 @@
       svg {
         font: 10px sans-serif;
       }
-    
-    
+
+
       .bar {
         clip-path: url(#clip);
       }
-    
+
       .subBar {
         fill: gray;
         opacity: 0.5;
       }
-    
+
       .axis path,
       .axis line {
         fill: none;
         stroke: #000;
         shape-rendering: crispEdges;
       }
-    
+
       .brush .extent {
         stroke: #fff;
         fill: steelblue;
         fill-opacity: .25;
         shape-rendering: crispEdges;
       }
-    
+
       rect.mover {
                 stroke: red;
                 stroke-opacity: .1;
@@ -67,13 +67,13 @@
             <li><span style="color:#ECB365"><b>WORLDWIDE/USA button</b></span>: control the presence of corresponding chart.</li>
             <li><span style="color:#ECB365"><b>SCROLL DOWN</b></span>: read explanation and receive suggestions on your investment.</li>
             <li><span style="color:#ECB365"><b>Buttons on both sides</b></span>: navigate to previous/next page.</li>
-            <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>         
+            <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>
           </ul>
       </div>
       <button onclick="closeGuide();">close</button>
   </div>
   <div class="footer">
-      <h2 class="icon" onclick="openGuide();">Guide</h1>
+      <h2 class="icon" onclick="openGuide();">Guide</h2>
   </div>
     <section class = "dataVisCore">
         <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
@@ -85,10 +85,10 @@
             <div class = "pageGuide">
                 <h2>Brief Suggestions for Your Investment</h2>
                   <p><span style="color:#D67D3E"><b>Actors shown in the first several bars</b></span> are your suggested choices of cast candidates.</p>
-                <h2>Intro of Visualization</h2>   
-                  <p>In this chart, we present you a bar chart, with horizontal axis showing actors' name, and vertical axis as the average profit of movies that they participated in. You could click on the bar to see details about the corresponding actor/actress.</p>
-                <h2>Analysis Based on the Visualization</h2>
-                  <p>This chart is relatively intuitive that actors with higher average movie profits could bring your movie better gains, because of their popularity and performing skills that were proved in their past works.<br> <br>Of course there might be dark horses who do not currently appear in the front, and therefore we provide a relatively long candidate list for you to select.</p>
+                <h2>Intro of Visualization</h2>
+                  <p>This chart presents you with a bar that shows each actor's average film profit. The actors are sorted by their profit. There is a draggable thumbnail under the main chart, and you can drag it from left to right. If you hover over a bar, a floating window will show you this actor's photo.</p>                <h2>Analysis Based on the Visualization</h2>
+
+                  <p>From the dataset, we could easily find that the top profit actors are Dileep Rao, Eve, Joonas Suotamo, Pierre Coffin, Daisy Ridley, Nathalie Emmanuel, Anthony Daniels, Jonathan Groff and Mark Hamill. The films in which these actors have acted are on average in the top 500 in terms of profits, so you can have fun exploring and choose from them with confidence.<br> <br>Of course there might be dark horses who do not currently appear in the front, and therefore we provide a relatively long candidate list for you to select.</p>
             </div>
         </div>
     </section>
