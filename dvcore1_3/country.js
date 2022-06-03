@@ -83,8 +83,8 @@ function chart(elemId){
 
                 Tooltip
                 .style("transform", `translate(`
-                        + `calc(${width-2*margin.left}px),`
-                        + `calc(${height/2.25}px)`
+                        + `calc(${d3.event.clientX}px),`
+                        + `calc(${d3.event.clientY}px)`
                         + `)`);
 
                 Tooltip.select("#title")

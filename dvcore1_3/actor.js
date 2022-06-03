@@ -301,7 +301,7 @@ function chart(elemId){
 
         tooltip.style('z-index', 1000);
         tooltip.style("transform", `translate(`
-                + `calc(${width}px),`
+                + `calc(${d3.event.clientX}px),`
                 + `calc(${height/4}px)`
                 + `)`);
         

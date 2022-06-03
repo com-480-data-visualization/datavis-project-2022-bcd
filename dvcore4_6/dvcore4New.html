@@ -33,19 +33,14 @@
                     <p>Within the USA, the films with the words "family", "new", "school"," home" and "friends" will have more significant profits.</p>
             </div>
         </div>
-        <!-- <div id="tooltip" class="tooltip glassmorphic-element">
-            <div class="tooltip-title" id ="title"></div>
+        <div id="tooltip" class="tooltip glassmorphic-element">
             <ul class = "tooltip-img-container">
                 <li>
                     <div class="tooltip-image"><img id = "img1"></img></div>
                     <div class="tooltip-mtitle"><p id="mtitle1"></p></div>
                 </li>
-                <li>
-                    <div class="tooltip-image"><img id = "img2"></img></div>
-                    <div class="tooltip-mtitle"><p id="mtitle2"></p></div>
-                </li>
             </ul>
-        </div> -->
+        </div>
     </section>
     <div class="lArrowContainer" onclick="location.href='../dvcore1_3/country.html'">
         <div class="arrow--left"></div>
@@ -71,7 +66,6 @@
       const svg = d3.select('#wordCloud');
       console.log("data[i]: ", data[i]);
       myWordCloud(data[i], i);
-      
         function draw_worldwide(){
             i = 0
             svg.selectAll("*").remove();

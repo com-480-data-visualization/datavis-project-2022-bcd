@@ -6,8 +6,10 @@ function myWordCloud(myWords, elemId){
     let data = myWords;
     data = data.filter(w => !stopwords.has(w[0]))
         .slice(0, maxWords)
-        .map(([key, size]) => ({text: word(key), size}));
+        .map(([string, size, movie, img]) => ({text: word(string), size}));
     console.log(data);
+    dataLink = data_trans(myWords);
+    console.log("dataLink", dataLink);
     // set the dimensions and margins of the graph
     margin = ({top: 60, right: 40, bottom: 20, left: 40});
     var width = $('#wordCloud').width()-margin.left-margin.right;
@@ -67,11 +69,60 @@ function myWordCloud(myWords, elemId){
       });
 
     cloud.start();
-    const texts = g.selectAll("text")
-                .on("click", mouseClick);
+    const texts = g.selectAll("text");
 
-    function mouseClick(event){
-        
+    texts.style("cursor", "pointer")
+                .on("mouseenter", mouseEnter)
+                .on("mouseleave", mouseLeave);
+
+    const tooltip = d3.select("#tooltip").style("opacity", 0);
+    // tooltip.select("#close").on("click", mouseLeave);
+    
+    function mouseEnter(event){
+        console.log(event);
+        let click_word = event.path[0].__data__.text;
+        if(dataLink.has(click_word)){
+            datum = dataLink.get(click_word);
+
+            tooltip.style("transform", `translate(${event.clientX}px, min(${event.clientY}px, ${height-margin.bottom*2-margin.top}px)`);
+            tooltip.transition().duration(300).style("opacity", 1);
+            tooltip.select("#mtitle1").text(datum[1]);
+            tooltip.select("#img1")
+                .attr("src", datum[2]);
+
+            tooltip.style('z-index', 1000);
+
+            d3.select(this).transition()
+                .duration(300)
+                .attr("fill", d3.interpolateCividis(1));
+        }
+
+    }
+
+    function mouseLeave(event){
+        let click_word = event.path[0].__data__.text;
+        console.log(click_word);
+        if(dataLink.has(click_word)){
+            datum = dataLink.get(click_word);
+            tooltip.transition().duration(1000).style("opacity", 0);
+            tooltip.style('z-index', -1);
+
+            d3.select(this).transition()
+                .duration(300)
+                .attr("fill", d3.interpolateCividis(1-w_range(Math.sqrt(datum[0]) * fontScale)/2-0.5));
+        }
+    }
+
+    function data_trans(dataset){
+        const data_raw = dataset;
+        let data_mapped = new Map();
+        // console.log('log in jscode, data_raw', data_raw);
+        data_raw.forEach(elem => {
+            data_mapped.set(elem[0], [elem[1],elem[2], elem[3]]);
+        });
+
+        // Math.log(Math.abs(elem[3]))/Math.log(10)*Math.sign(elem[3])
+        return data_mapped;
     }
     return svg.node();
 }
