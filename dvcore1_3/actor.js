@@ -1,5 +1,5 @@
 function chart(elemId){
-  d3.csv("https://raw.githubusercontent.com/liliwang97/liliwang97.github.io/main/df_actor_simple.csv", function(data) {
+  d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-bcd/main/data/df_actor_simple.csv", function(data) {
 
     // sort data
     if(elemId==0){
@@ -12,7 +12,7 @@ function chart(elemId){
             return a.avg_usa_profit - b.avg_usa_profit;
         });
     }
-    
+
     console.log(data);
     var barwidth_value = 4;
 
@@ -53,7 +53,7 @@ function chart(elemId){
     var xscale = d3.scale.ordinal()
         .domain(data.slice(0,numBars).map(function (d) { return d.actor; }))
         .rangeBands([0, width], .2);
-    
+
     var xAxis  = d3.svg.axis()
         .scale(xscale)
         .orient("bottom");
@@ -74,7 +74,7 @@ function chart(elemId){
 
     var yAxis  = d3.svg.axis().scale(yscale).orient("left");
 
-    // create new svg 
+    // create new svg
     var svg = d3.select("#plot").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom + marginOverview.top+marginOverview.bottom+selectorHeight);
@@ -123,7 +123,7 @@ function chart(elemId){
         .attr("class", "x axis")
         .call(xAxis)
         .attr("transform", "translate(0, " + height + ")");
-        
+
 
     // draw y axis
     diagram.append("g")
@@ -138,14 +138,14 @@ function chart(elemId){
             .attr("font-weight", "bold")
             .style("font-family", "'Times New Roman', Times, serif")
             .text("Average Profit(USD)"));
-        
+
     // add title to the diagram
     const title = diagram.append("text")
         .attr("x", (width/2))
         .attr("y", 0)
-        .attr("text-anchor", "middle")  
+        .attr("text-anchor", "middle")
         .style("font-size", "20px")
-        .style("font-weight", 700) 
+        .style("font-weight", 700)
         .style("font-family", "'Times New Roman', Times, serif");
     if(elemId == 0){
         title.text("Worldwide");
@@ -220,7 +220,7 @@ function chart(elemId){
               .call(d3.behavior.drag().on("drag", display));
 
     // console.log(width);
-    
+
     displayed = d3.scale.quantize()
               .domain([0, width])
               .range(d3.range(data.length));
@@ -288,13 +288,13 @@ function chart(elemId){
     // var Tooltip = d3.select("#actor_data")
     var tooltip = d3.select("#tooltip")
         .style("opacity", 0);
-    
+
 
     function mouseover(d) {
         var myImageURL = d.actor_image;
 
         tooltip.transition().duration(300).style("opacity", 1);
-        
+
         tooltip.select("#mtitle1").text(d.actor);
         tooltip.select("#img1")
             .attr("src", myImageURL);
@@ -304,7 +304,7 @@ function chart(elemId){
                 + `calc(${d3.event.clientX}px),`
                 + `calc(${height/4}px)`
                 + `)`);
-        
+
         d3.select(this)
             .transition()
             .duration(100)
