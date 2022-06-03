@@ -457,11 +457,11 @@ header ul li a:hover{
     width: 80vw;
     height: 80vh;
 
-    padding: 20vh, 20vw;
-    border-radius: 25px;
-    background-color: #000;
+    z-index : 10000;
 
-    z-index:10000;
+    padding: 20vh, 20vw;
+    border-radius: 25px 25px 0 0;
+    background-color: #000;
 
     color: rgba(255,255,255,0.8);
 }
