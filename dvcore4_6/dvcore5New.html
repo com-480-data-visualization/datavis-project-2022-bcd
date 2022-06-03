@@ -18,6 +18,22 @@
             <li><a href="./dvcore6New.html">Publish Quarter</a></li>
         </ul>
     </header>
+    <div class="Guide" id="guide">
+        <div class="textBox">
+        <h2>How this page works</h2>
+            <ul>
+                <li><span style="color:#ECB365"><b>CLICK</b></span> the point to check the director and his or her work.<br>All of that director's movies will be highlighted in the chart.<br>To return to the original chart, <span style="color:#ECB365"><b>CLICK 'x'</b></span> at the bottom of the box.</li>
+                <li><span style="color:#ECB365"><b>BRUSH</b></span> certain time range to check all movies published in the period.<br>Double click to return to the orginal chart</li>
+                <li><span style="color:#ECB365"><b>WORLDWIDE/USA button</b></span>: control the presence of corresponding chart.</li>
+                <li><span style="color:#ECB365"><b>Buttons on both sides</b></span>: navigate to previous/next page.</li>
+                <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>
+            </ul>
+        </div>
+        <button onclick="closeGuide();">close</button>
+    </div>
+    <div class="footer">
+        <h2 class="icon" onclick="openGuide();">Guide</h1>
+    </div>
     <section class = "dataVisCore">
         <div class = "chartContainer glassmorphic-element" id = "chartContainer" >
             <div id = "plot" class = "chart "></div>
@@ -29,12 +45,6 @@
                 <h2>Who is the director suitable for your movie investment?</h2>
                     <p>From the dataset, we notice that the films released in recent years have had relatively high profits. Most movies have a profit of less than 0.2x10<sup>9</sup> USD. You can search for directors with film profits greater than 0.2x10<sup>9</sup> USD. The directors of these films are definitely the best in the industry, and you can choose them with confidence. There are also a few directors whose films have negative profits, and you can try to avoid these directors when selecting.</p>
                     <p>In this chart, we present you with a scatter plot, with a horizontal axis showing you the timeline, starting from 2000 to 2020, and a vertical axis as the movie's profit. Each director corresponds to a color in the chart. The colors correspond to the directors' earliest active time, more early more red, and more recent more blue. If you click on a point which symbolizes a film, all other movies from the same director will be highlighted in the plot, with a floating window showing you the director's portrait and current film poster.</p>
-                <h2>How this page works</h2>
-                    <p>Buttons on the bottom are used to control the presence of the chart.</p>
-                    <p>The navigation bar on the top can guide you to pages of your interest.</p>
-                    <p>Buttons on the left and right are used to control the page's presence as well.</p>
-                    <p>If you want to know more about what movies are published in each time slot, you can hover the mouse over the bar to check the posters of the films published during that period. The close button is in the middle bottom of the box.</p>
-                    <p>If you wish to see certain months of movies more clearly, you can click and drag the box to check this area, and the points in this area will be enlarged.</p>
             </div>
         </div>
     </section>
@@ -103,6 +113,16 @@
             i = 1
             svg.selectAll("*").remove();
             chart(i, data[i]);
+        }
+    </script>
+    <script>
+        function openGuide() {
+            var element = document.getElementById("guide");
+            element.style.display = "block";
+        }
+        function closeGuide(){
+            var element = document.getElementById("guide");
+            element.style.display = "none";
         }
     </script>
 </body>

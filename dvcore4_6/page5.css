@@ -48,6 +48,10 @@ header .logo {
     padding: 20px 50px;
 }
 
+header .logo:hover a{
+    color:#064663;
+}
+
 header .logo a{
     color: #fff;
     font-weight: bold;
@@ -77,7 +81,7 @@ header ul li a {
 }
 
 header ul li a:hover{
-    color:rgb(160, 182, 189);
+    color:#064663;
 }
 
 
@@ -89,12 +93,11 @@ header ul li a:hover{
 }
 
 .dataVisCore .chartContainer {
-    margin-top: 10vh;
+    display: block;
     position: relative;
     /* left: 10%;
     top: 10vh; */
-    margin-left: auto;
-    margin-right: auto;
+    margin: 10vh auto;
     width: 80%;
     min-height: 100vh;
 }
@@ -108,6 +111,7 @@ header ul li a:hover{
     margin-right: auto;
     width: 80%;
     min-height: 100vh;
+    margin-bottom: 10vh;
 }
 .dataVisCore .chartContainer .chart {
     display: block;
@@ -162,6 +166,20 @@ header ul li a:hover{
     line-height: 2em;
     padding-bottom: 2.5em;
 }
+.pageGuide ul{
+    position: relative;
+    padding-bottom: 2em;
+}
+.pageGuide ul li{
+    font-size: 1.25em;
+    font-weight: 400;
+    line-height: 1.5em;
+    padding-bottom: 1em;
+
+    position: relative;
+    list-style: inside;
+    margin-right: 30px;
+}
 
 .controls {
     position: relative;
@@ -193,12 +211,12 @@ header ul li a:hover{
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.5);
+    color: #064663;
     padding: 10px;
 }
 
 .controls li:hover{
-    background: #494b4a;
+    background: #064663;
     color: #fff;
 }
 
@@ -403,4 +421,105 @@ header ul li a:hover{
 }
 .rArrowContainer:hover .arrow--right {
     right: 10px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+    z-index: 100;
+    display: flex;
+    padding: 30 px 100 px;
+}
+
+.footer .icon{
+    font-weight: bold;
+    font-size: 1em;
+
+    position: relative;
+    left: 0px;
+    padding: 20px 50px;
+
+    cursor: pointer;
+}
+
+.footer .icon:hover{
+    color: #ECB365;
+}
+
+.Guide{
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+    width: 80vw;
+    height: 80vh;
+
+    padding: 20vh, 20vw;
+    border-radius: 25px;
+    background-color: #000;
+
+    z-index:10000;
+
+    color: rgba(255,255,255,0.8);
+}
+
+.Guide .textBox{
+    
+    position: relative;
+    width: 50vw;
+    height: 60vh;
+
+    margin: 5vh 15vw;
+}
+
+.Guide .textBox h2{
+    padding-top: 2em;
+    text-align: center;
+    padding-bottom: 2em;
+}
+
+.Guide .textBox ul{
+    list-style-position: outside;
+}
+.Guide .textBox ul li{
+
+    font-size: 1.25em;
+    font-weight: 400;
+    line-height: 1.25em;
+    padding-bottom: 2em;
+
+    position: relative;
+}
+
+.Guide button{
+    border: none;
+    border-radius: 0%;
+    border-bottom: 4px solid transparent;
+    
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+
+    background-color: #000;
+    position: relative;
+
+    display: block;
+    width: 10vw;
+    height: 6vh;
+    margin: auto;
+
+    transition: color 0.5s, background-color 0.5s;
+
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgba(255,255,255,0.8);
+
+    cursor: pointer;
+}
+
+.Guide button:hover{
+    color: #000;
+    background-color: rgba(255,255,255,0.8);
 }

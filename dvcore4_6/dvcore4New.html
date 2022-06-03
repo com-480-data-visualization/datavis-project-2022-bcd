@@ -18,6 +18,21 @@
             <li><a href="./dvcore6New.html">Publish Quarter</a></li>
         </ul>
     </header>
+    <div class="Guide" id="guide">
+        <div class="textBox">
+        <h2>How this page works</h2>
+            <ul>
+                <li><span style="color:#ECB365"><b>HOVER</b></span> cursor over the word of your insterest to see the relavant top-voted movie.</li>
+                <li><span style="color:#ECB365"><b>WORLDWIDE/USA button</b></span>: control the presence of corresponding chart.</li>
+                <li><span style="color:#ECB365"><b>Buttons on both sides</b></span>: navigate to previous/next page.</li>
+                <li><span style="color:#ECB365"><b>Navigation bar</b></span> on the top: navigate to pages of your interest.</li>
+            </ul>
+        </div>
+        <button onclick="closeGuide();">close</button>
+    </div>
+    <div class="footer">
+        <h2 class="icon" onclick="openGuide();">Guide</h1>
+    </div>
     <section class = "dataVisCore">
         <p id = "warning"></p>
         <div class = "chartContainer glassmorphic-element">
@@ -75,6 +90,16 @@
             i = 1
             svg.selectAll("*").remove();
             myWordCloud(data[i], i);
+        }
+    </script>
+    <script>
+        function openGuide() {
+            var element = document.getElementById("guide");
+            element.style.display = "block";
+        }
+        function closeGuide(){
+            var element = document.getElementById("guide");
+            element.style.display = "none";
         }
     </script>
 </body>
